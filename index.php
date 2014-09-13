@@ -1,1 +1,1 @@
-<?php die('busenki go here');?>
+<?php die('busenki go here and here');?>
