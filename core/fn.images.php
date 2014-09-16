@@ -277,7 +277,6 @@ function fn_get_image_pairs($object_id, $object_type, $pair_type, $get_icon = tr
 function fn_update_image_pairs($icons, $detailed, $pairs_data, $object_id = 0, $object_type = 'product_lists', $object_ids = array (), $parent_object_type = '', $parent_object_id = 0, $update_alt_desc = true, $force_create_thumbnail = false, $lang_code = CART_LANGUAGE)
 {
 	
-	
 	$_otype = !empty($parent_object_type) ? $parent_object_type : $object_type;
 
 	$thumbnail_width = Registry::get("settings.Thumbnails.{$_otype}_thumbnail_width");

@@ -395,9 +395,11 @@ if ($mode == 'dev_import') {
 		require DIR_LIB. 'import/import.lib.php';
 		require DIR_ROOT. '/config.local.php';
 		$tool = new ImportTool($config, "buseni_temp", "korzin_db");
-		$tool->purgeTable('cscart_category_descriptions');
-		$tool->purgeTable('cscart_categories');
-		$tool->importCategories();
+		//$tool->purgeTable('cscart_category_descriptions');
+		//$tool->purgeTable('cscart_categories');
+		//$tool->importCategories();
+		$tool->deleteAllProducts();
+		$tool->importProducts();
 	}
 
 //
