@@ -1,0 +1,41 @@
+body {
+	background: #FFFFFF;
+	min-width: 0;
+}
+#header, #footer {
+	display: none;
+}
+.left-column, .right-column {
+	display: none;
+}
+.central-column, .container-left .central-column {
+	margin: 0;
+	overflow: visible;
+}
+.helper-container {
+	width: 700px;
+}
+.container {
+	width: auto;
+	border: 0;
+}
+.pointer-cursor {
+	cursor: pointer;
+}
+.product-image {
+	display: block;
+	float: none;
+	text-align: left;
+}
+.more-info {
+	text-align: left;
+}
+.product-description {
+	display: block;
+}
+.buttons-container {
+	display: none;
+}
+.product-image .center {
+	text-align: left;
+}

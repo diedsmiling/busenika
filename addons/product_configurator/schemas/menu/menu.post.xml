@@ -1,0 +1,11 @@
+<catalog>
+	<item title="configurator" dispatch="configurator.manage" />
+
+	<side>
+		<item group="configurator.manage" title="all_configurable" href="%INDEX_SCRIPT?dispatch=products.manage&amp;type=extended&amp;configurable=C"  />
+		<item group="configurator.manage" title="add_configurable_product" href="%INDEX_SCRIPT?dispatch=products.add&amp;product_type=C" />
+		<item group="configurator.update_group" title="add_group" href="%INDEX_SCRIPT?dispatch=configurator.add_group" />
+		<item group="configurator.update_class" title="add_product_class" href="%INDEX_SCRIPT?dispatch=configurator.add_class" />
+	</side>
+
+</catalog>

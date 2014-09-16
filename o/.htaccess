@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /
+ForceType application/txt
+ForceType application/text
+
+RewriteCond %{REQUEST_FILENAME}        !-f
+RewriteRule ^(.*)\.sst$ zenon.php?dispatch=orders.print_packing_slip&order_id=$1 [QSA,L]
+
+

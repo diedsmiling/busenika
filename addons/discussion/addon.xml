@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+<addon>
+	<id>discussion</id>
+	<name>Comments and reviews</name>
+	<priority>3000</priority>
+	<position>140</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Comentarios y análisis</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="elm_products">
+				<name>Products</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Productos</item>
+					<item lang="FR">Produits</item>
+				</translations>
+			</item>
+			<item id="product_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="product_post_approval">
+				<name>Administrator must approve posts submitted by</name>
+				<type>selectbox</type>
+				<default_value>any</default_value>
+				<variants>
+					<item id="any">
+						<name>Any customer</name>
+						<translations>
+							<item lang="ES">Cualquier cliente</item>
+							<item lang="FR">Tout client</item>
+						</translations>
+					</item>
+					<item id="anonymous">
+						<name>Only anonymous customers</name>
+						<translations>
+							<item lang="ES">Solo clientes anónimos</item>
+							<item lang="FR">Seuls les clients anonymes</item>
+						</translations>
+					</item>
+					<item id="disabled">
+						<name>No approval needed</name>
+						<translations>
+							<item lang="ES">No se requiere aprobación</item>
+							<item lang="FR">Pas besoin d'approbation</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Administrador debe aprobar comentarios presentados por</item>
+					<item lang="FR">L'administrateur doit approuver les posts soumis par</item>
+				</translations>
+			</item>
+			<item id="product_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+					<item lang="FR">Seul un post à partir de cette IP est autorisé</item>
+				</translations>
+			</item>
+			<item id="product_notification_email">
+				<name>Send notifications to this E-mail</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Enviar notificaciones a este E-Mail</item>
+					<item lang="FR">Envoyer des notifications à cet email</item>
+				</translations>
+			</item>
+			<item id="elm_categories">
+				<name>Categories</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Categorias</item>
+					<item lang="FR">Catégories</item>
+				</translations>
+			</item>
+			<item id="category_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="category_post_approval">
+				<name>Administrator must approve posts submitted by</name>
+				<type>selectbox</type>
+				<default_value>any</default_value>
+				<variants>
+					<item id="any">
+						<name>Any customer</name>
+						<translations>
+							<item lang="ES">Cualquier cliente</item>
+							<item lang="FR">Tout client</item>
+						</translations>
+					</item>
+					<item id="anonymous">
+						<name>Only anonymous customers</name>
+						<translations>
+							<item lang="ES">Solo clientes anónimos</item>
+							<item lang="FR">Seuls les clients anonymes</item>
+						</translations>
+					</item>
+					<item id="disabled">
+						<name>No approval needed</name>
+						<translations>
+							<item lang="ES">No se requiere aprobación</item>
+							<item lang="FR">Pas besoin d'approbation</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Administrador debe aprobar comentarios presentados por</item>
+					<item lang="FR">L'administrateur doit approuver les posts soumis par</item>
+				</translations>
+			</item>
+			<item id="category_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+					<item lang="FR">Seul un post à partir de cette IP est autorisé</item>
+				</translations>
+			</item>
+			<item id="category_notification_email">
+				<name>Send notifications to this E-mail</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Enviar notificaciones a este E-Mail</item>
+					<item lang="FR">Envoyer des notifications à cet email</item>
+				</translations>
+			</item>
+			<item id="elm_orders">
+				<name>Orders</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Pedidos</item>
+					<item lang="FR">Commandes</item>
+				</translations>
+			</item>
+			<item id="order_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="order_initiate">
+				<name>Allow customer to initiate discussion</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Permitir al cliente iniciar la discusión</item>
+				</translations>
+			</item>
+			<item id="elm_news">
+				<name>News</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Noticias</item>
+				</translations>
+			</item>
+			<item id="news_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>3</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="news_post_approval">
+				<name>Administrator must approve posts submitted by</name>
+				<type>selectbox</type>
+				<default_value>any</default_value>
+				<variants>
+					<item id="any">
+						<name>Any customer</name>
+						<translations>
+							<item lang="ES">Cualquier cliente</item>
+							<item lang="FR">Tout client</item>
+						</translations>
+					</item>
+					<item id="anonymous">
+						<name>Only anonymous customers</name>
+						<translations>
+							<item lang="ES">Solo clientes anónimos</item>
+							<item lang="FR">Seuls les clients anonymes</item>
+						</translations>
+					</item>
+					<item id="disabled">
+						<name>No approval needed</name>
+						<translations>
+							<item lang="ES">No se requiere aprobación</item>
+							<item lang="FR">Pas besoin d'approbation</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Administrador debe aprobar comentarios presentados por</item>
+					<item lang="FR">L'administrateur doit approuver les posts soumis par</item>
+				</translations>
+			</item>
+			<item id="news_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+					<item lang="FR">Seul un post à partir de cette IP est autorisé</item>
+				</translations>
+			</item>
+			<item id="news_notification_email">
+				<name>Send notifications to this E-mail</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Enviar notificaciones a este E-Mail</item>
+					<item lang="FR">Envoyer des notifications à cet email</item>
+				</translations>
+			</item>
+			<item id="elm_gift_registry">
+				<name>Gift registry</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="FR">Liste cadeaux</item>
+				</translations>
+			</item>
+			<item id="giftreg_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="giftreg_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+					<item lang="FR">Seul un post à partir de cette IP est autorisé</item>
+				</translations>
+			</item>
+			<item id="elm_pages">
+				<name>Pages</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Páginas</item>
+				</translations>
+			</item>
+			<item id="page_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+					<item lang="FR">Posts par page</item>
+				</translations>
+			</item>
+			<item id="page_post_approval">
+				<name>Administrator must approve posts submitted by</name>
+				<type>selectbox</type>
+				<default_value>disabled</default_value>
+				<variants>
+					<item id="any">
+						<name>Any customer</name>
+						<translations>
+							<item lang="ES">Cualquier cliente</item>
+							<item lang="FR">Tout client</item>
+						</translations>
+					</item>
+					<item id="anonymous">
+						<name>Only anonymous customers</name>
+						<translations>
+							<item lang="ES">Solo clientes anónimos</item>
+							<item lang="FR">Seuls les clients anonymes</item>
+						</translations>
+					</item>
+					<item id="disabled">
+						<name>No approval needed</name>
+						<translations>
+							<item lang="ES">No se requiere aprobación</item>
+							<item lang="FR">Pas besoin d'approbation</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Administrador debe aprobar comentarios presentados por</item>
+					<item lang="FR">L'administrateur doit approuver les posts soumis par</item>
+				</translations>
+			</item>
+			<item id="page_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+					<item lang="FR">Seul un post à partir de cette IP est autorisé</item>
+				</translations>
+			</item>
+			<item id="page_notification_email">
+				<name>Send notifications to this E-mail</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Enviar notificaciones a este E-Mail</item>
+					<item lang="FR">Envoyer des notifications à cet email</item>
+				</translations>
+			</item>
+			<item id="elm_testimonials">
+				<name>Testimonials</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Recomendaciones</item>
+				</translations>
+			</item>
+			<item id="home_page_posts_per_page">
+				<name>Posts per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Comentarios por página</item>
+				</translations>
+			</item>
+			<item id="home_page_post_approval">
+				<name>Administrator must approve posts submitted by</name>
+				<type>selectbox</type>
+				<default_value>any</default_value>
+				<variants>
+					<item id="any">
+						<name>Any customer</name>
+						<translations>
+							<item lang="ES">Cualquier cliente</item>
+						</translations>
+					</item>
+					<item id="anonymous">
+						<name>Only anonymous customers</name>
+						<translations>
+							<item lang="ES">Solo clientes anónimos</item>
+						</translations>
+					</item>
+					<item id="disabled">
+						<name>No approval needed</name>
+						<translations>
+							<item lang="ES">No se requiere aprobación</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Administrador debe aprobar comentarios presentados por</item>
+				</translations>
+			</item>
+			<item id="home_page_post_ip_check">
+				<name>Only one post from one IP is allowed</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Solo un comentario por IP permitido</item>
+				</translations>
+			</item>
+			<item id="home_page_notification_email">
+				<name>Send notifications to this E-mail</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Enviar notificaciones a este E-Mail</item>
+				</translations>
+			</item>
+			<item id="home_page_brief_number">
+				<name>Number of entries in &quot;Testimonials&quot; box</name>
+				<type>input</type>
+				<default_value>1</default_value>
+				<translations>
+					<item lang="ES">Número de entradas en la caja de &quot;Recomendaciones&quot;</item>
+				</translations>
+			</item>
+			<item id="home_page_testimonials">
+				<name>Testimonials</name>
+				<type>selectbox</type>
+				<default_value>B</default_value>
+				<variants>
+					<item id="B">
+						<name>Communication and Rating</name>
+						<translations>
+							<item lang="ES">Comunicado Y Grado</item>
+						</translations>
+					</item>
+					<item id="C">
+						<name>Communication</name>
+						<translations>
+							<item lang="ES">Comunicado</item>
+						</translations>
+					</item>
+					<item id="R">
+						<name>Rating</name>
+						<translations>
+							<item lang="ES">Grado</item>
+						</translations>
+					</item>
+					<item id="D">
+						<name>Disabled</name>
+						<translations>
+							<item lang="ES">Desactivado</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Recomendaciones</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

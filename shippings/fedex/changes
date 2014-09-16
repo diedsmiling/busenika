@@ -1,0 +1,26 @@
+#$Id: changes 5451 2008-06-24 09:07:20Z zeke $
+Revision history for PHP class FedExDC
+
+1.01    08/11/2004
+        - Many new features.
+        - Added FedEx code lookup table.  A mapping of all possible FedEx's tags.
+          You can now pass the field name from the array $FE_RE in the fedex-tags class.
+        - Better error checking on data parsing/splitting
+        - Per FedEx request I will no longer include the addresses to FedEx's API servers (FEDEX_URI)
+          Please register with FedEx to receive this information.
+          http://www.fedex.com/globaldeveloper/shipapi/
+          If you need registration or any other consulting support regarding this software
+          please contact Vermonster at http://www.vermonster.com/contact or the the author
+          Jay Powers jay@vermonster.com
+
+0.03    11/05/2003
+        - change cURL error capturing
+        - if (curl_errno($ch) != 0)
+
+0.02    09/18/2003
+        - fixed support to allow for hyphenated fields
+        - 12-2-1 was not working
+
+0.01    07/10/2003    Original version
+        
+

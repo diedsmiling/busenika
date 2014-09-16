@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>attachments</id>
+	<name>Attachments</name>
+	<priority>600</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

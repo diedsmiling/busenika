@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=iso8859-1">
+		<link rel="stylesheet" href="help_styles.css" type="text/css">
+	</head>
+	<body>
+		<br>
+		<table border="0" cellpadding="0" cellspacing="0" width="90%" class="wmh_reg">
+			<tr>
+				<td align="center" class="wmh_header">WebMail PHP Installation Instructions for 
+					Windows</td>
+			<tr>
+				<td>
+					<br>
+					<ol>
+						<li>
+							Download <b>webmailpro_php.zip</b> archive.
+							<br>
+							<br>
+						<li>
+							Unpack <b>"web"</b> folder of the archive into the web server's folder (for 
+							instance, <b>webmailphp</b>). This folder must be accessible from the Internet 
+							at the URL (e.g. <font color="blue"><b>http://www.yourserver.com/webmailphp</b></font>).
+							<br>
+							<br>
+						<li>
+							Unpack <b>"data"</b> folder of this archive into location where MailBee WebMail 
+							PHP will store its settings, temporary files and folders (e.g. <b>"C:/WebMail/data"</b>). 
+							Please note, to protect this folder contents from unauthorized access, make 
+							sure this folder cannot be accessed from the web.
+							<br>
+							<br>
+						<li>
+							Open <b>inc_settings_path.php</b> file from <b>webmailphp</b> folder, and set the 
+							value of the <b>$dataPath</b> variable to the physical path of data folder 
+							(e.g. <b>$dataPath = "C:/WebMail/data"</b>).
+							<br>
+							<br>
+						<li>
+							Make sure the files can be written into <b>"data"</b> folder by the MailBee 
+							WebMail PHP application:<br>
+							<br>
+							<ul>
+								<li>
+									for <b>Windows IIS</b> server, make sure Internet Guest User has <b>"Full Control" 
+										permission</b> for the <b>"data"</b> folder and all its subfolders.
+								</li>
+							</ul>
+							<br>
+							<br>
+							Note: if <b>"data"</b> folder permissions are not set, MailBee WebMail PHP <b>may 
+								not be able to create/ delete temporary files or folders and to save 
+								"Administration Console" settings</b>.
+							<br>
+							<br>
+						<li>
+							Please check up if the <b>'index.php'</b> file is present in the list of 
+							default documents and if the default documents are enabled in the properties of 
+							your web site (see the <b>'Documents'</b> tab of web site properties in IIS 
+							Manager). If <b>'index.php'</b> file is present in the list of default 
+							documents, all users will be able to access MailBee WebMail PHP at <font color="blue">
+								<b>http://www.server.com/webmailphp</b></font> (otherwise, they have to 
+							access it at <font color="blue"><b>http://www.yourserver.com/webmailphp/index.php</b></font>).
+							<br>
+							<br>
+						<li>
+							In your browser, navigate to <font color="blue"><b>http://yourserver.com/webmailphp/mailadm.php</b></font>
+							and type <b>"mailadm"</b> as login and <b>"12345"</b> as default password to 
+							enter the <b>Administration Console</b>. Once logged in, it's recommended to 
+							click <b>WebMail Settings</b> to change the default password and then click <b>"Save"</b>
+							button to apply changes.
+							<br>
+							<br>
+						<li>
+							Now you can edit the following settings:<br>
+							<br>
+							<ul>
+								<li>
+								Database Settings 
+								<li>
+								Users Management
+								<li>
+								WebMail settings
+								<li>
+								Interface settings
+								<li>
+								Login settings
+								<li>
+								Debug settings
+								</li>
+							</ul>
+							<br>
+							<br>
+						<li>
+						Select "Database Settings".
+						Choose database type you wish to use: <b>MS SQL Server</b> or 
+						<b>MySQL Server</b>. To use MS SQL Server or MySQL 
+						Server database, fill "SQL Login", "SQL Password" and "Database Name" 
+						fields. If you wish to connect through DSN, you need to fill "Data Source" 
+						field. Otherwise, to connect through TCP/IP, fill "Host" field.
+
+						<p>If the MySQL or MSSQL are used, you should click Save button and then Create Database button.
+							<br>
+							<br>
+						<li>
+							Now installation is complete. Please refer to <b>Administration Panel</b> for 
+							administration details.
+							<br>
+							<br>
+							See <a href="webmail_administration.html">WebMail PHP administration</a>
+							<br>
+							<br>
+						<li>
+							MailBee WebMail PHP is ready to use.
+							<br>
+							<br>
+							Start using it at <font color="blue"><b>http://your_server_name/webmailphp/index.php</b></font>.
+							<br>
+							<br>
+						</li>
+		<li>
+			If you need to integrate WebMail with AfterLogic XMail Server, please refer to
+			<a href="axmail_installation_instructions_unix_win.html">AfterLogic XMail Integration Instructions</a>.
+		</li>
+		<br><br>
+					</ol>
+					<br>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+If you have any questions don't hesitate to email to support@afterlogic.com<br>
+Or visit our support web page at http://www.afterlogic.com/support<br>
+or web forum at http://www.afterlogic.com/forum
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

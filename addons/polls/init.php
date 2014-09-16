@@ -1,0 +1,17 @@
+<?php
+
+//
+// $Id: init.php 7502 2009-05-19 14:54:59Z zeke $
+//
+
+if (!defined('AREA')) { die('Access denied'); }
+
+fn_register_hooks(
+	'delete_page',
+	'update_page',
+	'get_page_data',
+	'clone_page',
+	'page_object_by_type'
+);
+
+?>

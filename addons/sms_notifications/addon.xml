@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<addon>
+	<id>sms_notifications</id>
+	<name>SMS notifications</name>
+	<priority>2200</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="phone_number">
+				<name>Phone number</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="elm_clickatell_settings">
+				<name>Clickatell settings</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="FR">Clickatel settings</item>
+				</translations>
+			</item>
+			<item id="clickatel_user">
+				<name>Username</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="clickatel_api_id">
+				<name>API ID</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="clickatel_password">
+				<name>Password</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="clickatel_unicode">
+				<name>Use Unicode</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="clickatel_concat">
+				<name>Split long sms into several parts</name>
+				<type>selectbox</type>
+				<default_value>clickatel_concat_3</default_value>
+				<variants>
+					<item id="clickatel_concat_1">
+						<name>Do not split</name>
+					</item>
+					<item id="clickatel_concat_2">
+						<name>2 sms</name>
+					</item>
+					<item id="clickatel_concat_3">
+						<name>3 sms</name>
+					</item>
+				</variants>
+				<translations>
+				</translations>
+			</item>
+			<item id="elm_send_sms_if">
+				<name>Send SMS if</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_new_order_placed">
+				<name>New order has been placed</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_new_cusomer_registered">
+				<name>New customer has been registered</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_product_negative_amount">
+				<name>Product quantity is less than zero</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_send_min_amout">
+				<name>Only send when order total amount is more than</name>
+				<type>input</type>
+				<default_value>0</default_value>
+				<translations>
+					<item lang="FR">Only send when order total amount more then</item>
+				</translations>
+			</item>
+			<item id="sms_send_shipping">
+				<name>Only send for these shipping methods</name>
+				<type>multiple checkboxes</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="FR">Only send for this shipping methods</item>
+				</translations>
+			</item>
+			<item id="elm_sms_content">
+				<name>SMS content</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_send_payment_info">
+				<name>Add payment info</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="sms_send_customer_email">
+				<name>Add customers e-mail</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

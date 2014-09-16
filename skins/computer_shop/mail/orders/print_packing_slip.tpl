@@ -1,0 +1,3 @@
+{if $order_info}{foreach from=$order_info.items item="oi"}{if $oi.amount > 0 &&$oi.price>0}{$oi.art};{$oi.amount};{$oi.price};{$order_info.display_per_subtotal*100/$order_info.display_per_subtotal-$order_info.total*100/$order_info.display_per_subtotal+$order_info.display_shipping_cost*100/$order_info.display_per_subtotal};{$oi.product}
+{/if}{/foreach}{/if}
+dostavka;1;{$order_info.display_shipping_cost};0;Доставка

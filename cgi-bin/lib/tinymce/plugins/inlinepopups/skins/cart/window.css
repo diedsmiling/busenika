@@ -1,0 +1,80 @@
+/* Clearlooks 2 */
+
+/* Reset */
+.cart, .cart div, .cart span, .cart a {vertical-align:baseline; text-align:left; position:absolute; border:0; padding:0; margin:0; background:transparent; font-family:Arial,Verdana; font-size:11px; color:#000; text-decoration:none; font-weight:normal; width:auto; height:auto; overflow:hidden; display:block}
+
+/* General */
+.cart {position:absolute; direction:ltr; border: 3px solid #8fc9f3; background-color: #f1f9ff;}
+.cart .mceWrapper {position:static;}
+.mceEventBlocker {position:fixed; left:0; top:0; background:url(img/horizontal.gif) no-repeat 0 -75px; width:100%; height:100%;}
+.mceEventBlocker.cart {border: 0px none !important;}
+.cart .mcePlaceHolder {border: 2px dashed #909090; background: transparent; top:0; left:0}
+.cart_modalBlocker {position:fixed; left:0; top:0; width:100%; height:100%; background:#000; opacity:0.3; filter:alpha(opacity=30); display:none;}
+.no-border {border: 0px none !important;}
+.mceFocus {border: 3px solid #8fc9f3; background-color: #f1f9ff;}
+/* Top */
+.cart .mceTop {top:0; height: 43px; width: 100%; background-color: #e1e1e1;}
+.cart .mceTop .mceCenter {width:100%;}
+.cart .mceTop span {display: block; padding: 10px 0px; font: bold 18px Arial, Helvetica, sans-serif; padding-left: 15px;}
+.mceFocus .mceTop { background: #c4e7ff none;}
+/* Middle */
+.cart .mceMiddle, .cart .mceMiddle div {top:0}
+.cart .mceMiddle {width:100%; height:100%;}
+.cart .mceMiddle .mceLeft {}
+.cart .mceMiddle span {top:43px; left:0px; width:100%; background:#f8f8f8;}
+.mceFocus .mceMiddle span {background:#f1f9ff}
+.cart .mceMiddle .mceRight {}
+
+/* Bottom */
+.cart .mceBottom, .cart .mceBottom div {}
+.cart .mceBottom {}
+.cart .mceBottom div {}
+.cart .mceBottom .mceCenter {}
+.cart .mceBottom span {display:none}
+.cart .mceStatusbar .mceBottom, .cart .mceStatusbar .mceBottom div {}
+.cart .mceStatusbar .mceBottom .mceCenter {}
+.cart .mceStatusbar .mceBottom span {}
+
+/* Actions */
+.cart a {width:29px; height:16px; top:13px;}
+.cart .mceMovable .mceMove {display:block}
+.cart .mceClose {right:6px; background:url(img/buttons.gif) -87px 0}
+.cart .mceMin {display:none; right:68px; background:url(img/buttons.gif) 0 0}
+.cart .mceMed {display:none; right:37px; background:url(img/buttons.gif) -29px 0}
+.cart .mceMax {display:none; right:37px; background:url(img/buttons.gif) -58px 0}
+.mceFocus .mceClose {right:6px; background:url(img/buttons.gif) -87px -16px}
+.mceFocus .mceMin {right:68px; background:url(img/buttons.gif) 0 -16px}
+.mceFocus .mceMed {right:37px; background:url(img/buttons.gif) -29px -16px}
+.mceFocus .mceMax {right:37px; background:url(img/buttons.gif) -58px -16px}
+.mceFocus .mceMove {display:none;width:100%;cursor:move;background:url(img/corners.gif) no-repeat -100px -100px}
+
+/* Resize */
+.cart .mceResize {top:auto; left:auto; display:none; width:5px; height:5px; background:url(img/horizontal.gif) no-repeat 0 -75px}
+.cart .mceResizable .mceResize {display:block}
+.cart .mceResizable .mceMin, .cart .mceMax {display:none}
+.cart .mceMinimizable .mceMin {display:block}
+.cart .mceMaximizable .mceMax {display:block}
+.cart .mceMaximized .mceMed {display:block}
+.cart .mceMaximized .mceMax {display:none}
+.cart a.mceResizeN {top:0; left:0; width:100%; cursor:n-resize}
+.cart a.mceResizeNW {top:0; left:0; cursor:nw-resize}
+.cart a.mceResizeNE {top:0; right:0; cursor:ne-resize}
+.cart a.mceResizeW {top:0; left:0; height:100%; cursor:w-resize;}
+.cart a.mceResizeE {top:0; right:0; height:100%; cursor:e-resize}
+.cart a.mceResizeS {bottom:0; left:0; width:100%; cursor:s-resize}
+.cart a.mceResizeSW {bottom:0; left:0; cursor:sw-resize}
+.cart a.mceResizeSE {bottom:0; right:0; cursor:se-resize}
+
+/* Alert/Confirm */
+.cart .mceButton {font-weight:bold; bottom:10px; width:80px; height:30px; background:url(img/button.gif); line-height:30px; vertical-align:middle; text-align:center; outline:0}
+.cart .mceMiddle .mceIcon {left:15px; top:35px; width:32px; height:32px}
+.cart .mceAlert .mceMiddle span, .cart .mceConfirm .mceMiddle span {background:transparent;left:60px; top:35px; width:320px; height:50px; font-weight:bold; overflow:auto; white-space:normal}
+.cart a:hover {font-weight:bold;}
+.cart .mceAlert .mceMiddle, .cart .mceConfirm .mceMiddle {background:#f1f9ff}
+.mceFocus .mceAlert .mceMiddle, .mceFocus .mceConfirm .mceMiddle {background:#f1f9ff}
+.cart .mceAlert .mceOk {left:50%; top:auto; margin-left: -40px}
+.cart .mceAlert .mceIcon {background:url(img/alert.gif)}
+.cart .mceConfirm .mceOk {left:50%; top:auto; margin-left: -90px}
+.cart .mceConfirm .mceCancel {left:50%; top:auto}
+.cart .mceConfirm .mceIcon {background:url(img/confirm.gif)} 
+

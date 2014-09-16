@@ -1,0 +1,14 @@
+<content>
+	<item title="site_news" dispatch="news.manage" />
+	<item title="newsletters" dispatch="newsletters.manage" />
+	<item title="mailing_lists" dispatch="mailing_lists.manage" />
+	<item title="subscribers" dispatch="subscribers.manage" />
+
+	<side>
+		<item group="news.update" title="add_news" href="%INDEX_SCRIPT?dispatch=news.add" />
+		
+		<item group="newsletters.update" title="add_newsletter" href="%INDEX_SCRIPT?dispatch=newsletters.add&amp;type=N" />
+		<item group="newsletters.update" title="add_template" href="%INDEX_SCRIPT?dispatch=newsletters.add&amp;type=T" />
+		<item group="newsletters.update" title="add_autoresponder" href="%INDEX_SCRIPT?dispatch=newsletters.add&amp;type=A" />
+	</side>
+</content>

@@ -1,0 +1,9 @@
+<administration>
+	<item title="data_feeds" dispatch="data_feeds.manage" />
+	
+	<side>
+		<item group="data_feeds.update" title="local_export" href="%INDEX_SCRIPT?dispatch=exim.export_datafeed&amp;datafeed_ids[]=%DATAFEED_ID&amp;location=L" />
+		<item group="data_feeds.update" title="export_to_server" href="%INDEX_SCRIPT?dispatch=exim.export_datafeed&amp;datafeed_ids[]=%DATAFEED_ID&amp;location=S" />
+		<item group="data_feeds.update" title="upload_to_ftp" href="%INDEX_SCRIPT?dispatch=exim.export_datafeed&amp;datafeed_ids[]=%DATAFEED_ID&amp;location=F" />
+	</side>
+</administration>

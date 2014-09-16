@@ -1,0 +1,85 @@
+h2.poll-header {
+	font: bold 100% Tahoma;
+}
+ul.poll, .wysiwyg-content ul.poll {
+	padding: 7px 0;
+	margin: 0;
+}
+ul.poll li, .wysiwyg-content ul.poll li {
+	padding: 2px 3px 2px 6px;
+	background-image: none;
+}
+.poll .radio {
+	vertical-align: -1px;
+}
+.polls-buttons {
+	padding: 5px 0 3px 0;
+}
+.image-verification .polls-buttons {
+	padding: 5px 0 3px 0;
+}
+.image-verification p {
+	font: 85% Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.sidebox-body .poll-other-answer {
+	margin: 5px 0 0 5px;
+	width: 120px;
+	height: 42px;
+}
+.sidebox-body .poll-text-answer {
+	margin: 7px 0 7px 5px;
+	width: 130px;
+	height: 70px;
+}
+.poll-other-answer {
+	margin-left: 6px;
+	margin-top: 5px;
+	width: 220px;
+	height: 42px;
+}
+.poll-text-answer {
+	margin-top: 10px;
+	width: 440px;
+	height: 70px;
+}
+.polls-list ul {
+	margin: 5px 5px 5px 20px;
+}
+.polls-list ul li {
+	padding: 5px;
+}
+div.polls-no-data {
+	padding-left: 20px;
+}
+.polls-list a {
+	font: bold 92% tahoma, verdana, arial, sans-serif;
+}
+.graph-bar-1, .graph-bar-2 {
+	border: 1px solid #ababab;
+	height: 15px;
+	position: relative;
+	text-align: center;
+	font: bold 85% Tahoma;
+	margin-bottom: 4px;
+}
+.graph-bar-2 {
+	font-weight: normal;
+}
+.graph-bar-1 em, .graph-bar-2 em {
+	font-weight: normal;
+	color: #959595;
+}
+.graph-bar-1 div, .graph-bar-2 div {
+	height: 15px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+.graph-bar-1 .graph-bar, .graph-bar-2 .graph-bar {
+	background-color: #ccf2ff;
+}
+.graph-bar-1 span, .graph-bar-2 span {
+	position: relative;
+	z-index: 2;
+}

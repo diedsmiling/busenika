@@ -1,0 +1,1002 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+ 	<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=iso8859-1">
+	<link rel="stylesheet" href="help_styles.css" type="text/css">
+</head>
+
+<body>
+<br>
+<p class="wmh_header" align="center">How to create my own skin</p>
+<p class="wmh_reg">
+* all illustrations are for &quot;iForum&quot; WebMail skin of Pro version.
+<p class="wmh_reg">
+	To create or modify WebMail skin, create new or modify existing style-sheet
+	file "styles.css".
+<p class="wmh_reg">
+	How skins are stored in WebMail:
+	<ul style="margin-top:0px;">
+	<li>All skins are located in "<b>skins</b>" folder under WebMail directory</li>
+	<li>Each skin is a folder inside "skins" folder</li>
+	<li>The skin folder's name is a skin name (e.g. "iForum" skin resides in "skins\iForum" folder)</li>
+	<li>Each skin folder contains "<b>styles.css</b>" file and related images</li>
+	<li>The system automatically scans "skins" folder to get skins list each time you enter WebMail's Administration panel</li>
+	</ul>
+
+	Thus, to create new skin, just copy "skins\iForum" folder with all contents
+	to new skin name (for example, "skins\MySkin"), and then modify styles in
+	"skins\MySkin\styless.css" file. You can use any CSS editor for this purpose
+	(such as free TopStyle Lite editor) or any text editor (such as Notepad).<br>
+	<br>
+	You may also modify images in "skins\MySkin" folder and "menu" subfolder if
+	you want to.<br>
+	<br>
+	Finally, select new style in "skins" drop-down list in "Administration
+	Panel\Webmail settings" dialog.<br>
+	<br>
+	WebMail system uses several style groups to define the appearance of user
+	interface. Each style group consists of a root style and a set of inner
+	styles. All root styles with their inner styles are listed below.<br>
+	<br>
+	
+<p class="wmh_reg">	
+	<b>wm_login</b>
+	<blockquote style="margin-top:0px;">
+	Login panel, where a user should enter parameters of his account (fig.1)<br />
+	<br />
+	<img src="images/wm_login.gif" width="330" height="191" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_input</td>
+		<td class="wmh_desc_content">Input field of the login panel, where a user enters his account info</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_title</td>
+		<td class="wmh_desc_content">Input fields titles of the dialog login panel.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_login_header</td>
+		<td class="wmh_desc_content">Dialog window caption appearance.</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_accountslist</b>
+	<blockquote style="margin-top:0px;">
+	Main header at the top of the WebMail screen where email account information, "Settings" and "Logout" links are displayed.<br />
+	<br />
+	<img src="images/wm_accountslist.gif" width="574"  height="63" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_accountslist_email<br /> wm_accountslist_contacts<br />
+wm_accountslist_settings<br /> wm_accountslist_logout</td>
+		<td class="wmh_desc_content">Items in accounts list</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_accountslist_selection</td>
+		<td class="wmh_desc_content">Drop-down menu button in accounts list</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_accountslist_item</td>
+		<td class="wmh_desc_content">Item in accounts list (in drop-down list)</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_accountslist_item_over</td>
+		<td class="wmh_desc_content">Item highlighted (when the mouse pointer hovers over it)</td></tr>
+	</table>
+	</blockquote>
+</p>	
+	
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_toolbar</b>
+	<blockquote style="margin-top:0px;">
+	Top and bottom toolbar of WebMail which contains toolbar icons. <br />
+	<br />
+	<img src="images/wm_toolbar.gif" width="789" height="27" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_toolbar_item</td>
+		<td class="wmh_desc_content">Toolbar item with functional buttons appearance.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_toolbar_item_over</td>
+		<td class="wmh_desc_content">Toolbar item with functional buttons appearance when user moves cursor over the item.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_toolbar_item_press</td>
+		<td class="wmh_desc_content">The style of "Move to folder" button when pressed.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_tb_press</td>
+		<td class="wmh_desc_content">The style of "Mark as read" and "Reply" buttons when pressed.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_popup_menu</td>
+		<td class="wmh_desc_content">Drop-down menu of toolbar</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_menu_item</td>
+		<td class="wmh_desc_content">Items in drop-down menu of toolbar.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_menu_item_over</td>
+		<td class="wmh_desc_content">Items when targeted in drop-down menu of toolbar.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_search_form</td>
+		<td class="wmh_desc_content">Pop-up searching form</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_toolbar_search_item_over</td>
+		<td class="wmh_desc_content">Searching form appearance when targeted and pressed.</td></tr>				
+	</table>
+	</blockquote>
+	
+</p>	
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_inbox_page_switcher</b>
+	<blockquote style="margin-top:0px;">
+	Page switcher.<br />
+	<br />
+	<img src="images/wm_page_switcher.gif" width="175" height="24" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_page_switcher_pages</td>
+		<td class="wmh_desc_content">All pages.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_page_switcher_pages font</td>
+		<td class="wmh_desc_content">Current page.</td></tr>
+	</table>
+	</blockquote>
+	
+</p>	
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_mail_container</b>
+	<blockquote style="margin-top:0px;">
+	Container for a list of folders and list of messages.<br />
+	</blockquote>
+	
+</p>	
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_folders</b>
+	<blockquote style="margin-top:0px;">
+	Folders list.<br />
+	<br />
+	<img src="images/wm_folders.gif" width="116" height="109" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_folders_part</td>
+		<td class="wmh_desc_content">Folders list container.</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_inbox</b>
+	<blockquote style="margin-top:0px;">
+	Main list box where read, unread, selected and filtered messages are displayed.<br />
+	<br />
+	<img src="images/wm_list.gif" width="622" height="144" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_headers</td>
+		<td class="wmh_desc_content">Message list header.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_headers_separate</td>
+		<td class="wmh_desc_content">Stripes which delimit headers items from each other.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_item</td>
+		<td class="wmh_desc_content">New messages in the message list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_item_select</td>
+		<td class="wmh_desc_content">New messages in the message list which are selected.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_read_item</td>
+		<td class="wmh_desc_content">Read messages in the message list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_read_item_select</td>
+		<td class="wmh_desc_content">Read messages in the message list, which are selected.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_deleted_item</td>
+		<td class="wmh_desc_content">Deleted messages in the message list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_inbox_deleted_item_select</td>
+		<td class="wmh_desc_content">Deleted messages in the message list, which are selected.</td></tr>
+
+	</table>
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_lowtoolbar</b>
+	<blockquote style="margin-top:0px;">
+	Lower toolbar of system displayed under messages list.<br />
+	<br />
+	<img src="images/wm_low_toolbar.gif" width="558" height="26" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">.wm_lowtoolbar_space_info .wm_progressbar</td>
+		<td class="wmh_desc_content">A part of progress-bar which graphically indicates size of a mail box.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">.wm_lowtoolbar_space_info .wm_progressbar_used</td>
+		<td class="wmh_desc_content">A part of progress-bar which indicates used space of a mail box. </td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_progressbar</b>
+	<blockquote style="margin-top:0px;">
+	The part of the progress bar showing how much of the download mail operation is already complete (at the start of download, only 0% is complete).<br />
+	<br />
+	<img src="images/wm_progress_bar.gif" width="166" height="33" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_progressbar</td>
+		<td class="wmh_desc_content">A part of progress-bar where the progress of downloading mail will be performed.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_progressbar_used</td>
+		<td class="wmh_desc_content">A part of the progress bar showing how much of the download mail operation was completed (at the start of download, whole 100% is to go).</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_message_container</b>
+	<blockquote style="margin-top:0px;">
+	Email message layout displayed in View Message and Preview Pane mode.<br />
+	<br />
+	<img src="images/wm_message_container.gif" width="598" height="288" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_view_message</td>
+		<td class="wmh_desc_content">Message header field captions appearance such as "From", "To", "Subject" etc. in "view message" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_attachments_cell</td>
+		<td class="wmh_desc_content">List of attachments in "view message" mode/</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message_cell</td>
+		<td class="wmh_desc_content">Message body in "view message" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message_headers</td>
+		<td class="wmh_desc_content">Message header field captions appearance such as "From", "To", "Subject" etc. in "preview pane" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message_attachments</td>
+		<td class="wmh_desc_content">List of attachments in "preview pane" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message</td>
+		<td class="wmh_desc_content">Message body in "preview pane" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message_body_quotation</td>
+		<td class="wmh_desc_content">Quoted strings appearance in message body.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_message_rfc822</td>
+		<td class="wmh_desc_content">Appearance of message rfc822 headers.</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_new_message</b>
+	<blockquote style="margin-top:0px;">
+	The form of a new message creation.<br />
+	<br />
+	<img src="images/wm_new_message.gif" width="602" height="497" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_attachment</td>
+		<td class="wmh_desc_content">The list of attachments.</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_html_editor</b>
+	<blockquote style="margin-top:0px;">
+	html-editor.<br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_html_editor_toolbar</td>
+		<td class="wmh_desc_content">The list of available tools for text editing.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_html_editor_cell</td>
+		<td class="wmh_desc_content">Field of text entry.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_color_palette</td>
+		<td class="wmh_desc_content">Drop-down menu "color palette".</td></tr>
+
+	</table>
+	</blockquote>
+	
+</p>
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_contacts</b>
+	<blockquote style="margin-top:0px;">
+	The list of contacts and contact groups.<br />
+	<br />
+	<img src="images/wm_contacts.gif" width="327" height="143" border="0" alt="" /><br /><br />
+	All styles in use for wm_inbox are applied here as well. 
+	<br />
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_contacts_view_edit</b>
+	<blockquote style="margin-top:0px;">
+	The list of settings or contact properties.<br />
+	<br />
+	<img src="images/wm_contacts_edit.gif" width="482" height="560" border="0" alt="" /><br /><br />
+	<img src="images/wm_contacts_view.gif" width="481" height="322" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_contacts_card</td>
+		<td class="wmh_desc_content">The frame embracing the contact information.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_contacts_tab</td>
+		<td class="wmh_desc_content">A title of contact information section in the mode of contacts editing.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_contacts_name</td>
+		<td class="wmh_desc_content">Titles marked with large type in view contact information mode.</td></tr>
+	</table><br />
+	
+	The frame embracing the list of properties and contacts settings, is formed with the help of following patterns located in the folder "Skins\MySkin\contacts"<br /><br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Icon file name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">top.gif</td>
+		<td class="wmh_desc_content">Top frame bound</td></tr>
+	<tr>
+		<td class="wmh_desc_content">top_left.gif</td>
+		<td class="wmh_desc_content">Top left angle</td></tr>
+	<tr>
+		<td class="wmh_desc_content">top_right.gif</td>
+		<td class="wmh_desc_content">Top right angle</td></tr>
+	<tr>
+		<td class="wmh_desc_content">right.gif</td>
+		<td class="wmh_desc_content">Right frame bound</td></tr>
+	<tr>
+		<td class="wmh_desc_content">left.gif</td>
+		<td class="wmh_desc_content">Left frame bound</td></tr>
+	<tr>
+		<td class="wmh_desc_content">bottom.gif</td>
+		<td class="wmh_desc_content">Bottom frame bound</td></tr>
+	<tr>
+		<td class="wmh_desc_content">bottom_right.gif</td>
+		<td class="wmh_desc_content">Bottom right angle</td></tr>
+	<tr>
+		<td class="wmh_desc_content">bottom_left.gif</td>
+		<td class="wmh_desc_content">Bottom left angle</td></tr>
+
+	</table>
+	</blockquote>
+	
+</p>
+
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>wm_settings</b>
+	<blockquote style="margin-top:0px;">
+	Mail account settings.<br />
+	<br />
+	<img src="images/wm_settings_manage_folders.gif" width="722" height="367" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_nav</td>
+		<td class="wmh_desc_content">Settings navigation panel.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_selected_settings_item</td>
+		<td class="wmh_desc_content">Selected element at the settings navigation panel.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_cont</td>
+		<td class="wmh_desc_content">Settings container.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_list</td>
+		<td class="wmh_desc_content">Accounts list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_list_select</td>
+		<td class="wmh_desc_content">Selected account in the accounts list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_accounts_info</td>
+		<td class="wmh_desc_content">Area for tabs in "Email Accounts" options list.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_switcher_indent</td>
+		<td class="wmh_desc_content">Right indent in tabs sequence.</td></tr>		
+	<tr>
+		<td class="wmh_desc_content">wm_settings_switcher_item</td>
+		<td class="wmh_desc_content">Tabs in "Email Accounts" options list </td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_switcher_select_item</td>
+		<td class="wmh_desc_content">Current selected tab.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_mf_headers</td>
+		<td class="wmh_desc_content">Appearance style of the "Folder", "Msg's", "Size", "Synchronize" etc. headers in the "Manage Folders" tab.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_mf_total</td>
+		<td class="wmh_desc_content">Totals panel positioned lower than folders list in the "Manage Folders" tab.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">wm_settings_manage_folders td</td>
+		<td class="wmh_desc_content">Separating stripe in the folders list of the "Manage Folders" tab.</td></tr>		
+	</table><br />
+	</blockquote>
+	
+</p>
+
+
+<p class="wmh_reg" />&nbsp;	
+<p class="wmh_reg" />
+	Create "menu" folder in your own skin directory where functional button icons should exist.
+	Name of icon files must be exactly as follows:<br />
+	<blockquote style="margin-top:0px;">
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Icon file name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">accounts_arrow.gif</td>
+		<td class="wmh_desc_content">Accounts drop-down list button.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">accounts_arrow_down.gif</td>
+		<td class="wmh_desc_content">Accounts drop-down list button when pressed.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">accounts_arrow_over.gif</td>
+		<td class="wmh_desc_content">Accounts drop-down list button, when cursor is over it.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">arrow_down.gif</td>
+		<td class="wmh_desc_content">Drop-down list indicator when the list is hidden.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">arrow_up.gif</td>
+		<td class="wmh_desc_content">Drop-down list indicator when the list is hidden.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">attachment.gif</td>
+		<td class="wmh_desc_content">File attached.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">check_mail.gif</td>
+		<td class="wmh_desc_content">Mail checking.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">delete.gif</td>
+		<td class="wmh_desc_content">Message deleting.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">empty_trash.gif</td>
+		<td class="wmh_desc_content">Trash clearing.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">flag.gif</td>
+		<td class="wmh_desc_content">Flag button.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">forward.gif</td>
+		<td class="wmh_desc_content">Forward message</td></tr>
+	<tr>
+		<td class="wmh_desc_content">import_contacts.gif</td>
+		<td class="wmh_desc_content">Contacts importing.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">mark_all_read.gif</td>
+		<td class="wmh_desc_content">Mark all messages as read.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">mark_all_unread.gif</td>
+		<td class="wmh_desc_content">Mark all messages as unread.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">mark_as_read.gif</td>
+		<td class="wmh_desc_content">Mark message as read</td></tr>		
+	<tr>
+		<td class="wmh_desc_content">mark_as_unread.gif</td>
+		<td class="wmh_desc_content">Mark message as unread.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">message_down.gif</td>
+		<td class="wmh_desc_content">Jump to next message in mailbox</td></tr>
+	<tr>
+		<td class="wmh_desc_content">message_down_inactive.gif</td>
+		<td class="wmh_desc_content">Inactive icon appearance when current message is last one in mailbox.</td></tr>		
+	<tr>
+		<td class="wmh_desc_content">message_up.gif</td>
+		<td class="wmh_desc_content">Jump to previous message in mailbox.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">message_up_inactive.gif</td>
+		<td class="wmh_desc_content">Inactive icon appearance when current message listed is the first in mailbox.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">new_contact.gif</td>
+		<td class="wmh_desc_content">Create a new contact.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">new_group.gif</td>
+		<td class="wmh_desc_content">Create a new group.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">new_message.gif</td>
+		<td class="wmh_desc_content">Create a new message.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">order_arrow_down.gif</td>
+		<td class="wmh_desc_content">Descending sort indicator.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">order_arrow_up.gif</td>
+		<td class="wmh_desc_content">Ascending sort indicator.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">popup_menu_arrow.gif</td>
+		<td class="wmh_desc_content">Drop-down menu indicator in the toolbar.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">print.gif</td>
+		<td class="wmh_desc_content">Print Message</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">priority_high.gif</td>
+		<td class="wmh_desc_content">High Priority.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">priority_low.gif</td>
+		<td class="wmh_desc_content">Low Priority.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">priority_normal.gif</td>
+		<td class="wmh_desc_content">Normal Priority.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">purge.gif</td>
+		<td class="wmh_desc_content">Purge Deleted Messages.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">reload_folders.gif</td>
+		<td class="wmh_desc_content">Reload Folders Icon.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">reply.gif</td>
+		<td class="wmh_desc_content">Reply to the Message.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">replyall.gif</td>
+		<td class="wmh_desc_content">Reply to all.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">save.gif</td>
+		<td class="wmh_desc_content">Save Message.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">search_button.gif</td>
+		<td class="wmh_desc_content">Search button.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">send.gif</td>
+		<td class="wmh_desc_content">Send Message icon.</td></tr>	
+	<tr>
+		<td class="wmh_desc_content">unflag.gif</td>
+		<td class="wmh_desc_content">Unflag button.</td></tr>	
+	</table>
+	</blockquote>
+	
+<p class="wmh_reg" />&nbsp;	
+<p class="wmh_reg" />
+	Create "folders" folder in your own skin directory where functional button icons should exist.
+	Name of icon files must be exactly as follows:<br />
+	<blockquote style="margin-top:0px;">
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Icon file name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">down.gif</td>
+		<td class="wmh_desc_content">Folder downward movement in "Manage Folders" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">down_inactive.gif</td>
+		<td class="wmh_desc_content">Inactive icon of folder downward movement in Manage Folders" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder.gif</td>
+		<td class="wmh_desc_content">Default Folder icon.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_drafts.gif</td>
+		<td class="wmh_desc_content">Drafts icon.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_drafts_sync.gif</td>
+		<td class="wmh_desc_content">Synchronized draft messages folder. (Synchronized Drafts icon)</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_inbox.gif</td>
+		<td class="wmh_desc_content">Inbox icon.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_inbox_sync.gif</td>
+		<td class="wmh_desc_content">Synchronized inbox messages folder.(Synchronized Inbox icon)</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_send.gif</td>
+		<td class="wmh_desc_content">Sent Messages icon.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_send_sync.gif</td>
+		<td class="wmh_desc_content">(Synchronized Sent Messages icon)</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_sync.gif</td>
+		<td class="wmh_desc_content">(Synchronized Default Folder icon)</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_trash.gif</td>
+		<td class="wmh_desc_content">Trash icon</td></tr>
+	<tr>
+		<td class="wmh_desc_content">folder_trash_sync.gif</td>
+		<td class="wmh_desc_content">(Synchronized Trash icon)</td></tr>		
+	<tr>
+		<td class="wmh_desc_content">hide_folders.gif</td>
+		<td class="wmh_desc_content">Hide Folders Window icon</td></tr>
+	<tr>
+		<td class="wmh_desc_content">show_folders.gif</td>
+		<td class="wmh_desc_content">Show Folders Window icon</td></tr>
+	<tr>
+		<td class="wmh_desc_content">up.gif</td>
+		<td class="wmh_desc_content">Folder upward movement in the "Manage Folders" mode.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">up_inactive.gif</td>
+		<td class="wmh_desc_content">Inactive icon of folder upward movement in "Manage Folders" mode.</td></tr>	
+	</table>
+	</blockquote>
+
+<p class="wmh_reg" />&nbsp;	
+<p class="wmh_reg" />
+	Create "contacts" folder in your own skin directory where functional button icons should exist.
+	Name of icon files must be exactly as follows:<br />
+	<blockquote style="margin-top:0px;">
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Icon file name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">group.gif</td>
+		<td class="wmh_desc_content">Contacts group.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">import.gif</td>
+		<td class="wmh_desc_content">Contacts importing.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">new.gif</td>
+		<td class="wmh_desc_content">New contact.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">new_group.gif</td>
+		<td class="wmh_desc_content">New contacts group.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">save.gif</td>
+		<td class="wmh_desc_content">Save contact info.</td></tr>
+	
+	</table>
+	</blockquote>
+
+<p class="wmh_reg" />&nbsp;	
+<p class="wmh_reg" />
+	Create "settings" folder in your own skin directory where functional button icons should exist.
+	Name of icon files must be exactly as follows:<br />
+	<blockquote style="margin-top:0px;">
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Icon file name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">menu_accounts.gif</td>
+		<td class="wmh_desc_content">Mail account settings icon at the settings navigation panel.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">menu_common.gif</td>
+		<td class="wmh_desc_content">Common settings icon at the settings navigation panel.</td></tr>
+	<tr>
+		<td class="wmh_desc_content">menu_contacts.gif</td>
+		<td class="wmh_desc_content">Contact settings at the settings navigation panel.</td></tr>
+
+	</table>
+	</blockquote>
+</p>
+	
+<p class="wmh_reg" />&nbsp;	
+<p class="wmh_reg" />
+Unlike main WebMail skins, calendar skins are located in "<b>calendar/skins</b>" folder (not "skins"), filename of calendar styles is "<b>calendar_styles.css</b>" (not "styles.css").
+</p>
+
+<p class="wmh_reg">	
+	<b>main_block</b>
+	<blockquote style="margin-top:0px;">
+	Sets the main background color of calendar<br />
+	<br />
+	<img src="images/calendar_mainblock.gif" width="919" height="408" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">#area_1_day</td>
+		<td class="wmh_desc_content">The look of "long" events area in "Day" view mode.</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">#area_2_day</td>
+		<td class="wmh_desc_content">The look of the bottom event part in "Day" view mode.</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">#area_1_week</td>
+		<td class="wmh_desc_content">The look of "long" events area in "Week" view mode.</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">#area_2_week</td>
+		<td class="wmh_desc_content">The look of the bottom event part in "Week" view mode.</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">#area_1_month</td>
+		<td class="wmh_desc_content">The look of events area in "Week" view mode.</td>
+	</tr>
+	</table>
+	</blockquote>
+	
+</p>
+<p class="wmh_reg">	
+	<b>right</b>
+	<blockquote style="margin-top:0px;">
+	Sets the look of small calendar and calendar manager<br /><br />
+		<img src="images/calendar_small_cal_and_cManager.gif" width="202" height="367" border="0" alt="" /><br />
+		<br />
+		Inner styles:<br />
+		<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+			<tr>
+				<td class="wmh_desc_header">Class name</td>
+				<td class="wmh_desc_header">Description</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">calendar_header</td>
+				<td class="wmh_desc_content">The look of headers of small calendar and calendar manager</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">calendar_manager</td>
+				<td class="wmh_desc_content">The look of calendar manager area</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">mini_calendar_box .CalLink</td>
+				<td class="wmh_desc_content">The look of text in current month cells</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">weekend</td>
+				<td class="wmh_desc_content">The look of cell marked as weekend</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">select</td>
+				<td class="wmh_desc_content">The look of currently selected cell</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">today</td>
+				<td class="wmh_desc_content">The look of today's cell</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">today a</td>
+				<td class="wmh_desc_content">The look text in today's cell</td>
+			</tr>
+		</table>
+	</blockquote>
+</p>
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>work_area_week</b>
+	<blockquote style="margin-top:0px;">
+	Sets the look of calendar external working area in "Week" view mode.<br /><br />
+		<img src="images/calendar_workareaweek.gif" width="708" height="368" border="0" alt="" /><br />
+		<br />
+		Inner styles:<br />
+		<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+			<tr>
+				<td class="wmh_desc_header">Class name</td>
+				<td class="wmh_desc_header">Description</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">notworkday</td>
+				<td class="wmh_desc_content">The look of lines in the main calendar area marked as non-working hours.</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">rhead_notworkday</td>
+				<td class="wmh_desc_content">The look of line headers marked as non-working hours.</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">weekend_day</td>
+				<td class="wmh_desc_content">The look of columns in the main calendar area marked as weekend.</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">current_day</td>
+				<td class="wmh_desc_content">The look of column of the current day.</td>
+			</tr>
+		</table>
+	</blockquote>
+</p>
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>work_area_month</b>
+	<blockquote style="margin-top:0px;">
+	Sets the look of calendar external working area in "Month" view mode.<br /><br />
+		<img src="images/calendar_workareamonth.gif" width="708" height="436" border="0" alt="" /><br />
+		<br />
+		Inner styles:<br />
+		<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+			<tr>
+				<td class="wmh_desc_header">Class name</td>
+				<td class="wmh_desc_header">Description</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">cell_weekend</td>
+				<td class="wmh_desc_content">The look of cell marked as weekend</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">cell_weekend .header</td>
+				<td class="wmh_desc_content">The look of cell headers marked as weekend</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">cell</td>
+				<td class="wmh_desc_content">The look of other cells in "Month" view mode.</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">cell .header</td>
+				<td class="wmh_desc_content">The look of other cells headers in "Month" view mode.</td>
+			</tr>
+			<tr>
+				<td class="wmh_desc_content">cell .header_inactiv</td>
+				<td class="wmh_desc_content">The look of cells headers of months neighboring with the current.</td>
+			</tr>
+		</table>
+	</blockquote>
+</p>
+<p class="wmh_reg">	
+	<b>time_tabs_outer</b>
+	<blockquote style="margin-top:0px;">
+	Class of inactive tabs for switching calendar view mode (day/week/month)<br />
+	<br />
+	<img src="images/calendar_passiv_time_tab.gif" width="137" height="28" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">time_tabs_outer div</td>
+		<td class="wmh_desc_content">Additional class of inactive tabs for switching calendar view mode (day/week/month)</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>time_tabs_outer_activ</b>
+	<blockquote style="margin-top:0px;">
+	Class of active tabs for switching calendar view mode (day/week/month)<br />
+	<br />
+	<img src="images/calendar_activ_time_tab.gif" width="137" height="28" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">time_tabs_outer_activ div</td>
+		<td class="wmh_desc_content">Additional class of active tabs for switching calendar view mode (day/week/month)</td></tr>
+	</table>
+	</blockquote>
+	
+</p>
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>toolbar_interval_switch</b>
+	<blockquote style="margin-top:0px;">
+	Class of calendar toolbar<br />
+	<br />
+	<img src="images/calendar_toolbar.gif" width="321" height="28" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">#time_title_1, #time_title_2, #time_title_3</td>
+		<td class="wmh_desc_content">Class determining the look of text of timeframe switcher.</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">calendar_arrow_left</td>
+		<td class="wmh_desc_content">Class determining the look of the button for moving the time frame to the left</td>
+	</tr>
+	<tr>
+		<td class="wmh_desc_content">calendar_arrow_right</td>
+		<td class="wmh_desc_content">Class determining the look of the button for moving the time frame to the right</td>
+	</tr>
+	</table>
+	</blockquote>
+	
+</p>
+<p class="wmh_reg" />&nbsp;
+<p class="wmh_reg">	
+	<b>day_headers_inner_today</b>
+	<blockquote style="margin-top:0px;">
+	Sets the look of column header of the current day in the main calendar working area<br />
+	<br />
+	<img src="images/calendar_dayheaders.gif" width="729"  height="33" border="0" alt="" /><br />
+	<br />
+	Inner styles:<br />
+	<table class="wmh_reg" cellpadding="4" cellspacing="0" style="border-collapse:collapse;">
+	<tr>
+		<td class="wmh_desc_header">Class name</td>
+		<td class="wmh_desc_header">Description</td></tr>
+	<tr>
+		<td class="wmh_desc_content">day_headers_inner_today div</td>
+		<td class="wmh_desc_content">Adds roundness for column header of the current day.</td></tr>
+	</table>
+	</blockquote>
+</p>		
+<br />
+<hr />
+
+<p class="wmh_reg" align="center">
+If you have any questions don't hesitate to email to support@afterlogic.com<br>
+Or visit our support web page at http://www.afterlogic.com/support<br>
+or web forum at http://www.afterlogic.com/forum
+</p>
+
+</body>
+</html>

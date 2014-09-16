@@ -1,0 +1,3 @@
+<orders>
+	<item title="return_requests" dispatch="rma.returns" />
+</orders>

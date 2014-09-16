@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<addon>
+	<id>buy_together</id>
+	<name>Buy together</name>
+	<priority>100</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	
+	<opt_language_variables>
+		<item lang="EN" id="buy_together">Buy together</item>
+		<item lang="EN" id="specify_options">Specify options</item>
+		<item lang="EN" id="total_list_price">Total list price</item>
+		<item lang="EN" id="price_for_all">Price for all</item>
+		<item lang="EN" id="add_all_to_cart">Add all to cart</item>
+		<item lang="EN" id="editing_combination">Editing combination</item>
+		<item lang="EN" id="recalculate">Recalculate</item>
+		<item lang="EN" id="buy_together_calculation_information">Total price: [total_price], Discount: [discount], Combination price: [combination_price]</item>
+		<item lang="EN" id="display_in_promotions">Display in promotions</item>
+		<item lang="EN" id="save_and_close">Save and close</item>
+		<item lang="EN" id="combination_products">Combination products</item>
+		<item lang="EN" id="share_discount">Share discount</item>
+		<item lang="EN" id="buy_together_is_not_compatible_with_configurator">[product_name] cannot be added to combination. Buy together is not compatible with the Product configurator addon</item>
+		<item lang="EN" id="buy_together_is_not_compatible_with_recurring_billing">[product_name] cannot be added to combination. Buy together is not compatible with the Recurring billing addon</item>
+		<item lang="EN" id="buy_together_combination_cannot_be_added">Combination cannot be added to cart</item>
+		<item lang="EN" id="buy_together_product_was_removed">[product] did not have enough amount ([amount]) and was removed from the cart</item>
+	</opt_language_variables>
+	
+	<opt_queries>
+		<item>CREATE TABLE `?:buy_together` (`chain_id` int(10) unsigned NOT NULL auto_increment,`product_id` mediumint(8) unsigned NOT NULL default '0',`products` text,`modifier` decimal(12,3) unsigned NOT NULL default '0',`modifier_type` varchar(20) NOT NULL default 'by_fixed',`date_from` int(11) unsigned NOT NULL default '0',`date_to` int(11) unsigned NOT NULL default '0',`display_in_promotions` char(1) NOT NULL default 'Y',`status` char(1) NOT NULL default 'D',PRIMARY KEY (`chain_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8</item>
+		<item>CREATE TABLE `?:buy_together_descriptions` (`chain_id` int(10) unsigned NOT NULL,`name` varchar(50) NOT NULL default '',`description` mediumtext,`lang_code` char(2) NOT NULL default 'EN',PRIMARY KEY  (`chain_id`,`lang_code`)) ENGINE=MyISAM DEFAULT CHARSET=utf8</item>
+		<item for="uninstall">DROP TABLE IF EXISTS `?:buy_together`</item>
+		<item for="uninstall">DROP TABLE IF EXISTS `?:buy_together_descriptions`</item>
+	</opt_queries>
+</addon>

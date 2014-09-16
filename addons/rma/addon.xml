@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<addon>
+	<id>rma</id>
+	<name>RMA</name>
+	<priority>1600</priority>
+	<position>220</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="display_product_return_period">
+				<name>Display product return period</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Mostrar tiempo de devolución del producto</item>
+				</translations>
+			</item>
+			<item id="dont_take_weekends_into_account">
+				<name>Do not take weekends into account when calculating product return period</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">No tener en cuenta los fines de semana para calcular el tiempo de devolución del producto</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

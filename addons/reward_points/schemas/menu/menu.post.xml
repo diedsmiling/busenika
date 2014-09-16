@@ -1,0 +1,8 @@
+<catalog>
+	<item title="reward_points" dispatch="reward_points.manage" />
+
+	<side>
+		<item group="reward_points.manage" title="customers" href="%INDEX_SCRIPT?dispatch=profiles.manage&amp;user_type=C" />
+		<item group="profiles.update" condition="user_type=C" title="view_user_points" href="%INDEX_SCRIPT?dispatch=reward_points.userlog&amp;user_id=%USER_ID" />
+	</side>
+</catalog>

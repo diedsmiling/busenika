@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<addon>
+	<id>reward_points</id>
+	<name>Reward points</name>
+	<priority>1900</priority>
+	<position>180</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Puntos de recompensa</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="point_rate">
+				<name>Points Exchange Rate (PER - the number of points equal to 1 conventional unit)</name>
+				<type>input</type>
+				<default_value>50</default_value>
+				<translations>
+					<item lang="ES">Tipo de cambio de puntos (PER - el número de puntos igual a una unidad convencional)</item>
+				</translations>
+			</item>
+			<item id="auto_price_in_points">
+				<name>&quot;Price in points&quot; is calculated automatically on PER basis</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">&quot;Precio en puntos&quot; es calculado automáticamente en base al PER</item>
+				</translations>
+			</item>
+			<item id="price_in_points_with_discounts">
+				<name>&quot;Price in points&quot; is recalculated taking into account discounts</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">&quot;Precio en puntos&quot; es recalculado teniendo en cuenta los descuentos</item>
+				</translations>
+			</item>
+			<item id="points_with_discounts">
+				<name>&quot;Points&quot; is recalculated taking into account discounts</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">&quot;Puntos&quot; son recalculados teniendo descuentos en cuenta</item>
+				</translations>
+			</item>
+			<item id="price_in_points_order_discount">
+				<name>&quot;Price in points&quot; is recalculated taking into account order discounts</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+			</item>
+			<item id="reward_points_order_discount">
+				<name>&quot;Points&quot; is recalculated taking into account order discounts</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+			</item>
+			<item id="higher_level_extract">
+				<name>If the product and the product category do not have defined reward points but the higher level category has such reward points, extract data from it</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Si el producto y la categoría de producto no tienen puntos de recompensa definidos pero la categoría de nivel más alta tiene tales puntos de recompensa, extraer datos de ahí</item>
+				</translations>
+			</item>
+			<item id="several_points_action">
+				<name>If several reward points can be applied, set</name>
+				<type>selectbox</type>
+				<default_value>min</default_value>
+				<variants>
+					<item id="min">
+						<name>Minimal</name>
+						<translations>
+							<item lang="ES">Mínimos</item>
+						</translations>
+					</item>
+					<item id="max">
+						<name>Maximal</name>
+						<translations>
+							<item lang="ES">Máximos</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Si varios puntos de recompensa pueden ser aplicados, elegir</item>
+				</translations>
+			</item>
+			<item id="consider_zero_values">
+				<name>The reward points rules with the zero values should be considered</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+			</item>
+			<item id="log_per_page">
+				<name>Log lines per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Líneas de registro por página</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

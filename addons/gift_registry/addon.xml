@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<addon>
+	<id>gift_registry</id>
+	<name>Gift Registry</name>
+	<priority>1000</priority>
+	<position>45</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="FR">Liste cadeaux</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="event_creators">
+				<name>Event can be created by</name>
+				<type>selectbox</type>
+				<default_value>registered</default_value>
+				<variants>
+					<item id="all">
+						<name>All customers</name>
+						<translations>
+							<item lang="ES">Todos los clientes</item>
+							<item lang="FR">Tous les clients</item>
+						</translations>
+					</item>
+					<item id="registered">
+						<name>Registered customers</name>
+						<translations>
+							<item lang="ES">Clientes registrados</item>
+							<item lang="FR">Clients enregistrés</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">El evento puede ser creado por</item>
+					<item lang="FR">Un événement peut être crée par</item>
+				</translations>
+			</item>
+			<item id="events_in_sidebox">
+				<name>Number of items in Events sidebox</name>
+				<type>input</type>
+				<default_value>2</default_value>
+				<translations>
+					<item lang="ES">Número de elementos en el panel de Eventos</item>
+					<item lang="FR">Nombre d'items dans le menu &quot;Evénements&quot;</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

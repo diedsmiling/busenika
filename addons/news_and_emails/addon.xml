@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<addon>
+	<id>news_and_emails</id>
+	<name>News &amp; e-mails</name>
+	<priority>500</priority>
+	<position>110</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Noticias &amp; Emails</item>
+		<item for="name" lang="FR">Actualités &amp; emails</item>
+		<item for="name" lang="IT">Notizie &amp; e-mails</item>
+		<item for="name" lang="NL">Nieuws &amp; e-mails</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="newsletters_per_pass">
+				<name>Newsletters sent per step</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="FR">Cash on delivery (ECONOMY only)</item>
+				</translations>
+			</item>
+			<item id="elm_advanced_mailing_server_options">
+				<name>Advanced mailing server options</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="FR">Proxy settings</item>
+				</translations>
+			</item>
+			<item id="mailer_send_method">
+				<name>Method of sending e-mails</name>
+				<type>selectbox</type>
+				<default_value>default</default_value>
+				<variants>
+					<item id="smtp">
+						<name>via SMTP server</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="mail">
+						<name>via php mail function</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="sendmail">
+						<name>via sendmail program</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="default">
+						<name>use default settings</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="FR">Cash on delivery (for registered mail only)</item>
+				</translations>
+			</item>
+			<item id="elm_smtp_server_settings">
+				<name>SMTP server settings</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="FR">Clickatel settings</item>
+				</translations>
+			</item>
+			<item id="mailer_smtp_username">
+				<name>SMTP username</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="FR">Additional insurance (up to CHF 3000.-)</item>
+				</translations>
+			</item>
+			<item id="mailer_smtp_host">
+				<name>SMTP host</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="mailer_smtp_password">
+				<name>SMTP password</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="FR">Bulky goods</item>
+				</translations>
+			</item>
+			<item id="mailer_smtp_auth">
+				<name>Use SMTP authentication</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="FR">Manual processing</item>
+				</translations>
+			</item>
+			<item id="elm_sendmail_settings">
+				<name>Sendmail settings</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="FR">Send SMS if</item>
+				</translations>
+			</item>
+			<item id="mailer_sendmail_path">
+				<name>Path to sendmail program</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

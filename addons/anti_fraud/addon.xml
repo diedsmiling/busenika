@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<addon>
+	<id>anti_fraud</id>
+	<name>Anti Fraud</name>
+	<priority>2100</priority>
+	<position>130</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Anti Fraude</item>
+		<item for="name" lang="FR">Anti Fraude</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="anti_fraud_key">
+				<name>Maxmind license key</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Clave de licencia de MaxMind</item>
+					<item lang="FR">Clé de licence Maxmind</item>
+				</translations>
+			</item>
+			<item id="anti_fraud_safe_distance">
+				<name>Safe distance (km)</name>
+				<type>input</type>
+				<default_value>90</default_value>
+				<translations>
+					<item lang="ES">Distancia de seguridad (km)</item>
+					<item lang="FR">Distance de sécurité</item>
+				</translations>
+			</item>
+			<item id="anti_fraud_max_order_total">
+				<name>Max order total</name>
+				<type>input</type>
+				<default_value>500</default_value>
+				<translations>
+					<item lang="ES">Máximo del pedido</item>
+					<item lang="FR">Total max de commande</item>
+				</translations>
+			</item>
+			<item id="anti_fraud_risk_factor">
+				<name>Maximum risk factor (1..10)</name>
+				<type>input</type>
+				<default_value>2.5</default_value>
+				<translations>
+					<item lang="ES">Factor de riesgo máximo (1..10)</item>
+					<item lang="FR">Facteur de risque maximum  (1..10)</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

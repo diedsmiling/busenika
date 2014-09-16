@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<addon>
+	<id>quickbooks</id>
+	<name>Quickbooks</name>
+	<priority>1500</priority>
+	<position>150</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="trns_class">
+				<name>Transaction class name</name>
+				<type>input</type>
+				<default_value>Website:Retail</default_value>
+				<translations>
+					<item lang="FR">Nom de classe Transaction</item>
+				</translations>
+			</item>
+			<item id="accnt_tax">
+				<name>Account to track taxes. The type of this account should be INC.</name>
+				<type>input</type>
+				<default_value>Website:Tax</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi de taxes. Le type de ce compte doit etre INC.</item>
+				</translations>
+			</item>
+			<item id="accnt_product">
+				<name>Account to track product sales. The type of this account should be INC.</name>
+				<type>input</type>
+				<default_value>Sales:Product</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi des ventes de produit. Le type de ce compte doit etre INC.</item>
+				</translations>
+			</item>
+			<item id="accnt_shipping">
+				<name>Account to track shipping cost. The type of this account should be INC.</name>
+				<type>input</type>
+				<default_value>Sales:Shipping</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi des frais de port. Le type de ce compte doit etre INC.</item>
+				</translations>
+			</item>
+			<item id="accnt_discount">
+				<name>Account to track discounts. The type of this account should be INC.</name>
+				<type>input</type>
+				<default_value>Sales:Discount</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi des remises. Le type de ce compte doit etre INC.</item>
+				</translations>
+			</item>
+			<item id="accnt_surcharge">
+				<name>Account to track the payment surcharge of your items sales (where applicable). The type of this account should be INC.</name>
+				<type>input</type>
+				<default_value>Sales:Surcharge</default_value>
+			</item>			
+			<item id="accnt_asset">
+				<name>Account to track the value of your inventory. The type of this account should be OASSET.</name>
+				<type>input</type>
+				<default_value>Inventory Asset</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi de la valeur de votre inventaire. Le type de ce compte doit etre  OASSET.</item>
+				</translations>
+			</item>
+			<item id="accnt_cogs">
+				<name>Account to track the cost of your items sales. The type of this account should be COGS.</name>
+				<type>input</type>
+				<default_value>Cost of Goods Sold</default_value>
+				<translations>
+					<item lang="FR">Compte de suivi du cout de vos items vendus. Le type de ce compte doit etre COGS.</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

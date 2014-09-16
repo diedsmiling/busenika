@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<addon>
+	<id>bestsellers</id>
+	<name>Bestsellers</name>
+	<priority>2300</priority>
+	<position>120</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="DE">Bestseller</item>
+		<item for="name" lang="ES">Más Vendidos</item>
+		<item for="name" lang="FR">Meilleures ventes</item>
+		<item for="name" lang="IT">I piu venduti</item>
+	</translations>
+</addon>

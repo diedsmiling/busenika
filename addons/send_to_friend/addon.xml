@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<addon>
+	<id>send_to_friend</id>
+	<name>Send the page link to a friend</name>
+	<priority>1700</priority>
+	<position>90</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="DE">Sende einem Freund diese Seite</item>
+		<item for="name" lang="ES">Enviar el link de la pagina a un amigo</item>
+		<item for="name" lang="FR">Envoyer le lien de la page à un ami</item>
+		<item for="name" lang="GR">Αποστολής σελίδας σε Φίλο σας</item>
+		<item for="name" lang="IT">Invia il link della pagina ad un amico</item>
+		<item for="name" lang="NL">Stuur paginalink naar een vriend</item>
+	</translations>
+</addon>

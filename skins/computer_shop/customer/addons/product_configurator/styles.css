@@ -1,0 +1,14 @@
+/* product configurator */
+.product-configuration td {
+	padding: 4px 0;
+}
+.product-configuration .field-title .info-field-title {
+	margin-top: 21px;
+}
+.product-configuration span.price {
+	font: normal 100% Arial, Helvetica, sans-serif;
+}
+.product-configuration .object-container span.price {
+	font: bold 108% Tahoma;
+}
+/* product configurator */

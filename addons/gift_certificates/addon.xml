@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<addon>
+	<id>gift_certificates</id>
+	<name>Gift certificates</name>
+	<priority>1100</priority>
+	<position>180</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Certificados de regalo</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="min_amount">
+				<name>Minimal amount</name>
+				<type>input</type>
+				<default_value>50</default_value>
+				<translations>
+					<item lang="ES">Cantidad mínima</item>
+				</translations>
+			</item>
+			<item id="max_amount">
+				<name>Maximal amount</name>
+				<type>input</type>
+				<default_value>1500</default_value>
+				<translations>
+					<item lang="ES">Cantidad máxima</item>
+				</translations>
+			</item>
+			<item id="amount_step">
+				<name>Amount step</name>
+				<type>input</type>
+				<default_value>100</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="code_prefix">
+				<name>GC Code prefix</name>
+				<type>input</type>
+				<default_value>GC</default_value>
+				<translations>
+				</translations>
+			</item>
+			<item id="cert_per_page">
+				<name>Gift certificates per page</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Certificados de regalo por página</item>
+				</translations>
+			</item>
+			<item id="free_products_allow">
+				<name>Allow to use free products</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Permitir usar productos gratis</item>
+				</translations>
+			</item>
+			<item id="redeem_shipping_cost">
+				<name>Allow to redeem shipping cost with gift certificate</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Permitir amortizar los gastos de envío con el certificado de regalo</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

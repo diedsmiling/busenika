@@ -1,0 +1,3 @@
+<content>
+	<item title="tags" dispatch="tags.manage" />
+</content>

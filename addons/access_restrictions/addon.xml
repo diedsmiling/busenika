@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<addon>
+	<id>access_restrictions</id>
+	<name>Access restrictions</name>
+	<priority>2700</priority>
+	<position>200</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Restricciones de acceso</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="elm_administrator_area_settings">
+				<name>Administrator area settings</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Opciones de Área de Administración</item>
+				</translations>
+			</item>
+			<item id="admin_reverse_ip_access">
+				<name>Allow login to the admin area from specified IPs only</name>
+				<type>checkbox</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Permitir el acceso al área de administración sólo de las IPS especificadas</item>
+				</translations>
+			</item>
+			<item id="unsuccessful_attempts_login">
+				<name>Block IP after a number of unsuccessful attempts</name>
+				<type>checkbox</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Bloquee IP después de varias tentativas fracasadas</item>
+				</translations>
+			</item>
+			<item id="number_unsuccessful_attempts">
+				<name>Number of unsuccessful attempts</name>
+				<type>input</type>
+				<default_value>5</default_value>
+				<translations>
+					<item lang="ES">Número de tentativas fracasadas</item>
+				</translations>
+			</item>
+			<item id="login_intervals">
+				<name>Time between unsuccessful login attempts (seconds)</name>
+				<type>input</type>
+				<default_value>60</default_value>
+				<translations>
+					<item lang="ES">Tiempo entre tentativas de entrada al sistema fracasadas (segundos)</item>
+				</translations>
+			</item>
+			<item id="time_block">
+				<name>Time for which the IP should be blocked (hours)</name>
+				<type>input</type>
+				<default_value>24</default_value>
+				<translations>
+					<item lang="ES">El tiempo durante el cual la IP debería ser bloqueada (horas)</item>
+				</translations>
+			</item>
+			<item id="elm_customer_and_affiliate_area_settings">
+				<name>Customer and Affiliate area settings</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Opciones de área de clientes y afiliados</item>
+				</translations>
+			</item>
+			<item id="unsuccessful_attempts_login_customer">
+				<name>Block IP after a number of unsuccessful attempts</name>
+				<type>checkbox</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Bloquee IP después de varias tentativas fracasadas</item>
+				</translations>
+			</item>
+			<item id="number_unsuccessful_attempts_customer">
+				<name>Number of unsuccessful attempts</name>
+				<type>input</type>
+				<default_value>5</default_value>
+				<translations>
+					<item lang="ES">Número de tentativas fracasadas</item>
+				</translations>
+			</item>
+			<item id="login_intervals_customer">
+				<name>Time between unsuccessful login attempts (seconds)</name>
+				<type>input</type>
+				<default_value>60</default_value>
+				<translations>
+					<item lang="ES">Tiempo entre tentativas de entrada al sistema fracasadas (segundos)</item>
+				</translations>
+			</item>
+			<item id="time_block_customer">
+				<name>Time for which the IP should be blocked (hours)</name>
+				<type>input</type>
+				<default_value>24</default_value>
+				<translations>
+					<item lang="ES">El tiempo durante el cual la IP debería ser bloqueada (horas)</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

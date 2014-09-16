@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<addon>
+	<id>myob</id>
+	<name>MYOB</name>
+	<priority>1</priority>
+	<position>150</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<item id="sales_account">
+			<name>Default Sales Account</name>
+			<type>input</type>
+			<default_value></default_value>
+		</item>
+	</opt_settings>
+	
+	<opt_language_variables>
+		<item lang="EN" id="export_to_myob">Export to MYOB</item>
+	</opt_language_variables>
+</addon>

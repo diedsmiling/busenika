@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<addon>
+	<id>affiliate</id>
+	<name>Affiliate</name>
+	<priority>700</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="show_affiliate_code">
+				<name>Show affiliate code at front-end</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Mostrar códico de afiliado en el front-end (parte del cliente)</item>
+				</translations>
+			</item>
+			<item id="payment_period">
+				<name>Payment period</name>
+				<type>selectbox</type>
+				<default_value>1w</default_value>
+				<variants>
+					<item id="1w">
+						<name>1 week</name>
+						<translations>
+							<item lang="ES">1 semana</item>
+							<item lang="FR">1 semaine</item>
+						</translations>
+					</item>
+					<item id="2w">
+						<name>twice a month</name>
+						<translations>
+							<item lang="ES">dos veces al mes</item>
+							<item lang="FR">bimensuelle</item>
+						</translations>
+					</item>
+					<item id="1m">
+						<name>1 month</name>
+						<translations>
+							<item lang="ES">1 mes</item>
+							<item lang="FR">1 mois</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Preiodo de pago</item>
+					<item lang="FR">Période de paiement</item>
+				</translations>
+			</item>
+			<item id="number_last_periods">
+				<name>Number of last periods</name>
+				<type>input</type>
+				<default_value>10</default_value>
+				<translations>
+					<item lang="ES">Número de períodos pasados</item>
+				</translations>
+			</item>
+			<item id="automatic_approval_commissions">
+				<name>Automatic approval of affiliate commissions</name>
+				<type>checkbox</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Aprobación automática de comisiones de afiliado</item>
+				</translations>
+			</item>
+			<item id="elm_text_banner">
+				<name>Text banner</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Banner de texto</item>
+					<item lang="FR">Bannière texte</item>
+				</translations>
+			</item>
+			<item id="out_line_clor">
+				<name>Outline color</name>
+				<type>input</type>
+				<default_value>#296DC1</default_value>
+				<translations>
+					<item lang="ES">Color de contorno</item>
+					<item lang="FR">OutlineColor</item>
+				</translations>
+			</item>
+			<item id="title_text_color">
+				<name>Title text color</name>
+				<type>input</type>
+				<default_value>#FDFDFD</default_value>
+				<translations>
+					<item lang="ES">Color del texto de título</item>
+					<item lang="FR">TitleTextColor</item>
+				</translations>
+			</item>
+			<item id="text_color">
+				<name>Text color</name>
+				<type>input</type>
+				<default_value>#333333</default_value>
+				<translations>
+					<item lang="ES">Color de texto</item>
+					<item lang="FR">TextColor</item>
+				</translations>
+			</item>
+			<item id="text_background_color">
+				<name>Text background color</name>
+				<type>input</type>
+				<default_value>#F9F9FF</default_value>
+				<translations>
+					<item lang="ES">Color de fondo de texto</item>
+					<item lang="FR">TextBackgroundColor</item>
+				</translations>
+			</item>
+			<item id="elm_discount_coupons">
+				<name>Discount Coupons</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Cupones descuentos</item>
+					<item lang="FR">Bons de réductions</item>
+				</translations>
+			</item>
+			<item id="use_affiliate_id">
+				<name>Affiliate ID is used as coupon prefix</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">La ID del afiliado es usada como el prefijo de cupón</item>
+					<item lang="FR">Partner ID is used as coupon prefix</item>
+				</translations>
+			</item>
+			<item id="coupon_prefix_delim">
+				<name>Delimiter between prefix and coupon-code</name>
+				<type>input</type>
+				<default_value>-</default_value>
+				<translations>
+					<item lang="ES">Delimitador entre el prefijo y el código del cupón</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

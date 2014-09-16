@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>form_builder</id>
+	<name>Form builder</name>
+	<priority>2400</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

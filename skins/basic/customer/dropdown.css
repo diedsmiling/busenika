@@ -1,0 +1,114 @@
+/* $Id$ */
+
+/**
+ * @link		http://www.lwis.net/
+ * @copyright	2006-2008 Live Web Institute. All Rights Reserved.
+ */
+
+/* Logic */
+ul.dropdown, ul.dropdown li, ul.dropdown ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.dropdown {
+	position: relative;
+	z-index: 1;
+}
+ul.dropdown li {
+	line-height: 1.3em;
+	vertical-align: middle;
+	zoom: 1;
+}
+ul.dropdown li.hover, ul.dropdown li:hover {
+	position: relative;
+	z-index: 6;
+	cursor: default;
+}
+ul.dropdown ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+}
+ul.dropdown ul li {
+	float: none;
+}
+ul.dropdown ul ul, ul.dropdown-vertical ul {
+	top: 1px;
+	left: 100%;
+}
+ul.dropdown li:hover > ul, ul.dropdown li:hover > span > ul {
+	display: block;
+}
+
+/* For vertical menu */
+ul.dropdown-vertical li {
+	float: none;
+}
+/* /For vertical menu */
+
+/* For RTL orientation*/
+ul.dropdown-vertical-rtl {
+	float: right;
+}
+ul.dropdown-vertical-rtl, ul.dropdown-vertical-rtl ul.dropdown-vertical-rtl, #top_menu ul ul ul.dropdown-vertical-rtl, #top_menu ul.dropdown-vertical-rtl ul.dropdown-vertical-rtl {
+	left: auto !important;
+	right: 100%;
+}
+#top_menu ul.dropdown-vertical-rtl {
+	left: auto !important;
+	right: 0;
+}
+/* For RTL orientation*/
+
+/* /Logic */
+
+
+/* Decoration */
+ul.dropdown {
+	font-weight: bold;
+}
+ul.dropdown a, ul.dropdown a:visited, ul.dropdown a:active {
+	color: #2a2a2a;
+	text-decoration: none;
+}
+ul.dropdown a:hover {
+	color: #2a2a2a;
+	text-decoration: underline; 
+}
+ul.dropdown ul {
+	width: 160px;
+	padding: 0 5px;
+	margin-top: 1px;
+	background-color: #ffffff;
+	border: 1px solid #afecfe;
+}
+ul.dropdown-vertical a {
+	padding: 5px 20px 4px 2px;
+	display: block;
+}
+ul.dropdown *.dir {
+	background: url('images/icons/category_collapsed.gif') no-repeat right 8px;
+}
+ul.dropdown *.dir:hover {
+	background: url('images/icons/category_expanded.gif') no-repeat right 8px;
+}
+
+/** Separator **/
+ul.dropdown li.h-sep {
+	background: transparent url('images/categories_delim.gif') repeat-x scroll center center;
+	font-size: 1px;
+	height: 1px;
+	line-height: 1px;
+}
+/** /Separator **/
+
+.right-column ul.dropdown-vertical ul {
+	top: 1px;
+	left: auto;
+	right: 100%;
+}
+/* /Decoration */

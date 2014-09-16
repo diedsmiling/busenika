@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<addon>
+	<id>hot_deals_block</id>
+	<name>Hot deals block</name>
+	<priority>3300</priority>
+	<position>100</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_language_variables>
+		<item lang="EN" id="hot_deals">Hot deals</item>
+	</opt_language_variables>
+</addon>

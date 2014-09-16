@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<addon>
+	<id>google_sitemap</id>
+	<name>Google Sitemap</name>
+	<priority>3500</priority>
+	<position>160</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<item id="information">
+			<name>Information</name>
+			<type>header</type>
+		</item>
+		<item id="clear_url">
+			<name>Clear cache</name>
+			<type>info</type>
+			<handler>fn_google_sitemap_clear_url_info</handler>
+ 		</item>
+		<item id="site_setting">
+			<name>Homepage settings</name>
+			<type>header</type>
+		</item>
+		<item id="site_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="site_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>1</default_value>
+		</item>
+		<item id="products_setting">
+			<name>Products settings</name>
+			<type>header</type>
+		</item>
+		<item id="include_products">
+			<name>Include in sitemap</name>
+			<type>checkbox</type>
+			<default_value>Y</default_value>
+		</item>
+		<item id="products_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="products_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>0.5</default_value>
+		</item>
+		<item id="categories_setting">
+			<name>Categories settings</name>
+			<type>header</type>
+		</item>
+		<item id="include_categories">
+			<name>Include in sitemap</name>
+			<type>checkbox</type>
+			<default_value>Y</default_value>
+		</item>
+		<item id="categories_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="categories_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>0.5</default_value>
+		</item>
+		<item id="pages_setting">
+			<name>Pages settings</name>
+			<type>header</type>
+		</item>
+		<item id="include_pages">
+			<name>Include in sitemap</name>
+			<type>checkbox</type>
+			<default_value>Y</default_value>
+		</item>
+		<item id="pages_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="pages_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>0.5</default_value>
+		</item>
+		<item id="news_setting">
+			<name>News settings</name>
+			<type>header</type>
+		</item>
+		<item id="include_news">
+			<name>Include in sitemap</name>
+			<type>checkbox</type>
+			<default_value>Y</default_value>
+		</item>
+		<item id="news_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="news_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>0.5</default_value>
+		</item>
+		<item id="extended_setting">
+			<name>Extended feature pages settings</name>
+			<type>header</type>
+		</item>
+		<item id="include_extended">
+			<name>Include in sitemap</name>
+			<type>checkbox</type>
+			<default_value>Y</default_value>
+		</item>
+		<item id="extended_change">
+			<name>Update frequency</name>
+			<type>selectbox</type>
+			<default_value>daily</default_value>
+		</item>
+		<item id="extended_priority">
+			<name>Priority</name>
+			<type>selectbox</type>
+			<default_value>0.5</default_value>
+		</item>
+	</opt_settings>
+
+	<opt_language_variables>
+		<item lang="EN" id="sitemap_clear_cache_info"><![CDATA[If products, categories and etc... were added or changed, please <a href="[admin_index]?dispatch=addons.manage&cc">clear the cache</a> to regenerate the xml sitemap.<br /><br />Sitemap is available by this link: <a href="[customer_index]?dispatch=xmlsitemap.view">[http_location]/index.php?dispatch=xmlsitemap.view</a><br /><br />Sitemap can be reached by the URL <a href="sitemap.xml">[http_location]/sitemap.xml</a> if SEO addon is enabled. If it is disabled, you need to add the following code to the ".htaccess" file to get this URL working:<br />RewriteRule ^sitemap\.xml$ ./index.php?dispatch=xmlsitemap.view [L]<br />Add this line after the "RewriteBase" line.<br /><br />]]></item>
+		<item lang="EN" id="always">Always</item>
+		<item lang="EN" id="hourly">Hourly</item>
+		<item lang="EN" id="daily">Daily</item>
+		<item lang="EN" id="weekly">Weekly</item>
+		<item lang="EN" id="monthly">Monthly</item>
+		<item lang="EN" id="yearly">Yearly</item>
+		<item lang="EN" id="never">Never</item>
+	</opt_language_variables>
+</addon>

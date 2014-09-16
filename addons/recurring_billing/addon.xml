@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<addon>
+	<id>recurring_billing</id>
+	<name>Recurring billing</name>
+	<priority>3400</priority>
+	<position>130</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations></translations>
+	<opt_settings>
+		<section name="general">
+			<item id="rb_initial_order_status">
+				<name>Initial status for recurring orders</name>
+				<type>selectbox</type>
+				<default_value></default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_fail_attempts">
+				<name>Number of attempts after order failed</name>
+				<type>input</type>
+				<default_value>3</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_attempt_period">
+				<name>Next attempt if order failed (days)</name>
+				<type>input</type>
+				<default_value>1</default_value>
+				<translations></translations>
+			</item>
+		</section>
+		<section name="orders">
+			<item>
+				<custom_option_function>fn_recurring_billing_additional_settings</custom_option_function>
+			</item>
+		</section>
+		<section name="rb_notification">
+			<item id="rb_manual_pay_header">
+				<name>Notification of manual paying</name>
+				<type>header</type>
+				<translations></translations>
+			</item>
+			<item id="rb_manual_pay_duration">
+				<name>Notification duration (days)</name>
+				<type>input</type>
+				<default_value>3</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_manual_pay_email_subject">
+				<name>E-mail subject</name>
+				<type>input</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>Payment required</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_manual_pay_email_header">
+				<name>E-mail header</name>
+				<type>textarea</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>The subscription must be paid manually.</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_future_pay_header">
+				<name>Notification of future paying</name>
+				<type>header</type>
+				<translations></translations>
+			</item>
+			<item id="rb_future_pay_duration">
+				<name>Notification duration (days)</name>
+				<type>input</type>
+				<default_value>3</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_future_pay_email_subject">
+				<name>E-mail subject</name>
+				<type>input</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>Payment is approaching</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_future_pay_email_header">
+				<name>E-mail header</name>
+				<type>textarea</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>Payment for the subscription is approaching.</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_changing_header">
+				<name>Notification of subscription changing</name>
+				<type>header</type>
+				<translations></translations>
+			</item>
+			<item id="rb_changing_email_subject">
+				<name>E-mail subject</name>
+				<type>input</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>The subscription has been changed</default_value>
+				<translations></translations>
+			</item>
+			<item id="rb_changing_email_header">
+				<name>E-mail header</name>
+				<type>textarea</type>
+				<multilanguage>
+				</multilanguage>
+				<default_value>The subscription has been changed.</default_value>
+				<translations></translations>
+			</item>
+		</section>
+	</opt_settings>
+
+	<opt_queries>
+		<item>CREATE TABLE IF NOT EXISTS ?:recurring_plans (`plan_id` mediumint(8) unsigned NOT NULL auto_increment, `price` text NOT NULL, `product_ids` text NOT NULL, `period` char(1) NOT NULL default 'A', `by_period` mediumint(8) NOT NULL, `pay_day` mediumint(8) NOT NULL, `duration` mediumint(8) NOT NULL, `start_price` text NOT NULL, `start_duration` mediumint(8) NOT NULL, `start_duration_type` char(1) NOT NULL default 'D', `allow_change_duration` char(1) NOT NULL default 'N', `allow_unsubscribe` char(1) NOT NULL default 'N', `allow_free_buy` char(1) NOT NULL default 'N', `status` char(1) NOT NULL default 'A', PRIMARY KEY (`plan_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8</item>
+		<item for="uninstall">DROP TABLE IF EXISTS ?:recurring_plans</item>
+		<item for="uninstall">DELETE FROM ?:common_descriptions WHERE object_holder = 'recurring_plans'</item>
+		<item>CREATE TABLE IF NOT EXISTS ?:recurring_subscriptions (`subscription_id` mediumint(8) unsigned NOT NULL auto_increment, `order_id` mediumint(8) unsigned NOT NULL, `plan_id` mediumint(8) unsigned NOT NULL, `user_id` mediumint(8) unsigned NOT NULL, `firstname` varchar(32) NOT NULL default '', `lastname` varchar(32) NOT NULL default '', `email` varchar(128) NOT NULL default '', `timestamp` int(11) unsigned NOT NULL default '0', `last_timestamp` int(11) unsigned NOT NULL default '0', `end_timestamp` int(11) unsigned NOT NULL default '0', `order_ids` text NOT NULL, `product_ids` text NOT NULL, `price` decimal(12,2) NOT NULL default '0.00', `duration` mediumint(8) NOT NULL, `orig_duration` mediumint(8) NOT NULL, `status` char(1) NOT NULL default 'A', PRIMARY KEY (`subscription_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8</item>
+		<item for="uninstall">DROP TABLE IF EXISTS ?:recurring_subscriptions</item>
+		<item>CREATE TABLE IF NOT EXISTS ?:recurring_events (`event_id` mediumint(8) unsigned NOT NULL auto_increment, `subscription_id` mediumint(8) unsigned NOT NULL, `timestamp` int(11) unsigned NOT NULL default '0', `event_type` char(1) NOT NULL default 'C', PRIMARY KEY (`event_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8</item>
+		<item for="uninstall">DROP TABLE IF EXISTS ?:recurring_events</item>
+		<item>ALTER TABLE ?:usergroups ADD `recurring_plans_ids` varchar(255) NOT NULL default ''</item>
+		<item for="uninstall">ALTER TABLE ?:usergroups DROP COLUMN `recurring_plans_ids`</item>
+		<item>INSERT INTO ?:usergroup_privileges (usergroup_id, privilege) VALUES ('4', 'manage_recurring_plans')</item>
+		<item>INSERT INTO ?:privilege_descriptions (privilege, description, lang_code, section_id) VALUES ('manage_recurring_plans', 'Manage recurring plans', 'EN', '1')</item>
+		<item>INSERT INTO ?:privileges (privilege, is_default) VALUES ('manage_recurring_plans', 'Y')</item>
+		<item for="uninstall">DELETE FROM ?:usergroup_privileges WHERE usergroup_id = '4' AND privilege = 'manage_recurring_plans'</item>
+		<item for="uninstall">DELETE FROM ?:privilege_descriptions WHERE privilege = 'manage_recurring_plans'</item>
+		<item for="uninstall">DELETE FROM ?:privileges WHERE privilege = 'manage_recurring_plans'</item>
+		<item>INSERT INTO ?:usergroup_privileges (usergroup_id, privilege) VALUES ('4', 'manage_subscriptions')</item>
+		<item>INSERT INTO ?:privilege_descriptions (privilege, description, lang_code, section_id) VALUES ('manage_subscriptions', 'Manage subscriptions', 'EN', '1')</item>
+		<item>INSERT INTO ?:privileges (privilege, is_default) VALUES ('manage_subscriptions', 'Y')</item>
+		<item for="uninstall">DELETE FROM ?:usergroup_privileges WHERE usergroup_id = '4' AND privilege = 'manage_subscriptions'</item>
+		<item for="uninstall">DELETE FROM ?:privilege_descriptions WHERE privilege = 'manage_subscriptions'</item>
+		<item for="uninstall">DELETE FROM ?:privileges WHERE privilege = 'manage_subscriptions'</item>
+	</opt_queries>
+
+	<opt_language_variables>
+		<item lang="EN" id="rb_recurring_plan">Recurring plan</item>
+		<item lang="EN" id="rb_recurring_plans">Recurring plans</item>
+		<item lang="EN" id="rb_recurring_plan_id">Recurring plan ID</item>
+		<item lang="EN" id="rb_recurring_period">Recurring period</item>
+		<item lang="EN" id="rb_recurring_period_value">Recurring period value (days)</item>
+		<item lang="EN" id="rb_notification">Notification</item>
+		<item lang="EN" id="rb_annually">Annually</item>
+		<item lang="EN" id="rb_quarterly">Quarterly</item>
+		<item lang="EN" id="rb_monthly">Monthly</item>
+		<item lang="EN" id="rb_weekly">Weekly</item>
+		<item lang="EN" id="rb_by_period">By period</item>
+		<item lang="EN" id="rb_pay_day">Pay day</item>
+		<item lang="EN" id="rb_price">Recurring price</item>
+		<item lang="EN" id="rb_duration">Recurring duration (months)</item>
+		<item lang="EN" id="rb_duration_short">Duration</item>
+		<item lang="EN" id="rb_start_price">Recurring start price</item>
+		<item lang="EN" id="rb_start_duration">Recurring start duration</item>
+		<item lang="EN" id="rb_note">Recurring note</item>
+		<item lang="EN" id="rb_allow_setup_duration">Allow customers to set up duration</item>
+		<item lang="EN" id="rb_allow_unsubscribe">Allow customers to unsubscribe</item>
+		<item lang="EN" id="rb_allow_buy_without_subscription">Allow to buy products without subscription</item>
+		<item lang="EN" id="rb_buy_product_without_subscription">Buy product without subscription</item>
+		<item lang="EN" id="rb_new_plan">New recurring plan</item>
+		<item lang="EN" id="rb_editing_plan">Editing recurring plan</item>
+		<item lang="EN" id="rb_recurring_billing_settings">Recurring billing settings</item>
+		<item lang="EN" id="rb_add_recurring_plans_and_close">Add recurring plans and close</item>
+		<item lang="EN" id="rb_add_recurring_plans">Add recurring plans</item>
+		<item lang="EN" id="rb_subscription">Subscription</item>
+		<item lang="EN" id="rb_subscriptions">Subscriptions</item>
+		<item lang="EN" id="rb_view_subscriptions">View subscriptions</item>
+		<item lang="EN" id="rb_viewing_subscription">Viewing subscription</item>
+		<item lang="EN" id="rb_unsubscribed">Unsubscribed</item>
+		<item lang="EN" id="rb_subscription_status">Subscription status</item>
+		<item lang="EN" id="rb_subscribed_products">Subscribed products</item>
+		<item lang="EN" id="rb_creation_date">Creation date</item>
+		<item lang="EN" id="rb_period_type">Period type</item>
+		<item lang="EN" id="rb_subscription_events">Subscription events</item>
+		<item lang="EN" id="rb_attempt_charging">Attempt to pay the failed order</item>
+		<item lang="EN" id="rb_notification_manual_paying">Notification of manual paying</item>
+		<item lang="EN" id="rb_notification_future_paying">Notification of future paying</item>
+		<item lang="EN" id="rb_charge_subscription">Charge subscription</item>
+		<item lang="EN" id="rb_process_selected_events">Process selected events</item>
+		<item lang="EN" id="rb_will_be_deleted_with_order">will be deleted together with order</item>
+		<item lang="EN" id="rb_will_be_charged_on">will be charged on</item>
+		<item lang="EN" id="rb_no_subscriptions_to_process">There is no subscriptions to process.</item>
+		<item lang="EN" id="rb_subscriptions_processed">All subscriptions were processed.</item>
+		<item lang="EN" id="rb_unsubscribed_status_not_changed">Did not allow to change status for unsubscribed subscription</item>
+		<item lang="EN" id="rb_duration_did_not_null">Duration value is not valid</item>
+		<item lang="EN" id="rb_subscription_inactive">The subscription is not active</item>
+		<item lang="EN" id="rb_have_events"><![CDATA[You have active recurring events. <p><a href="[link]" class="underlined"><b>Process events &#155;&#155;</b></a></p>]]></item>
+		<item lang="EN" id="rb_subscription_charged">The subscription was charged successfully.</item>
+		<item lang="EN" id="rb_subscriptions_charged">The subscriptions were charged successfully.</item>
+		<item lang="EN" id="rb_pay">Pay</item>
+		<item lang="EN" id="rb_edit_subscription">Edit subscription</item>
+		<item lang="EN" id="rb_add_subscription">Add subscription</item>
+	</opt_language_variables>
+</addon>

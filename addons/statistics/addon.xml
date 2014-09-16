@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<addon>
+	<id>statistics</id>
+	<name>Statistics</name>
+	<priority>1300</priority>
+	<position>500</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Estadísticas</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="unique_clients_by">
+				<name>Define unique clients by</name>
+				<type>selectbox</type>
+				<default_value>cookie</default_value>
+				<variants>
+					<item id="cookie">
+						<name>Cookie</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="ip">
+						<name>IP address</name>
+						<translations>
+							<item lang="ES">Dirección IP</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Definir clientes únicos por</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

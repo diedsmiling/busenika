@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<addon>
+	<id>product_configurator</id>
+	<name>Product configurator</name>
+	<priority>300</priority>
+	<position>150</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<item id="thumbnails_width">
+			<name>Thumbnails width</name>
+			<type>input</type>
+			<default_value>120</default_value>
+		</item>
+	</opt_settings>
+	<translations>
+		<item for="name" lang="ES">Configurador de productos</item>
+		<item for="name" lang="FR">Configurateur de produit</item>
+	</translations>
+</addon>

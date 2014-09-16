@@ -1,0 +1,2691 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background: White;
+}
+
+.wm_body
+{
+	background: White;
+}
+
+.wm_space_before
+{
+	padding-top: 10px;
+}
+
+label
+{
+	cursor: pointer;
+	cursor: hand;
+	vertical-align: middle;
+	margin-left: 4px;
+}
+
+img
+{
+	border: 0;
+}
+
+td
+{
+	padding: 0;
+	margin: 0;
+}
+
+table
+{
+	padding: 0;
+	margin: 0;
+	border-collapse: collapse;
+	border: 0;
+}
+
+form
+{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.wm_for_ie_select
+{
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.wm_logo
+{
+	background-color:#08a3d6;
+	height: 50px;
+	border: 0;
+	display: block;
+	text-align: left;
+	padding-left: 20px;
+}
+
+.wm_logo span {
+	display: block;
+	float: left;
+	margin-top: 8px;
+	color: #ffffff;
+	font: bold 22px Tahoma;
+}
+
+.wm_logo a.header {
+	color: #ffffff;
+	font: bold 12px Tahoma, Arial, Helvetica, sans-serif;
+	display: block;
+	margin: 18px 0px 0px 30px;
+	float: left;
+}
+
+.wm_print
+{
+	border-collapse: collapse;
+	width: 96%;
+}
+
+.wm_print_content
+{
+	padding: 4px;
+	border: solid #666666;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	text-align: left;
+}
+
+.wm_content
+{
+	background: url(header.jpg) no-repeat center top;
+}
+
+.wm_checkbox
+{
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+}
+
+a.wm_reg, .wm_input, .wm_input_focus, .wm_file, .wm_button
+{
+	font: normal 13px Tahoma, Arial, Helvetica, sans-serif;
+	color: Black;
+}
+
+.wm_button
+{
+	height: 23px;
+	padding: 0 4px 0 4px;
+	cursor: pointer;
+	cursor: hand;
+	font-weight: bold;
+}
+
+.wm_input, .wm_input_focus
+{
+	text-indent: 1px;
+	border: solid 1px #a3c8e8;
+}
+
+.wm_file
+{
+	height: 23px;
+	width: auto;
+}
+
+.wm_control_img, .wm_control
+{
+	cursor: pointer;
+	cursor: hand;
+}
+
+.wm_background
+{
+	background: White;
+	width: 100%
+}
+
+a.wm_reg
+{
+	padding: 0 4px 0 0;
+	text-decoration: underline;
+}
+
+a.wm_reg:hover
+{
+	text-decoration: none;
+}
+
+.wm_hide
+{
+	display: none;
+}
+
+.wm_unvisible
+{
+	visibility: hidden;
+}
+
+/*tips*/
+.wm_tip
+{
+	position: absolute;
+	color: Black;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_tip_arrow
+{
+	background: url(tip_arrow.gif) no-repeat center;
+	width: 11px;
+	height: 50px;
+}
+
+.wm_tip_info
+{
+	background: #FFFFB5 url(tip_info.gif) no-repeat top left;
+	height: 28px;
+	padding: 10px 10px 10px 25px;
+	border: solid #B5AD94;
+	border-width: 1px 1px 1px 0;
+}
+/*--tips*/
+
+/*connection screen*/
+.wm_connection_info
+{
+	background: #edf5ff;
+	border: 0;
+	margin: 70px 10px 80px 10px;
+}
+
+.wm_connection_header
+{
+	padding: 2px;
+	height: 14px;
+	border: solid #dbecff;
+	border-width: 1px 0 1px 0;
+	background: #dbecff;
+	color: #405d7b;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.wm_connection_icon
+{
+	width: 40px;
+	background: #edf5ff url(wait.gif) no-repeat center;
+}
+
+.wm_connection_empty
+{
+	width: 40px;
+}
+
+.wm_connection_message
+{
+	padding: 10px;
+	font: normal 16px Helvetica, Arial, Tahoma, sans-serif;
+	text-align: center;
+}
+
+.wm_connection_progressbar
+{
+	height: 25px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+/*--connection screen*/
+
+/*information*/
+.wm_information, .wm_connection_information, .wm_error_information
+{
+	background: #f8fafb;
+	border: solid 1px #7fa6cc;
+	z-index: 3;
+}
+
+.wm_information, .wm_error_information, .wm_report_information
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.wm_error_information
+{
+	background: #FFFFB5;
+	border: 1px solid #B5AD94;
+}
+
+.wm_report_information
+{
+	background: #d9edd1;
+	border: 1px solid #98ca85;
+}
+
+.wm_info_message
+{
+	padding: 6px !important;
+	font: normal 12px Tahoma;
+	color: Black;
+	text-align: left;
+	vertical-align: middle;
+}
+
+.wm_connection_information .wm_info_message
+{
+	padding: 6px 10px;
+	text-align: center;
+}
+
+.wm_connection_information .wm_progressbar
+{
+	margin-bottom: 6px;
+}
+
+.wm_info_image
+{
+	padding: 4px 2px 4px 4px;
+	vertical-align: top;
+}
+
+.wm_info_image img
+{
+	width: 20px;
+	height: 26px;
+}
+
+.wm_info_progressbar
+{
+	padding-bottom: 4px;
+	height: 15px;
+	text-align: center;
+}
+/*--information*/
+
+/*login dialog*/
+.wm_login
+{
+	margin: 20px 0 20px 0;
+	background: #edf5ff;
+	border: solid 2px #dbecff;
+	color: Black;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	width: 303px;
+	table-layout: auto;
+}
+
+#inc_server, #out_server 
+{
+	width:80px;
+}
+#inc_port, #out_port 
+{
+	width:30px;
+}
+#inc_protocol {
+	width:65px;
+}
+
+.wm_fixed
+{
+	table-layout: fixed;
+}
+
+.wm_login td
+{
+	padding: 4px 4px 4px 2px;
+	text-align: left;
+}
+
+.wm_title
+{
+	text-align: right !important;
+}
+
+.wm_login_header
+{
+	border: solid #DBEAF5;
+	border-width: 1px 0 1px 0;
+	background: #dbecff;
+	color: #405d7b;
+	text-align: center !important;
+	padding: 6px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.wm_login .wm_input, .wm_login .wm_input_focus, .wm_advanced_input, .wm_advanced_input_focus
+{
+	color: Black;
+	border: solid 1px White;
+	background: White;
+}
+
+.wm_login .wm_input, .wm_login .wm_input_focus
+{
+	font: normal 12px Arial;
+	width: 220px;
+}
+
+.wm_password_input
+{
+	letter-spacing: 1px;
+}
+
+.wm_advanced_input_focus, .wm_login .wm_input_focus
+{
+	background: #FFF9B2;
+}
+
+.wm_login .wm_input, .wm_login .wm_input_focus
+{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.wm_advanced_input, .wm_advanced_input_focus
+{
+	font-size: 13px;
+}
+
+.wm_login_switcher
+{
+	padding-top: 4px;
+	display: block;
+	float: left;
+}
+
+.wm_login_button
+{
+	display: block;
+	float: right;
+}
+
+.wm_login_error
+{
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	width: 270px;
+	background: #fbf4dd url(login_error.gif) no-repeat top left;
+	padding: 10px 10px 10px 30px;
+	border: 1px solid #fae5a2;
+	text-align: left;
+}
+/*--login dialog*/
+
+/*accounts panel*/
+.wm_accountslist
+{
+	width: 100%;
+	height: 24px;
+	padding: 0;
+	margin: 0 0 1px 0;
+	background: #c5dff5;
+	border: solid 1px #c5dff5;
+	border-bottom: 1px solid #96d3ee;
+	font: 11px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_accountslist_email, .wm_accountslist_contacts
+{
+	display: block;
+	float: left;
+	font-weight: bold;
+	border: 0;
+	border-right: solid 1px #cde4f7;
+	background: none;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 4px;
+	height: 15px;
+	/*$margin: 0;
+	$padding: 4px;
+	$height: 15px;*/
+}
+
+.wm_accountslist_email
+{
+	border-right: 0;
+	background: none;
+}
+
+.wm_accountslist_selection
+{
+	border: 0;
+	border-right: solid 1px #cde4f7;
+	background: none;
+	display: block;
+	float: left;
+	height: 24px;
+	padding: 0;
+	font-weight: bold;
+}
+
+.wm_accounts_arrow
+{
+	cursor: hand;
+	cursor: pointer;
+	vertical-align: text-bottom;
+	margin-top: 0;
+	width: 24px;
+	height: 24px;
+}
+
+.wm_accountslist_settings, .wm_accountslist_logout
+{
+	display: block;
+	float: right;
+	margin-top: 0;
+	padding: 4px;
+	height: 15px;
+	/*$margin: 0;
+	$padding: 4px;
+	$height: 15px;*/
+	font-weight: normal;
+	border: 0;
+	border-left: solid 1px #cde4f7;
+	background: none;
+}
+
+.wm_accountslist a
+{
+	color: #405d7b;
+	text-decoration: none;
+}
+
+.wm_accountslist a:hover
+{
+	color: #405d7b;
+	text-decoration: underline;
+}
+
+.wm_account_menu
+{
+	background: #c5dff5;
+	color: #405d7b;
+	font: bold 11px Tahoma, Arial, Helvetica, sans-serif;
+	position: absolute;
+	cursor: hand;
+	cursor: pointer;
+	text-align: left;
+	z-index: 3;
+	border-width: 0 1px 1px 1px;
+	border-style: solid;
+	border-color: #a3c8e8;
+}
+
+.wm_account_item, .wm_account_item_over
+{
+	border: solid #a3c8e8;
+	border-width: 1px 0 0 0;
+	padding: 4px;
+	z-index: 3;
+}
+
+.wm_toolbar_item_over span, .wm_toolbar_item_press span
+{
+	text-decoration: none;
+}
+
+.wm_toolbar_item span
+{
+	text-decoration: underline;
+}
+
+.wm_account_item_over
+{
+	color: #405d7b;
+	text-decoration: underline;
+	background: #cde4f7;
+}
+/*--accounts panel*/
+
+/*toolbar panel*/
+.wm_toolbar
+{
+	width: 100%;
+	height: 26px;
+	background: White; /*url(toolbar_back.gif) repeat-x;*/
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	color: #212121;
+	vertical-align: middle;
+	border: solid 1px;
+	border-color: White;
+}
+
+.wm_toolbar div
+{
+	margin: 1px;
+	cursor: pointer;
+	cursor: hand;
+	vertical-align: middle;
+}
+
+.wm_toolbar_item, .wm_toolbar_item_inactive
+{
+	float: left;
+	padding: 4px;
+	height: 16px;
+}
+
+.wm_toolbar_item_inactive
+{
+	cursor: default !important;
+}
+
+.wm_toolbar_search_item
+{
+	float: right;
+	padding: 2px 2px 1px 2px;
+	height: 20px;
+	margin-bottom: 0 !important;
+}
+
+.wm_toolbar_item_over
+{
+	float: left;
+	padding: 3px;
+	height: 16px;
+	background: #eef4fa;
+	border: solid 1px #bdd9f1;
+}
+
+.wm_toolbar_search_item_over
+{
+	float: right;
+	padding: 1px 1px 0 1px;
+	height: 20px;
+	margin-bottom: 0 !important;
+	background: #eef4fa;
+	border: solid 1px #bdd9f1;
+}
+
+.wm_toolbar_item_press
+{
+	float: left;
+	padding: 3px;
+	height: 16px;
+	margin: 0;
+	background: #bdd9f1;
+	color: #405d7b;
+	border: solid 1px #a3c8e8;
+}
+
+.wm_tb
+{
+	float: left;
+	padding: 0 !important;
+}
+
+.wm_tb_press
+{
+	float: left;
+	padding: 0 !important;
+	margin: 0;
+	background: #bdd9f1;
+	color: #405d7b;
+}
+
+.wm_tb div, .wm_tb_press div
+{
+	margin: 0 !important;
+}	
+
+.wm_toolbar_separate
+{
+	float: left;
+	width: 1px;
+	height: 1px;
+}
+
+.wm_search_input
+{
+	vertical-align: middle;
+	font-size: 10px;
+}
+
+.wm_search_arrow
+{
+	margin: 3px 4px 6px 4px;
+	width: 13px;
+	height: 13px;
+}
+
+* html .wm_search_arrow
+{
+	margin: 4px;
+	width: 13px;
+	height: 13px;
+}
+
+.wm_search_form
+{
+	padding: 2px 0 0 2px;
+	position: absolute;
+	top: 91px;
+	right: 0;
+	border: solid 1px #a3c8e8;
+	background: #e9eff9;
+	z-index: 3;
+}
+
+.wm_search_form table
+{
+	font: 12px Tahoma, Arial, Helvetica, sans-serif;
+	text-align: left;
+	color: #212121;
+}
+
+.wm_search_form select
+{
+	font-size: 10px;
+}
+
+.wm_search_form td
+{
+	padding: 4px;
+}
+
+.wm_search_title
+{
+	text-align: right;
+}
+
+.wm_search_value
+{
+	text-align: left;
+}
+
+.wm_popup_menu
+{
+	background: White;
+	color: Black;
+	border: 0;
+	border-bottom: 1px solid #a3c8e8;
+	border-top: 1px solid #a3c8e8;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	position: absolute;
+	cursor: hand;
+	cursor: pointer;
+	text-align: left;
+	z-index: 3;
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.wm_menu_separate
+{
+	z-index: 3;
+	padding-top: 1px;
+	background: #C1CDD8;
+	border-style: solid;
+	border-color: #4791C5;
+	border-width: 0 1px 0 1px;
+}
+
+.wm_toolbar img, .wm_menu_big_search_img
+{
+	vertical-align: middle;
+}
+
+.wm_search_form img
+{
+	cursor: hand;
+	cursor: pointer;
+}
+
+.wm_menu_small_search_img ,
+.wm_menu_big_search_img
+{
+	width: 19px;
+	height: 13px;
+	margin: 0 2px 0 2px;
+}
+
+.wm_menu_flag_img ,
+.wm_menu_unflag_img ,
+.wm_menu_mark_read_img ,
+.wm_menu_mark_unread_img ,
+.wm_menu_mark_all_read_img ,
+.wm_menu_mark_all_unread_img ,
+.wm_menu_reply_img ,
+.wm_menu_replyall_img ,
+.wm_menu_forward_img ,
+.wm_menu_move_to_folder_img ,
+.wm_menu_add_contacts_img ,
+.wm_menu_delete_img ,
+.wm_menu_purge_img ,
+.wm_menu_empty_trash_img ,
+.wm_menu_back_to_list_img ,
+.wm_menu_send_message_img ,
+.wm_menu_new_message_img ,
+.wm_menu_check_mail_img ,
+.wm_menu_reload_folders_img ,
+.wm_menu_import_contacts_img ,
+.wm_menu_new_contact_img ,
+.wm_menu_new_group_img
+{
+	display: none;
+}
+
+.wm_menu_next_prev_img
+{
+	width: 15px;
+	height: 14px;
+	margin-right: 2px;
+}
+
+.wm_menu_save_message_img ,
+.wm_menu_print_message_img
+{
+	display: none;
+}
+
+.wm_menu_priority_img
+{
+	width: 11px;
+	height: 14px;
+	margin-right: 2px;
+}
+
+.wm_menu_control_img ,
+.wm_menu_move_control_img
+{
+	width: 9px;
+	height: 14px;
+}
+
+.wm_menu_move_control_img
+{
+	margin-left: 4px;
+}
+
+.wm_menu_item, .wm_menu_item_over, .wm_menu_item_spec, .wm_menu_item_over_spec
+{
+	padding: 2px 2px 2px 3px;
+	z-index: 3;
+	/*border-style: solid;
+	border-color: #a3c8e8;
+	border-width: 0 1px 0 1px;*/
+}
+
+.wm_menu_item_spec
+{
+	background: #DEECF5;
+	border-top: solid 1px #C8DEEE;
+}
+
+.wm_menu_item_over, .wm_menu_item_over_spec
+{
+	background: #f8ecc6;
+}
+
+.wm_menu_item_over_spec
+{
+	border-top: solid 1px #C8DEEE;
+}
+/*--toolbar panel*/
+
+/*page switcher*/
+.wm_inbox_page_switcher
+{
+	position: absolute;
+	top: 118px;
+	right: 16px;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	z-index: 2;
+}
+
+.wm_inbox_page_switcher_left
+{
+	background: url(page_switchers/inbox_left_border.gif) no-repeat;
+	width: 9px;
+	height: 18px;
+}
+
+.wm_inbox_page_switcher_right
+{
+	background: url(page_switchers/inbox_right_border.gif) no-repeat;
+	width: 9px;
+	height: 18px;
+}
+
+.wm_inbox_page_switcher_pages
+{
+	background: White;
+	color: #14649C;
+	border-top: solid 1px #a3c8e8;
+	white-space: nowrap;
+}
+
+.wm_inbox_page_switcher_pages a
+{
+	padding: 0 2px 0 2px;
+	text-decoration: none;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	color: #405d7b;
+}
+
+.wm_inbox_page_switcher_pages font
+{
+	background: #E8E9EA;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	padding: 0 4px 0 4px;
+}
+
+.wm_page_switcher_prev_next
+{
+	width: 5px;
+	height: 9px;
+}
+
+.wm_page_switcher_first_last
+{
+	width: 8px;
+	height: 9px;
+}
+/*--page switcher*/
+
+/*mail container*/
+.wm_mail_container
+{
+	background: White;
+	border: 0;
+	font: normal 11px Tahoma;
+}
+
+.wm_mail_container td
+{
+	vertical-align: top;
+	text-align: left;
+}
+
+.wm_vresizer_part
+{
+	text-align: left;
+}
+
+.wm_vresizer_width
+{
+	height: 1px;
+	width: 4px;
+	overflow: hidden;
+}
+
+.wm_vresizer, .wm_vresizer_press
+{
+	z-index: 2;
+	position: relative;
+	top: 0;
+	left: 1px;
+	overflow: hidden;
+}
+
+.wm_vresizer
+{
+	background: none;
+}
+
+.wm_vresizer_mess
+{
+	background: #c5dff5;
+}
+
+.wm_vresizer_press
+{
+	background: #fbf4dd;
+}
+
+.wm_hresizer_height
+{
+	width: 0;
+	height: 1px;
+	overflow: hidden;
+}
+
+.wm_hresizer, .wm_hresizer_press
+{
+	z-index: 1;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.wm_hresizer
+{
+	background: none;
+}
+
+.wm_hresizer_press
+{
+	background: #fbf4dd;
+}
+/*--mail container*/
+
+/*folders part*/
+.wm_folders_part
+{
+	overflow: hidden;
+	text-align: left;
+	border: solid #e9eff9;
+	background: White;
+	border-width: 1px 1px 1px 0;
+	padding:0pt 0pt 0pt 4px;
+}
+
+.wm_folder_direct_mode
+{
+	cursor: default;
+	font-size: 9px;
+	color: #7E9BAF;
+	border: solid 1px #e9eff9;
+}
+
+.wm_folders
+{
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.wm_folders img
+{
+	width: 18px;
+	height: 16px;
+	vertical-align: middle;
+	margin: 0 3px 4px 8px;
+}
+
+.wm_folders div
+{
+	height: 20px;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.wm_select_folder a
+{
+	font-weight: bold;
+}
+
+.wm_folders_part a
+{
+	color: Black;
+	text-decoration: none;
+}
+
+.wm_folders_part a:hover, .wm_folder_over a
+{
+	color: #485F78;
+}
+
+.wm_folders_hide_show
+{
+	width: 100%;
+	height: 20px;
+	text-align: right;
+}
+
+.wm_folders_hide_show img
+{
+	margin: 4px 4px 0 0;
+	width: 13px;
+	height: 13px;
+}
+
+.wm_manage_folders
+{
+	height: 17px;
+	text-align: center;
+	vertical-align: top;
+	padding-top: 5px;
+	padding-left: 4px;
+}
+
+.wm_manage_folders a
+{
+	font-size: 9px;
+	color: #7E9BAF;
+}
+
+.wm_manage_folders a:hover
+{
+	color: #7E9BAF;
+}
+/*--folders part*/
+
+/*inbox part*/
+.wm_inbox
+{
+	border: solid #d7e8f4;
+	border-top-color: #e8f6ff;
+	border-width: 1px 0 1px 1px;
+}
+
+.wm_inbox a
+{
+	color: #009;
+	text-decoration: none;
+}
+
+.wm_inbox a:hover
+{
+	text-decoration: underline;
+}
+
+.wm_inbox td, .wm_inbox img, .wm_inbox input,
+.wm_contact_list_div td, .wm_contact_list_div img, .wm_contact_list_div input
+{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.wm_inbox_headers
+{
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 20px;
+	background: #dbecff;
+	color: #405d7b;
+	border-top: 0;
+	border-bottom: solid 1px #dbecff;
+}
+
+.wm_inbox_headers div
+{
+	position: absolute;
+	top: 0;
+	text-align: center;
+	padding-top: 2px;
+}
+
+.wm_inbox_headers img
+{
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+}
+
+.wm_inbox_headers_from_subject
+{
+	text-align: left !important;
+	padding-left: 4px;
+}
+
+.wm_inbox_headers_text
+{
+	padding-left: 4px;
+}
+
+.wm_inbox_headers_separate_noresize
+{
+	width: 1px;
+	height: 20px;
+	padding: 0 !important;
+	background: #dbecff;
+	overflow: hidden;
+}
+
+.wm_inbox_headers_separate
+{
+	height: 20px;
+	padding: 0 !important;
+	overflow: hidden;
+}
+
+.wm_inbox_headers_separate div
+{
+	margin-left: 1px;
+	width: 1px;
+	height: 100%;
+	padding: 0 !important;
+	background: #dbecff;
+	overflow: hidden;
+}
+
+.wm_inbox_lines, .wm_contacts_in_group_lines
+{
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 600px;
+	background: White;
+	text-align: left;
+}
+
+.wm_contacts_in_group_lines
+{
+	width: 300px;
+	margin: 20px 20px 0 20px;
+}
+
+.wm_contacts_in_group_lines td
+{
+	padding: 0 2px;
+}
+
+.wm_inbox_info_message
+{
+	font: normal 18px Tahoma;
+	color: #ccc;
+	text-align: center;
+	margin: 30px;
+}
+
+.wm_view_message_info
+{
+	font: normal 14px Tahoma;
+	margin-top: 10px;
+}
+
+.wm_inbox_lines table
+{
+	table-layout: fixed;
+	width: 554px;
+	padding: 0;
+	margin: 0;
+}
+
+.wm_inbox_lines td
+{
+	font: normal 11px Tahoma;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 0;
+	margin: 0;
+}
+
+.wm_inbox_lines img
+{
+	width: 14px;
+	height: 14px;
+}
+
+.wm_inbox_lines a
+{
+	color: black;
+}
+
+.wm_inbox_icon
+{
+	width: 15px !important;
+	height: 15px !important;
+}
+
+.wm_inbox_lines font
+{
+	background: #fae8af;
+	font-size: 110%
+}
+
+.wm_inbox_item td, .wm_inbox_item_select td,
+.wm_inbox_read_item td, .wm_inbox_read_item_select td,
+.wm_inbox_deleted_item td, .wm_inbox_deleted_item_select td
+{
+	height: 20px;
+	border-bottom: solid 1px #C1CDD8 !important;
+	cursor: default;
+}
+
+.wm_inbox_deleted_item td, .wm_inbox_deleted_item_select td
+{
+	text-decoration: line-through;
+}
+
+.wm_inbox_item
+{
+	background: #f8fafb;
+}
+
+.wm_inbox_item td, .wm_inbox_item_select td
+{
+	font-weight: bold;
+}
+
+.wm_inbox_read_item_select, .wm_inbox_item_select, .wm_inbox_deleted_item_select td
+{
+	background: #fbf4dd;
+}
+
+.wm_inbox_grey_item td
+{
+	color: #CCCCCC;
+}
+
+.wm_inbox_from_subject
+{
+	text-align: left !important;
+}
+
+.wm_inbox_from_subject nobr
+{
+	padding-left: 4px;
+	padding-right: 4px;
+}
+/*--inbox part*/
+
+/*message part*/
+.wm_message_body_quotation
+{
+	color: Maroon;
+}
+
+.wm_message_container
+{
+	border: solid 1px #c2cee4;
+	border-right: 0;
+}
+
+.wm_message_headers
+{
+	background: #ebf3ff;
+	font-size: 11px;
+	color: Black;
+}
+
+.wm_message_headers select /* charset selection in preview pane */
+{
+	font: normal 10px Tahoma;
+}
+
+.wm_message_headers div
+{
+	height: 16px;
+}
+
+.wm_message_headers a
+{
+	color: #405d7b;
+	text-decoration: underline;
+	font-size: 11px;
+}
+
+.wm_message_headers a:hover
+{
+	text-decoration: none;
+}
+
+.wm_message_headers font
+{
+	color: #405d7b;
+	font-size: 11px;
+	margin-right: 4px;
+}
+
+.wm_message_headers span
+{
+	white-space: nowrap;
+	margin: 0 4px 0 4px;
+}
+
+.wm_message_left
+{
+	display: block;
+	float: left;
+	text-align: left;
+}
+
+.wm_message_right
+{
+	display: block;
+	float: right;
+}
+
+.wm_message_resized
+{
+	overflow: hidden;
+}
+
+.wm_message_attachments
+{
+	margin: 0 2px 0 0;
+	width: 140px;
+	text-align: center;
+	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background: White;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_message_attachments div
+{
+	padding: 4px;
+	width: 95px;
+	height: 60px;
+	overflow: hidden;
+	vertical-align: middle;
+	margin-bottom: 8px;
+}
+
+.wm_message_attachments img
+{
+	vertical-align: middle;
+	cursor: hand;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+}
+
+.wm_message_attachments span
+{
+	cursor: hand;
+	cursor: pointer;
+}
+
+.wm_attach_download_a
+{
+	text-decoration: none;
+	color: Black;
+	padding: 0;
+	font-size: 11px;
+}
+
+.wm_attach_view_a
+{
+	color: #436F8D;
+	padding: 0;
+	font-size: 11px;
+}
+
+.wm_message
+{
+	background: White;
+	text-align: left;
+	overflow: auto;
+	padding: 8px;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_attachments_cell
+{
+	border: 0;
+	padding: 2px 0 2px 5px !important;
+}
+
+.wm_message_cell
+{
+	border: 0;
+	padding: 2px 5px 2px 0 !important;
+}
+/*--message part*/
+
+/*html editor*/
+.wm_html_editor
+{
+	font: normal 13px Tahoma, Arial, Helvetica, sans-serif;
+	color: Black;
+	text-indent: 1px;
+	border: solid 1px #b4d4ec;
+	width: 685px;
+	height: 331px;
+	table-layout: fixed;
+	margin: 0;
+}
+
+.wm_html_editor_toolbar
+{
+	background: #E9F2F8;
+	height: 30px;
+}
+
+.wm_html_editor_toolbar div 
+{
+	margin-top: 2px;
+	margin-bottom: 2px; 
+	$margin-top: 3px;
+}
+
+.wm_html_editor_left_part
+{
+	padding: 2px;
+	width: 156px;
+}
+
+.wm_html_editor_center_part
+{
+	padding: 0;
+	width: 200px;
+}
+
+.wm_html_editor_select
+{
+	border: solid 1px #97B5C8;
+}
+
+.wm_html_editor_right_part
+{
+	padding: 2px;
+	width: 321px;
+}
+
+.wm_html_editor span
+{
+	display: block;
+	margin: 1px;
+	cursor: pointer;
+	cursor: hand;
+	vertical-align: middle;
+}
+
+.wm_html_editor .wm_toolbar_item_over
+{
+	float: left;
+	background: #F8FCFF;
+	color: #212121;
+	border: solid 1px #97B5C8;
+}
+
+.wm_html_editor_cell
+{
+	padding: 0 !important;
+	background: White;
+}
+
+.wm_html_editor_switcher
+{
+	padding: 4px 4px 8px 4px !important;
+	text-align: right !important;
+}
+
+.wm_html_editor_switcher a
+{
+	color: #003366 !important;
+	text-decoration: none !important;
+	position: relative;
+}
+
+.wm_html_editor_switcher a:hover
+{
+	text-decoration: underline !important;
+}
+
+.wm_editor
+{
+	width: 684px;
+	height: 300px;
+	border: 0;
+	vertical-align: top;
+}
+
+.wm_plain_editor_container
+{
+	width: 684px;
+	height: 330px;
+	margin: 0;
+	padding: 0;
+}
+
+.wm_plain_editor_text
+{
+	width: 680px;
+	height: 328px;
+	border: 0;
+	border-left: solid 1px White;
+	margin: 0;
+	padding: 0;
+}
+/*--html editor*/
+
+/*new message*/
+.wm_new_message
+{
+	background: #dbecff;
+	width: 100%;
+	padding: 0 10px 0 10px;
+	color: Black;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_new_message td
+{
+	padding: 2px 5px 2px 10px;
+	border: none;
+	text-align: left;
+}
+
+.wm_new_message_title
+{
+	text-align: right !important;
+	width: 90px;
+}
+
+.wm_attachment
+{
+	border-top: solid 1px #a3c8e8 !important;
+	color: #405d7b;
+	vertical-align: middle;
+}
+
+.wm_attachment img
+{
+	vertical-align: middle;
+	width: 32px;
+	height: 32px;
+	margin: 0 10px 0 10px;
+}
+
+.wm_attach
+{
+	border-top: solid 1px #a3c8e8 !important;
+	padding: 6px 5px 4px 10px !important;
+}
+
+.wm_new_message a
+{
+	color: Black;
+	text-decoration: underline;
+}
+
+.wm_new_message a:hover
+{
+	text-decoration: none;
+}
+
+.wm_auto_filling_cont
+{
+	border: solid 1px #a3c8e8;
+	border-top: 0;
+	font: normal 12px Tahoma;
+}
+
+.wm_auto_filling_cont div
+{
+	cursor: default;
+	background: White;
+	padding: 2px;
+}
+
+.wm_auto_filling_img_group
+{
+	margin-right: 4px;
+}
+
+.wm_auto_filling_chosen
+{
+	background: #fbf4dd !important;
+}
+
+.wm_popular_contacts_cont
+{
+	background: White;
+	border: solid 1px #a3c8e8;
+	font: normal 12px Tahoma;
+	padding-top: 16px;
+}
+
+.wm_popular_contacts_cont div
+{
+	cursor: default;
+	background: White;
+	padding: 4px;
+}
+
+.wm_popular_contacts_image
+{
+	position: absolute;
+	width: 8px;
+	height: 8px;
+}
+/*--new message*/
+
+/*view message*/
+.wm_safety_info
+{
+	color: #B5AD94;
+	background: #FFFFB5;
+	border: 1px solid #B5AD94;
+	padding: 8px !important;
+}
+
+.wm_safety_info a
+{
+	color: #7E9BAF;
+}
+
+.wm_view_message, .wm_message_viewer
+{
+	background: #DBEAF5;
+	width: 100%;
+	color: Black;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_view_message td, .wm_message_viewer_cell
+{
+	padding: 2px 5px 2px 10px;
+	text-align: left;
+}
+
+.wm_view_message_title
+{
+	text-align: right !important;
+	vertical-align: top;
+	width: 50px;
+	color: #405d7b;
+	white-space: nowrap;
+}
+
+.wm_view_message font
+{
+	color: #7E9BAF;
+}
+
+.wm_view_message_select /* charset selection in full screen view */
+{
+	font: normal 11px Tahoma;
+}
+
+.wm_view_message_switcher
+{
+	vertical-align: bottom !important;
+	text-align: right !important;
+}
+
+.wm_view_message_switcher img
+{
+	margin-right: 6px;
+	cursor: pointer;
+	cursor: hand;
+	width: 13px;
+	height: 13px;
+}
+
+.wm_add_address_book_img
+{
+	vertical-align: text-bottom;
+	cursor: pointer;
+	cursor: hand;
+	width: 16px;
+	height: 14px;
+}
+
+.wm_view_message .wm_add_address_book_img
+{
+	margin-left: 4px;
+}
+
+.wm_headers_switcher
+{
+	text-align: right !important;
+	vertical-align: top;
+	padding-left: 0;
+}
+
+.wm_headers_switcher a
+{
+	color: #405d7b;
+	font-size: 10px;
+}
+
+.wm_headers_switcher a:hover
+{
+	color: #405d7b;
+}
+
+.wm_headers
+{
+	border: 1px solid #a3c8e8;
+	background: #c5dff5;
+	padding: 5px 5px 0 5px;
+	position: absolute;
+	z-index: 1;
+}
+
+.wm_message_rfc822
+{
+	background: #f8fafb;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	color: #212121;
+	border: solid 1px #a3c8e8;
+	padding: 2px 2px 2px 4px;
+	margin: 0;
+	overflow: auto;
+}
+
+.wm_hide_headers
+{
+	text-align: right;
+	padding: 2px;
+}
+
+.wm_hide_headers a
+{
+	font: normal 14px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_headers a
+{
+	color: #405d7b;
+	padding: 4px;
+	text-decoration: none;
+}
+
+.wm_headers a:hover
+{
+	text-decoration: underline;
+}
+
+.wm_importance_img
+{
+	vertical-align: text-bottom !important;
+	width: 11px;
+	height: 14px;
+	margin-right: 4px;
+}
+/*--view message*/
+
+/*contacts*/
+.wm_contacts
+{
+	width: 100%;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	background: #edf5ff;
+}
+
+.wm_contacts_list
+{
+	width: 40%;
+	float: left;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.wm_contact_list_div
+{
+	overflow: hidden;
+	border-right: solid 1px #EDF5FFD;
+	border-bottom: solid 1px #EDF5FFD;
+	background: White;
+}
+
+.wm_contacts_view_edit
+{
+	width: 60%;
+	float: left;
+	vertical-align: top;
+	text-align: left;
+}
+
+.wm_contacts_letter_search font
+{
+	margin-left: 5px;
+	font: bold 14px Tahoma, Arial, Helvetica, sans-serif;
+	text-decoration: underline;
+}
+
+.wm_contacts_letter_search span
+{
+	margin-left: 5px;
+	font: normal 14px Tahoma, Arial, Helvetica, sans-serif;
+	color: #929394;
+}
+
+.wm_contacts_letter_search a
+{
+	color: #14649C;
+	font-size: 14px !important;
+	text-align: left;
+	margin-left: 5px;
+	text-decoration: none;
+}
+
+.wm_contacts_letter_search a:hover
+{
+	text-decoration: underline;
+}
+
+.wm_contacts_view_edit a
+{
+	color: #5B86A8;
+	font-size: 12px !important;
+	text-align: left;
+	text-decoration: none;
+}
+
+.wm_contacts_view_edit a:hover
+{
+	text-decoration: underline;
+}
+
+.wm_contacts_card
+{
+	background: White;
+	width: 100%;
+}
+
+.wm_contacts_card_top_left
+{
+	height: 5px;
+	width: 5px;
+	background: url(contacts/top_left.gif);
+}
+
+.wm_contacts_card_corner
+{
+	height: 5px;
+	width: 5px;
+	overflow: hidden;
+}
+
+.wm_contacts_card_top
+{
+	height: 5px;
+	background: url(contacts/top.gif) repeat-x;
+}
+
+.wm_contacts_card_top_right
+{
+	height: 5px;
+	width: 5px;
+	background: url(contacts/top_right.gif);
+}
+
+.wm_contacts_card_right
+{
+	width: 5px;
+	background: url(contacts/right.gif) repeat-y;
+}
+
+.wm_contacts_card_bottom_right
+{
+	height: 5px;
+	width: 5px;
+	background: url(contacts/bottom_right.gif);
+}
+
+.wm_contacts_card_bottom
+{
+	height: 5px;
+	background: url(contacts/bottom.gif) repeat-x;
+}
+
+.wm_contacts_card_bottom_left
+{
+	height: 5px;
+	width: 5px;
+	background: url(contacts/bottom_left.gif);
+}
+
+.wm_contacts_card_left
+{
+	width: 5px;
+	background: url(contacts/left.gif) repeat-y;
+}
+
+.wm_contacts_view
+{
+	font-size: 11px;
+	text-align: left;
+	margin: 20px 20px 0 20px;
+	vertical-align: middle;
+}
+
+.wm_contacts_view select
+{
+	font: normal 13px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_contacts_view .wm_hide_section
+{
+	text-align: right;
+	border-top: solid 1px #8D8C89;
+}
+
+.wm_contacts_name
+{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.wm_contacts_name a
+{
+	font-weight: normal !important;
+}
+
+.wm_contacts_section_name
+{
+	font-size: 14px;
+	font-weight: bold;
+	color: #405d7b;
+}
+
+.wm_contacts_email a, .wm_contacts_email a:hover
+{
+	font-size: 15px !important;
+	font-weight: bold;
+}
+
+.wm_contacts_groups a, .wm_contacts_groups a:hover
+{
+	font-size: 14px !important;
+}
+
+.wm_contacts_view img
+{
+	vertical-align: text-bottom;
+}
+
+.wm_contacts_view td
+{
+	padding: 3px;
+}
+
+.wm_contacts_view_title
+{
+	text-align: right !important;
+	width: 100px;
+}
+
+.wm_group_name_input
+{
+	width: 240px;
+}
+
+.wm_add_contacts
+{
+	width: 300px;
+}
+
+.wm_add_contacts_area
+{
+	width: 100%;
+	height: 70px;
+}
+
+.wm_contacts_view select
+{
+	font-size: 11px;
+}
+
+.wm_contacts_save_button
+{
+	text-align: right;
+	border-top: solid 1px #8D8C89;
+}
+
+.wm_contacts_tab
+{
+	background: #dbecff;
+	font-weight: bold;
+	cursor: hand;
+	cursor: pointer;
+	width: 94%;
+	margin: 0 15px 2px 15px;
+}
+
+.wm_contacts_tab_name
+{
+	display: block;
+	float: left;
+	margin: 2px;
+	color: #405d7b; 
+}
+
+.wm_contacts_tab_mode
+{
+	display: block;
+	float: right;
+	margin: 2px;
+}
+/*--contacts*/
+
+/*settings*/
+.wm_settings
+{
+	width: 100%;
+	border: 0;
+}
+
+.wm_settings_signature
+{
+	margin: 30px 30px 0 30px;
+}
+
+.wm_settings_nav
+{
+	background: #DBEAF5;
+	font: normal 12px Tahoma;
+	/*border-right: solid 1px #B1D3ED;*/
+	vertical-align: top;
+	padding: 10px 0 10px 10px;
+	width: 10%;
+}
+
+.wm_settings_nav div
+{
+	text-align: left;
+	padding: 6px;
+}
+
+.wm_settings_nav a
+{
+	color: Black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.wm_settings_nav a:hover
+{
+	color: Black;
+	text-decoration: underline;
+}
+
+.wm_settings_nav img
+{
+	width: 15px;
+	height: 12px;
+	vertical-align: middle;
+	margin-right: 6px;
+}
+
+.wm_selected_settings_item
+{
+	background: #f8fafb;
+	position: relative;
+	left: 1px;
+	/*border: solid 1px #B1D3ED;
+	border-right: 0;*/
+	padding: 5px !important;
+}
+
+.wm_settings_cont
+{
+	background: #f8fafb;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	text-align: left;
+}
+
+.wm_settings_cont a
+{
+	color: #405d7b;
+	text-align: left;
+	text-decoration: none;
+}
+
+.wm_settings_cont a:hover
+{
+	text-decoration: underline;
+}
+
+.wm_settings_cont td
+{
+	padding: 4px;
+}
+
+/*-------------*/
+.wm_settings_accounts_info, .wm_settings_part_info
+{
+	width: 690px;
+	height: 26px;
+	font-weight: bold;
+	border-bottom: solid 1px #7fa6cc;
+}
+
+.wm_settings_accounts_info
+{
+	margin: 30px 30px 0 30px;
+}
+
+.wm_settings_part_info
+{
+	margin: 15px 30px 0 30px;
+}
+
+.wm_settings_switcher_info
+{
+	float: left;
+	height: 18px;
+	padding: 4px 4px 0 4px;
+}
+
+.wm_settings_switcher_item
+{
+	float: right;
+	height: 18px;
+	border: solid 1px #b1d3ed;
+	border-width: 1px 0 0 1px;
+	margin-top: 3px;
+	background: #dbeaf5;
+	padding: 4px 4px 0 4px;
+}
+
+.wm_settings_switcher_select_item
+{
+	position: relative;
+	top: 1px;
+	background: #f8fafb;
+	float: right;
+	height: 21px;
+	border: solid 1px #7fa6cc;
+	border-bottom: 0;
+	padding: 4px 4px 0 4px;
+}
+
+.wm_settings_switcher_indent
+{
+	float: right;
+	margin-top: 3px;
+	width: 10px;
+	height: 23px;
+	border-left: solid 1px #b1d3ed;
+}
+/*-------------*/
+.wm_settings_manage_folders
+{
+	margin: 0 30px 0 30px;
+	table-layout: fixed;
+	font-size: 12px;
+}
+
+.wm_settings_manage_folders td
+{
+	padding: 2px;
+	text-align: center;
+	border-bottom: solid 1px #C7C7C7;
+}
+
+.wm_settings_manage_folders a
+{
+	color: Black;
+}
+
+.wm_settings_manage_folders select
+{
+	width: 140px;
+}
+
+.wm_settings_mf_headers, .wm_settings_mf_total
+{
+	background: url;
+	height: 20px;
+}
+
+.wm_settings_mf_folder
+{
+	text-align: left !important;
+}
+
+.wm_settings_manage_folders_folder img
+{
+	width: 15px;
+	height: 12px;
+}
+
+.wm_settings_mf_show_hide
+{
+	width: 16px;
+	height: 16px;
+}
+
+.wm_settings_mf_up_down
+{
+	white-space: nowrap;
+}
+
+.wm_settings_mf_up_down img
+{
+	width: 15px;
+	height: 14px;
+}
+
+.wm_settings_mf_total td
+{
+	border-bottom: 0 !important;
+}
+
+.wm_settings_mf_page_switcher
+{
+	text-align: right !important;
+}
+
+.wm_settings_mf_page_switcher a, .wm_settings_mf_page_switcher span
+{
+	padding: 2px;
+}
+
+.wm_settings_new_folder
+{
+	margin: 0 30px 0 30px;
+}
+
+.wm_settings_new_folder select
+{
+	width: 200px;
+}
+
+.wm_settings_new_folder .wm_input
+{
+	width: 195px;
+}
+
+.wm_settings_on_mailserver
+{
+	vertical-align: bottom;
+	padding-left: 30px;
+}
+/*-------------*/
+
+.wm_toolbar_separate
+{
+	width: 20px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.wm_settings_title
+{
+	text-align: right;
+}
+
+.wm_settings_common
+{
+	margin: 30px 30px 0 30px;
+	width: 690px;
+}
+
+.wm_settings_header
+{
+	font-weight: bold;
+}
+
+.wm_settings_help
+{
+	cursor: pointer;
+	cursor: hand;
+	width: 16px;
+	height: 16px;
+	margin: 0 0 3px 4px;
+	vertical-align: bottom;
+}
+
+.wm_settings_list
+{
+	background: #DBEAF5;
+	margin: 30px 30px 0 30px;
+	width: 690px;
+	border-right: solid 1px #b4d4ec;
+	border-left: solid 1px #b4d4ec;
+}
+
+.wm_settings_list table
+{
+	width: 100%;
+}
+
+.wm_settings_list_select
+{
+	background: #FAFAFA;
+}
+
+.wm_settings_list td
+{
+	border-top: solid 1px #b4d4ec;
+	border-bottom: solid 1px #b4d4ec;
+}
+
+.wm_settings_properties
+{
+	margin: 30px 30px 0 30px;
+}
+
+.wm_settings_properties select
+{
+	vertical-align: middle;
+}
+
+.wm_secondary_info
+{
+	color: #7E9BAF;
+	font-size: 11px;
+}
+
+table.wm_secondary_info
+{
+	margin: 0 30px 0 30px;
+	width: 690px;
+}
+
+td.wm_secondary_info
+{
+	text-align: left !important;
+	vertical-align: top;
+}
+
+label.wm_nextline_info
+{
+	margin-left: 16px;
+	$margin-left: 24px;
+}
+
+label.wm_inline_info
+{
+	margin-left: 6px;
+}
+
+.wm_settings_buttons, .wm_settings_add_account_button
+{
+	width: 690px;
+}
+
+.wm_settings_add_account_button
+{
+	margin: 15px 30px 0 30px;
+}
+
+.wm_settings_buttons
+{
+	border-top: solid 1px #7fa6cc;
+	margin: 15px 30px 15px 30px;
+}
+
+.wm_settings_buttons td, .wm_settings_add_account_button td
+{
+	text-align: right;
+}
+
+.wm_delete_button
+{
+	text-align: left !important;
+}
+
+.wm_settings_input
+{
+	width: 99.8%;
+}
+
+.wm_port_input
+{
+	width: 40px;
+	margin-left: 6px;
+}
+
+.wm_settings_para
+{
+	margin-left: 15px;
+}
+
+.wm_settings_edit_filter
+{
+	margin: 30px 30px 0 30px;
+}
+
+.wm_settings_edit_filter select
+{
+	width: 200px;
+}
+
+.wm_edit_filter_input
+{
+	width: 195px;
+}
+
+.wm_settings_filters
+{
+	margin: 30px 30px 30px 30px;
+}
+/*--settings*/
+
+/*lowtoolbar*/
+.wm_lowtoolbar
+{
+	height: 20px;
+	color: Black;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	background: #edf5ff;
+}
+
+.wm_lowtoolbar_messages, .wm_lowtoolbar_space_info
+{
+	display: block;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	color: #405d7b;
+	padding-left: 4px;
+}
+
+.wm_lowtoolbar_messages
+{
+	float: left;
+	padding: 4px 4px 0 4px;
+}
+
+.wm_lowtoolbar_space_info
+{
+	float: right;
+	padding: 8px;
+}
+
+.wm_lowtoolbar_space_info .wm_progressbar
+{
+	border: solid 1px #a3c8e8;
+}
+
+.wm_lowtoolbar_space_info .wm_progressbar_used
+{
+	background: #a3c8e8;
+}
+
+.wm_lowtoolbar_plain_html
+{
+	display: block;
+	float: left;
+	padding: 4px 4px 6px 4px;
+	font: normal 13px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_lowtoolbar_plain_html a
+{
+	color: #405d7b;
+	text-decoration: underline;
+}
+/*--lowtoolbar*/
+
+/*progressbar*/
+.wm_progressbar
+{
+	overflow: hidden;
+	width: 100px;
+	height: 3px;
+	padding: 2px;
+	border: solid 1px #a3c8e8;
+	background: White;
+}
+
+.wm_progressbar_used
+{
+	overflow: hidden;
+	display: block;
+	float: left;
+	background: #7fa6cc;
+	height: 3px;
+}
+/*--progressbar*/
+
+/*copyright*/
+.wm_copyright, .wm_copyright a, .wm_regular, .wm_regular a
+{
+	color: Black;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+	border: none;
+}
+
+.wm_copyright
+{
+	height: 40px;
+	margin-top: 30px;
+	text-align: center;
+}
+/*--copyright*/
+
+/*color palette*/
+.wm_palette_body
+{
+	position: absolute;
+	width: 286px;
+	height: 152px;
+	border: solid 1px #8D8C89;
+	background: #F1EEE7;
+}
+
+.wm_color_palette table
+{
+	margin: 4px;
+}
+
+.wm_color_palette td
+{
+	border: solid 1px #F1EEE7;
+}
+
+.wm_current_color_td
+{
+	text-align: center;
+	vertical-align: middle;
+	width: 20px;
+}
+
+.wm_current_color
+{
+	width: 20px;
+	height: 20px;
+	border: solid 1px #CCCCCC;
+}
+
+.wm_palette_color
+{
+	width: 11px;
+	height: 11px;
+	cursor: hand;
+	cursor: pointer;
+}
+/*--color palette*/
+
+.wm_drag_handle
+{
+	position: absolute;
+	font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.wm_drag_handle, .wm_drag_handle img, .wm_drag_handle span
+{
+	vertical-align: middle;
+}
+
+/*admin styles*/
+.wm_admin_center
+{
+	margin: 10px 30px 10px 30px;
+}
+
+.wm_admin_center_min
+{
+	margin: 10px 10px 10px 10px;
+}
+
+.wm_admin_title
+{
+	padding: 5px 0 5px 10px !important;
+	background-color: #DEDEDE;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.wm_user_table, .wm_user_table td, .wm_user_table th
+{
+	border: solid 1px silver;
+	font-size: 11px;
+}
+
+.wm_user_table tr.even td
+{
+	background-color: #EEEEEE;
+}
+
+.wm_user_table th
+{
+	background-color: #DEDEDE;
+	text-align: center;
+	height: 26px;
+	padding: 0 12px 0 12px;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.messdiv
+{
+	padding: 5px 0 5px 0 !important;
+	border: 1px solid White;
+}
+
+.wm_print_content
+{
+	padding: 4px;
+
+	background: White;
+	border: solid 1px #666666;
+	
+	color: Black;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+.wm_progressbar_used_blue
+{
+	overflow: hidden;
+	display: block;
+	position: absolute;
+	z-index: -15;
+	float: left;
+	background: #999999;
+	height: 3px;
+}
+/*--admin styles*/
+
+/*spellchecker*/
+.spell_popup_show 
+{ 
+	float: left; 
+	background-color: #DBEAF5;  
+	border: 1px #5B86A8 solid; 
+	position: absolute; 
+	z-index: 1; 
+	width: 180px;
+	font: normal 12px Tahoma, Arial, Helvetica, sans-serif;
+	cursor: default;
+}
+.spell_popup_hide 
+{ 
+	display: none; 
+}
+.spell_spanDeactive 
+{
+	color: black;
+	padding: 5px 5px 5px 5px;
+	background-color: #DBEAF5; 
+}
+.spell_spanActive
+{ 
+	color: black; 
+	padding: 5px 5px 5px 5px;
+	background-color: #F8FCFF; 
+}
+.spell_backLayer
+{
+	float: left; 
+	position: absolute; 
+	display: none;
+	z-index: 1;
+}
+/*--spellchecker*/

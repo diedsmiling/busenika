@@ -1,0 +1,3 @@
+<Files settings.xml>
+  deny from all
+</Files>

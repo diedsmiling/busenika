@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>required_products</id>
+	<name>Required products</name>
+	<priority>3900</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

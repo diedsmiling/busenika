@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>age_verification</id>
+	<name>Age verification</name>
+	<priority>2900</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

@@ -1,0 +1,14 @@
+<orders>
+	<item title="gift_certificates" dispatch="gift_certificates.manage" />
+
+	<side>
+		<item group="gift_certificates.add" title="gift_certificates" href="%INDEX_SCRIPT?dispatch=gift_certificates.manage" />
+
+		<item group="gift_certificates.update" title="add_gift_certificate" href="%INDEX_SCRIPT?dispatch=gift_certificates.add" />
+		<item group="gift_certificates.update" title="delete_this_certificate" href="%INDEX_SCRIPT?dispatch=gift_certificates.delete&amp;gift_cert_id=%GIFT_CERT_ID" meta="cm-confirm" />
+
+		<item group="statuses.manage" extra="type=G" title="add_gift_certificate" href="%INDEX_SCRIPT?dispatch=gift_certificates.add" />
+
+		<item group="profiles.update" extra="user_type=C" title="create_gift_certificate_for_customer" href="%INDEX_SCRIPT?dispatch=gift_certificates.add&amp;user_id=%USER_ID" />
+	</side>
+</orders>

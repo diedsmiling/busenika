@@ -1,0 +1,10 @@
+/* Site news */
+.site-news li {
+	padding: 2px 0 3px 0;
+}
+.site-news li strong {
+	font: bold 85% Tahoma;
+	display: block;
+	padding-bottom: 1px;
+}
+/* /Site news */

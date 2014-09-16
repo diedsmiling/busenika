@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<addon>
+	<id>google_analytics</id>
+	<name>Google Analytics</name>
+	<priority>2000</priority>
+	<position>230</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="tracking_code">
+				<name>Google Analytics account number</name>
+				<type>input</type>
+				<default_value></default_value>
+				<translations>
+					<item lang="ES">Código de seguimiento</item>
+					<item lang="FR">Tracking code</item>
+				</translations>
+			</item>
+			<item id="track_ecommerce">
+				<name>Track e-commerce transactions</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="ES">Rastrear transacciones de e-commerce</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

@@ -1,0 +1,11 @@
+<administration>
+	<item title="statistics" dispatch="statistics.reports" />
+
+	<side>		
+		<item group="statistics" title="users_online" href="%INDEX_SCRIPT?dispatch=statistics.visitors&amp;section=general&amp;report=online" />
+		<item group="statistics" title="all_users" href="%INDEX_SCRIPT?dispatch=statistics.visitors&amp;section=general&amp;client_type=U" />
+		<item group="statistics" title="remove_statistics" href="%INDEX_SCRIPT?dispatch=statistics.delete" meta="cm-confirm" />
+		<item group="banners.manage" title="banners_statistics" href="%INDEX_SCRIPT?dispatch=statistics.banners" />
+	</side>
+
+</administration>

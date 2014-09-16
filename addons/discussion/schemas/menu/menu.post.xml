@@ -1,0 +1,6 @@
+<content>
+	<item title="comments_and_reviews" dispatch="discussion_manager.manage" />
+</content>
+<content>
+	<item title="discussion_title_home_page" dispatch="discussion.update&amp;discussion_type=E" />
+</content>

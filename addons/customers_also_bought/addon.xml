@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<addon>
+	<id>customers_also_bought</id>
+	<name>Customers also bought</name>
+	<priority>900</priority>
+	<position>110</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="DE">andere vom Kunden gekaufte Artikel</item>
+		<item for="name" lang="ES">Clientes también compraron</item>
+		<item for="name" lang="FR">Les clients ont aussi acheté</item>
+		<item for="name" lang="IT">I nostri clienti hanno anche comprato</item>
+		<item for="name" lang="NL">Klanten kochten ook</item>
+	</translations>
+</addon>

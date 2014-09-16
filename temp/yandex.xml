@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2011-11-17 13:07">
+    <shop>
+        <name>Lindero</name>
+        <company>Lindero</company>
+        <url>http://www.lindero.ru</url>
+        <currencies>
+			<currency id="RUR" rate="1" plus="0"/>
+		</currencies>
+		<categories>
+			<category id="215">Кухонная посуда</category>
+			<category id="250">Аксессуары для кухни</category>
+			<category id="387">Спецпредложения</category>
+			<category id="393">Уход за одеждой</category>
+			<category id="399">Товары для ванной и туалета</category>
+			<category id="268">Термосы</category>
+			<category id="410">Товары для офиса</category>
+			<category id="225">Фондю</category>
+			<category id="216">Хозинвентарь</category>
+			<category id="217">Товары для хранения</category>
+			<category id="218">Столовая посуда</category>
+			<category id="219">Товары для пикника</category>
+			<category id="223">Посуда для бара</category>
+			<category id="224">Товары для детей</category>
+			<category id="241">Сервировка стола</category>
+			<category id="280" parentId="215">Сотейники</category>
+			<category id="248" parentId="215">Крышки</category>
+			<category id="247" parentId="215">Формы для выпечки и запекания</category>
+			<category id="246" parentId="215">Чайники, кофейники и френч-прессы</category>
+			<category id="283" parentId="215">Утятницы</category>
+			<category id="244" parentId="215">Ковши</category>
+			<category id="240" parentId="215">Кухонные ножи</category>
+			<category id="239" parentId="215">Сковороды</category>
+			<category id="238" parentId="215">Кастрюли</category>
+			<category id="237" parentId="215">Наборы посуды</category>
+			<category id="297" parentId="215">Скороварки, пароварки</category>
+			<category id="259" parentId="216">Швабры</category>
+			<category id="260" parentId="216">Гладильные доски</category>
+			<category id="261" parentId="216">Сушилки для белья</category>
+			<category id="262" parentId="216">Стремянки</category>
+			<category id="401" parentId="216">Щетки</category>
+			<category id="405" parentId="216">Тряпки для пола</category>
+			<category id="411" parentId="216">Табуреты, подставки</category>
+			<category id="400" parentId="216">Мешки для мусора</category>
+			<category id="402" parentId="216">Совки</category>
+			<category id="254" parentId="216">Ведра для мусора</category>
+			<category id="386" parentId="216">Коврики</category>
+			<category id="384" parentId="216">Корзины для белья</category>
+			<category id="365" parentId="216">Ведра</category>
+			<category id="409" parentId="217">Комоды</category>
+			<category id="363" parentId="217">Контейнеры для корма животных</category>
+			<category id="256" parentId="217">Ящики для инструментов</category>
+			<category id="258" parentId="217">Чехлы для одежды</category>
+			<category id="255" parentId="217">Корзины и ящики</category>
+			<category id="251" parentId="217">Банки</category>
+			<category id="252" parentId="217">Пищевые контейнеры</category>
+			<category id="257" parentId="217">Вешалки для одежды</category>
+			<category id="303" parentId="218">Масленки, соусники</category>
+			<category id="342" parentId="218">Блюда и корзины для фруктов</category>
+			<category id="347" parentId="218">Стаканы</category>
+			<category id="296" parentId="218">Кокотницы</category>
+			<category id="304" parentId="218">Креманки</category>
+			<category id="302" parentId="218">Супницы, бульонницы</category>
+			<category id="282" parentId="218">Кофейные сервизы</category>
+			<category id="242" parentId="218">Кружки</category>
+			<category id="229" parentId="218">Салатники, пиалы</category>
+			<category id="228" parentId="218">Тарелки</category>
+			<category id="265" parentId="218">Сахарницы, молочники</category>
+			<category id="266" parentId="218">Кувшины и наборы для воды</category>
+			<category id="226" parentId="218">Столовые сервизы</category>
+			<category id="227" parentId="218">Чайные сервизы</category>
+			<category id="230" parentId="218">Блюда, селедочницы</category>
+			<category id="437" parentId="218">Этажерки</category>
+			<category id="373" parentId="219">Коптильни</category>
+			<category id="374" parentId="219">Мебель для пикника</category>
+			<category id="372" parentId="219">Мангалы</category>
+			<category id="366" parentId="219">Туристические холодильники</category>
+			<category id="362" parentId="219">Фляги</category>
+			<category id="269" parentId="219">Шампуры</category>
+			<category id="300" parentId="219">Термосы</category>
+			<category id="299" parentId="219">Аксессуары для барбекю</category>
+			<category id="375" parentId="219">Одноразовая посуда</category>
+			<category id="385" parentId="219">Наборы для пикника</category>
+			<category id="270" parentId="219">Решетки-гриль</category>
+			<category id="367" parentId="223">Креманки</category>
+			<category id="231" parentId="223">Бокалы для вина</category>
+			<category id="353" parentId="223">Графины и кувшины</category>
+			<category id="350" parentId="223">Аксессуары</category>
+			<category id="346" parentId="223">Стаканы низкие</category>
+			<category id="345" parentId="223">Стаканы высокие</category>
+			<category id="236" parentId="223">Шейкеры</category>
+			<category id="349" parentId="223">Посуда для пива</category>
+			<category id="235" parentId="223">Рюмки и стопки</category>
+			<category id="233" parentId="223">Бокалы для коктейлей</category>
+			<category id="232" parentId="223">Бокалы для коньяка</category>
+			<category id="234" parentId="223">Бокалы для шампанского</category>
+			<category id="403" parentId="224">Детская мебель</category>
+			<category id="348" parentId="224">Наборы посуды</category>
+			<category id="305" parentId="224">Пиалы и бульонницы</category>
+			<category id="306" parentId="224">Кружки</category>
+			<category id="307" parentId="224">Стаканы</category>
+			<category id="264" parentId="224">Ящики для игрушек</category>
+			<category id="263" parentId="224">Тарелки и салатники</category>
+			<category id="408" parentId="224">Для ванной и туалета</category>
+			<category id="308" parentId="224">Столовые приборы</category>
+			<category id="309" parentId="224">Вешалки для одежды</category>
+			<category id="351" parentId="225">Металлические фондю</category>
+			<category id="352" parentId="225">Керамические фондю</category>
+			<category id="289" parentId="240">Аксессуары для ножей</category>
+			<category id="315" parentId="240">Наборы ножей</category>
+			<category id="295" parentId="240">Топорики</category>
+			<category id="294" parentId="240">Ножи для хлеба</category>
+			<category id="293" parentId="240">Ножи для овощей</category>
+			<category id="291" parentId="240">Шеф-ножи</category>
+			<category id="290" parentId="240">Универсальные ножи</category>
+			<category id="292" parentId="240">Разделочные ножи</category>
+			<category id="275" parentId="241">Наборы столовых приборов</category>
+			<category id="298" parentId="241">Предметы для сервировки</category>
+			<category id="276" parentId="241">Вилки</category>
+			<category id="277" parentId="241">Ложки</category>
+			<category id="438" parentId="241">Салфетки, маты</category>
+			<category id="287" parentId="246">Френч-прессы</category>
+			<category id="285" parentId="246">Заварочные чайники</category>
+			<category id="284" parentId="246">Наплитные чайники</category>
+			<category id="286" parentId="246">Кофейники</category>
+			<category id="288" parentId="246">Турки</category>
+			<category id="370" parentId="247">Керамические формы</category>
+			<category id="369" parentId="247">Силиконовые формы</category>
+			<category id="368" parentId="247">Металлические формы</category>
+			<category id="390" parentId="247">Стеклянные формы</category>
+			<category id="337" parentId="250">Ложки, половники</category>
+			<category id="328" parentId="250">Формы для льда</category>
+			<category id="325" parentId="250">Хлебницы</category>
+			<category id="332" parentId="250">Прихватки, подставки, держатели</category>
+			<category id="341" parentId="250">Кондитерские принадлежности</category>
+			<category id="339" parentId="250">Венчики и картофелемялки</category>
+			<category id="338" parentId="250">Лопатки и вилки</category>
+			<category id="336" parentId="250">Ножи и овощечистки</category>
+			<category id="335" parentId="250">Терки и резки</category>
+			<category id="334" parentId="250">Консервные ножи и штопора</category>
+			<category id="340" parentId="250">Щипцы</category>
+			<category id="361" parentId="250">Разное</category>
+			<category id="371" parentId="250">Прессы и орехоколы</category>
+			<category id="327" parentId="250">Ведра для мусора</category>
+			<category id="326" parentId="250">Наборы для специй</category>
+			<category id="329" parentId="250">Разделочные доски</category>
+			<category id="330" parentId="250">Скалки и молотки</category>
+			<category id="331" parentId="250">Дуршлаги и сита</category>
+			<category id="357" parentId="268">Термокружки</category>
+			<category id="360" parentId="268">Термосы с помпой</category>
+			<category id="355" parentId="268">Термосы с узким горлом</category>
+			<category id="356" parentId="268">Термосы с широким горлом</category>
+			<category id="358" parentId="268">Термосы-кувшины</category>
+			<category id="359" parentId="268">Универсальные термосы</category>
+			<category id="388" parentId="387">Акция &quot;30x20&quot;</category>
+			<category id="394" parentId="393">Гладильные доски</category>
+			<category id="395" parentId="393">Сушилки для белья</category>
+			<category id="396" parentId="393">Корзины для белья</category>
+			<category id="397" parentId="393">Чехлы для одежды</category>
+			<category id="398" parentId="393">Вешалки для одежды</category>
+			<category id="404" parentId="393">Мешки для стирки белья</category>
+			<category id="406" parentId="399">Товары для ванной комнаты</category>
+			<category id="407" parentId="399">Товары для туалета</category>
+			<category id="432" parentId="410">Мешки для мусора</category>
+			<category id="431" parentId="410">Коврики</category>
+			<category id="429" parentId="410">Ведра для мусора</category>
+			<category id="428" parentId="410">Френч-прессы</category>
+			<category id="426" parentId="410">Столовые приборы</category>
+			<category id="430" parentId="410">Вешалки для одежды</category>
+			<category id="424" parentId="410">Рюмки и стопки</category>
+			<category id="423" parentId="410">Бокалы</category>
+			<category id="422" parentId="410">Стаканы</category>
+			<category id="421" parentId="410">Кружки</category>
+			<category id="418" parentId="410">Столовые сервизы</category>
+			<category id="419" parentId="410">Чайные сервизы</category>
+			<category id="420" parentId="410">Кофейные сервизы</category>
+			<category id="425" parentId="410">Сахарницы</category>
+		</categories>
+				<offers>
+					<offer available="true" id="31779">
+						<url>http://lindero.ru/index.php?dispatch=products.view&amp;product_id=31779&amp;from=ya</url>
+						<price>1190</price>
+						<currencyId>RUR</currencyId>
+						<categoryId>324</categoryId>
+						<picture>http://lindero.ru/images/thumbnails/2/120/Luminarc_G2288_SMALL.jpg</picture>
+						<name>Чайный сервиз Lily Flower, 220 мл. [G2288]</name>
+						<description></description>
+					</offer>
+					<offer available="true" id="31779">
+						<url>http://lindero.ru/index.php?dispatch=products.view&amp;product_id=31779&amp;from=ya</url>
+						<price>1190</price>
+						<currencyId>RUR</currencyId>
+						<categoryId>227</categoryId>
+						<picture>http://lindero.ru/images/thumbnails/2/120/Luminarc_G2288_SMALL.jpg</picture>
+						<name>Чайный сервиз Lily Flower, 220 мл. [G2288]</name>
+						<description></description>
+					</offer>
+				</offers>
+			</shop>
+		</yml_catalog>

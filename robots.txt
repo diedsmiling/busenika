@@ -1,0 +1,14 @@
+User-agent: *
+Host: korzin.net
+Disallow: /images/thumbnails/
+Disallow: /skins/
+Disallow: /payments/
+Disallow: /store_closed.html
+Disallow: /core/
+Disallow: /lib/
+Disallow: /install/
+Disallow: /js/
+Disallow: /schemas/
+Disallow: index.php?dispatch=checkout.cart
+Disallow: index.php?dispatch=checkout.checkout
+

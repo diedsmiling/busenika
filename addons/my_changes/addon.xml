@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>my_changes</id>
+	<name>My changes</name>
+	<priority>4294967294</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

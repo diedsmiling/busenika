@@ -1,0 +1,57 @@
+body, .wmh_reg
+{
+	background-color: white;
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	margin: 0px;
+	padding: 5px;
+}
+
+.wmh_header
+{
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+a
+{
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: blue;
+}
+
+a.wmh_txt
+{
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: black;
+}
+
+.wmh_codeSample
+{
+	display: block;
+/*	width: 300px;*/
+	background-color: #efefef;
+	color: black;
+	padding: 10px;
+	font-family: "Courier New", Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+.wmh_desc_header
+{
+	background-color: #efefef;
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	border: solid 1px #999;
+}
+
+.wmh_desc_content
+{
+	background-color: #ffffff;
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	border: solid 1px #999;
+	vertical-align: top;
+}

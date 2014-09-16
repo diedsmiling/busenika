@@ -1,0 +1,92 @@
+.chain-content {
+	clear: both;
+	padding: 12px;
+	padding-top: 0px;
+}
+.chain-name {
+	width: 100%;
+	clear: both;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.chain-products {
+	vertical-align: top;
+}
+.chain-product {
+	width: 116px;
+	text-align: center;
+	padding-top: 15px;
+	margin: 6px 0px 0px 0px;
+	color: #898989;
+	font: normal 77% Verdana, Geneva, Arial, Helvetica, sans-serif;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.chain-product-options {
+	text-align: left;
+}
+
+.chain-plus {	
+	font-size: 169%;
+	font-weight: bold;
+	color: #999999;
+	display: inline-block;
+	margin: 0 8px;
+}
+.chain-price {
+	clear: left;
+	padding: 15px 3px;
+	margin-right: 5px;
+	float: right;
+	text-align: left;
+}
+.chain-old {
+	width: 150px;
+	float: left;
+	padding-right: 30px;
+	font: bold 108% Tahoma;
+	text-align: right;
+}
+.chain-new {
+	width: 150px;
+	float: left;
+	padding-right: 30px;
+	font-weight: bold;
+	font-family: Arial;
+	text-align: right;
+	color: #000000;
+}
+.chain-old-price {
+	font-weight: bold;
+	font-family: Tahoma;
+}
+.chain-new-price {
+	color: #990000;
+	padding-top: 9px;
+	font: bold 138% Arial;
+}
+.chain-old-line {
+	text-decoration: line-through;
+}
+.chain-button {
+	margin-top: 15px;
+}
+.chain-note {
+	text-align: center;
+	color: #898989;
+	white-space: normal;
+}
+.chain-description {
+	display: block;
+	clear: both;
+	margin: 2px;
+	margin-top: 18px;
+	padding: 3px;
+}
+.cm-tabs-content .object-container ul li, .cm-tabs-content .object-container .form-field ul li {
+	background-image: none;
+}
+.chain-product .popup-notes-content {
+	font-size: 132%;
+}

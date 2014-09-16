@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=utf-8">
+		<link rel="stylesheet" href="help_styles.css" type="text/css">
+	</head>
+	<body>
+		<br>
+		<table border="0" cellpadding="0" cellspacing="0" width="90%" class="wmh_reg">
+			<tr>
+				<td align="center" class="wmh_header">AfterLogic XMail Integration Instructions for (Unix) Windows</td>
+			<tr>
+				<td>
+					<br>
+					<ol>
+						<li>
+							Download and install AfterLogic XMail Server using the installation instructions shipped with the product.<br>
+							<br><br>
+						</li>
+						<li>
+						    Make sure you've created at least one domain in AfterLogic XMail Server configuration. This step is
+						    required for proper integration of the products.<br>
+							<br><br>
+						</li>
+						<li>
+						    Grant full control permission to web server process:<br>
+						    - <b>apache.apache</b> user for Apache<br>
+						    - <b>Internet Guest Account (IUSR_YOUR_SERVER_NAME)</b> user for IIS<br>
+						    over <b><font color="blue">XMail/MailRoot/domains</font></b> folder and wm.tab file.
+							<br><br>
+						</li>
+						<li>
+						    In WebMail Admin Console / <a href="webmail_administration.html#7">Mail Server Integration</a>,
+						    turn "Enable Integration" option on and specify correct path to XMail/MailRoot folder in "Path to Server" field.
+						    Also, you need to specify address of the server AfterLogic XMail
+							Server is installed on in "Server Host" field.
+							If you need accounts created/removed in WebMail to be created/removed
+							on AfterLogic XMail Server too, enable "Allow users to manage accounts on AfterLogic XMail Server".
+							<br><br>
+							In this case, if a user adds or removes a linked account in his
+							primary account settings and domain part of this account matches any of
+							your domains hosted by AfterLogic XMail Server, this account will be
+							added/removed on AfterLogic XMail Server.
+							<br><br>
+						</li>
+					</ol>
+					<br>
+					<hr>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					If you have any questions don't hesitate to email to						support@afterlogic.com<br>
+					Or visit our support web page at http://www.afterlogic.com/support<br>
+					or web forum at http://www.afterlogic.com/forum
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

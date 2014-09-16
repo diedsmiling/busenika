@@ -1,0 +1,100 @@
+CS-Cart Installation Instructions
+---------------------------------
+
+The instructions below are about CS-Cart installation on a hosting 
+server accessible on the Internet. If you would like to make a CS-Cart 
+installation on your local computer (desktop), please download the 
+"How to install CS-Cart on a local computer" manual on the "File area"
+page in our Customer Help Desk (https://helpdesk.cs-cart.com).
+
+Briefly, CS-Cart installation includes the following steps:
+
+1)  extracting the software distribution package and uploading the files 
+    to a web server;
+
+2)  setting file access permissions;
+
+3)  creating a MySQL database;
+
+4)  running the Installation Wizard.
+
+
+1.  The first step is to uncompress the CS-Cart distribution package (the 
+    "cscart_vX.X.X.tgz" or "cscart_vX.X.X.zip" file) anywhere under your 
+    web server directory.
+
+    On a WINDOWS-based server, you can do it with any TAR- or ZIP-compatible 
+    archive software.
+
+    On a UNIX-based server with terminal access to it, please run one of 
+    the following commands depending on the package file format:
+
+    tar -xzvf cscart_vX.X.X.tgz
+    or
+    unzip cscart_vX.X.X.zip
+
+    NOTE: Most versions of control panel have the so-called file manager 
+    that allows to unpack a TGZ or ZIP archive by one click.
+
+    If none of the ways above works for you, you should extract the 
+    distribution package on your local computer using any TAR- 
+    or ZIP-compatible archive software, e.g. WinRAR (you can download it here: 
+    http://www.rarlab.com/rar/wrar370.exe) and upload all the files to your 
+    server via FTP.
+
+2.  The next step is setting file access permissions.
+    On a UNIX-based server with terminal access to it, run the following 
+    commands one by one:
+
+    chmod 666 config.local.php
+    chmod -R 777 catalog
+    chmod -R 777 images
+    chmod -R 777 skins
+    chmod -R 777 var
+
+    If you do not have terminal access to your server, you can change file
+    access permissions using an FTP client. Most of them have the "Change 
+    permissions" or "Change mode" functions. With the help of the function 
+    you are to set the permissions for the 'config.local.php' file and the 
+    directories above. The 'chmod 666 config.local.php' command means that 
+    you must set 666 permissions (in other words, read and write permissions 
+    for the file user, group and other) for the 'config.local.php' file. Other 
+    commands (e.g. 'chmod -R 777 catalog') mean that you must set 777 (read,
+    write and execute) permissions for the directory, its subdirectories and 
+    all the files under these directories. Please refer to your FTP client 
+    documentation for more detailed instructions on setting file permissions.
+
+    In order to set the same file access permissions on a WINDOWS-based 
+    server, you may need to give full permissions for the files and 
+    directories to the user with the IUSER_ComputerName account.
+
+3.  Then create a MySQL database (you may need to create a MySQL user before 
+    that) in your website control panel. Remember the MySQL name, host, user 
+    name and password to use them at the next installation step.
+
+4.  The last major installation step is running the CS-Cart Installation 
+    Wizard. In your browser go to the following URL:
+
+    http://www.my_site.com/install/ 
+    (replace "my_site.com" with your site's URL).
+
+    Now you should follow the Installation Wizard. The installation progress 
+    is shown in the 'Installation steps' box on the left.
+
+
+                                 + + + + + + +
+
+
+Please report bugs and suggestions using our Customer Help Desk:
+
+https://helpdesk.cs-cart.com
+
+                                 + + + + + + +
+
+Copyright (c) 2009 Simbirsk Technologies LTD. All rights reserved.
+
+                                 + + + + + + +
+
+Thank you for choosing us.
+
+CS-Cart Team

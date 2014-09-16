@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=iso8859-1"> 
+	<link rel="stylesheet" href="help_styles.css" type="text/css">
+</head>
+
+<body>
+<br>
+<p class="wmh_header" align="center">WebMail F.A.Q.</p>
+<p class="wmh_reg">
+	1. <a href="#1">Messages in my mailbox are truncated to certain size (I'm using MS SQL
+Server as a back-end for WebMail). What's wrong?</a><br>
+	<br>
+	2. <a href="#2">Fatal error: Allowed memory size of [###] bytes exhausted (tried to allocate [###] bytes) in [path]/[file].php on line [###]</a><br>
+	<br>
+	3. <a href="#3">Administration settings disappeared. Why?</a><br>
+	<br>
+	4. <a href="#4">Error while attaching files to messages. Please advice.</a><br>
+	<br>
+	5. <a href="#5">I can't see embedded graphics while viewing HTML-formatted email message. Any suggestions?</a><br>
+	<br>
+	6. <a href="#6">Does the POP3 protocol support Read/Unread messages or is it "home made" by WebMail?<br>
+	Is there anyway of displaying a "New mail" icon through the POP3 protocol?</a><br>
+	<br>
+</p>
+
+<p class="wmh_reg">
+	<a name="1" class="wmh_txt"><b>1. Messages in my mailbox are truncated to certain size (I'm using MS SQL
+Server as a back-end for WebMail). What's wrong?</b></a><br>
+	<br>
+Most probably, MS SQL Server limitations specified in your PHP
+configuration are too small. Increase the following values in your
+php.ini:
+<br><br>
+
+; Valid range 0 - 2147483647.  Default = 4096.
+<br>mssql.textlimit = 99999999
+
+<br><br>
+; Valid range 0 - 2147483647.  Default = 4096.
+<br>mssql.textsize = 99999999
+
+<br><br>
+After editing the PHP configuration file, you will probably
+need to restart your webserver. Check your server manual to find out
+how to do that.
+<br><br>
+Please note, these changes won't affect messages which are already 
+stored in the database, it will affect new messages only.
+	<br>
+</p><br>
+
+<p class="wmh_reg">
+	<a name="2" class="wmh_txt"><b>2. Fatal error: Allowed memory size of [###] bytes exhausted (tried to allocate [###] bytes) in [path]/[file].php on line [###]</b></a><br>
+	<br>
+This error caused by limitation of memory available for PHP script.
+<br><br>
+Increase the PHP configuration setting memory_limit (see the [PHP
+manual]). After editing the PHP configuration file, you will probably
+need to restart your webserver. Check your server manual to find out
+how to do that.
+<br><br>
+You should add the following line (or change existing) into your php.ini file:
+<br><br>
+memory_limit = 60M
+<br><br>
+We recommend you to specify not lesser than 50M because large messages require additional memory for processing.
+	<br>
+</p><br>
+
+<p class="wmh_reg">
+	<a name="3" class="wmh_txt"><b>3. Administration settings disappeared. Why?</b></a><br>
+	<br>
+First, make sure the correct path to the WebMail data folder is
+specified in inc_settings_path.php file.
+<br><br>
+Common reason of settings not being saved is read-only permission to
+the WebMail data folder or its contents. Check whether Internet Guest Account (or Apache user for Unix/Linux platform) has "write" permission over the data folder and all its contents.	<br>
+</p><br>
+
+<p class="wmh_reg">
+	<a name="4" class="wmh_txt"><b>4. Error while attaching files to messages. Please advice.</b></a><br>
+	<br>
+Common problem with attachments is insufficient permissions for
+attachments folder ("Path For Upload Attachments" defined in
+Administration panel). IIS anonymous user must have "Full Control"
+permission to this folder.
+<br><br>
+Also, if you are using IIS 6, size of a file that can be uploaded onto
+the server is limited to 200K by default. You can increase this limit
+according to you needs. To do this, type "notepad
+%WINDIR%\system32\inetsrv\MetaBase.xml" in command line, search for
+the "AspMaxRequestEntityAllowed" property, and specify necessary size
+in bytes, then save this file. Please note, "Enable Direct Metabase
+Edit" must be turned on, in other case, you will not be able to edit
+this file. To check this option, look at your host properties in
+Internet Information Services (IIS) Manager.
+<br><br>
+Also, attachments size may be limited in PHP configuration. Open
+your php.ini file and locate the following lines:
+<br><br>
+upload_max_filesize = 2M
+<br>
+post_max_size = 8M
+<br><br>
+You should set these limits according to your needs,
+but post_max_size should be equal to at least upload_max_filesize * 2.
+	<br>
+</p>
+
+<p class="wmh_reg">
+	<a name="5" class="wmh_txt"><b>5. I can't see embedded graphics while viewing HTML-formatted email message. Any suggestions?</b></a><br>
+	<br>
+	See <a href="#4">Answer #4</a><br>
+	<br>
+</p>
+
+<p class="wmh_reg">
+	<a name="6" class="wmh_txt"><b>6. Does the POP3 protocol support Read/Unread messages or is it "home made" by WebMail?<br>
+		Is there anyway of displaying a "New mail" icon through the POP3 protocol?</b></a><br>
+	<br>
+	MailBee WebMail provides this functionality itself ("home made"). Unfortunately, POP3 protocol itself does not
+	support read/unread status. MailBee WebMail Pro system uses database where IDs of messages are stored.<br>
+	<br>
+	However, some POP3 servers append "Status" header to the each message. This header
+	can take 2 values - "R" for Read and "U" for Unread. 
+	But this method is not reliable because many popular servers do not support it.<br>
+	<br>
+</p>
+
+<hr>
+
+<p class="wmh_reg" align="center">
+If you have any questions don't hesitate to email to support@afterlogic.com<br>
+Or visit our support web page at http://www.afterlogic.com/support<br>
+or web forum at http://www.afterlogic.com/forum
+</p>
+
+</body>
+</html>

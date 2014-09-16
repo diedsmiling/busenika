@@ -1,0 +1,61 @@
+.posts {
+	padding: 7px 6px 10px 10px;
+}
+.manage-post {
+	background-color: #f2fafc;
+}
+.posts h2 {
+	font: bold 100% Tahoma;
+	float: left;
+	padding: 2px 0 0 0;
+}
+.posts .float-right {
+	padding-top: 5px;
+}
+.post-author {
+	text-align: right;
+	padding: 3px 0 0 0;
+	font-size: 85%;
+}
+.posts em {
+	font-size: 85%;
+}
+.post-message {
+	padding: 0;
+	font-style: italic;
+}
+.left-column .post-author, .right-column .post-author {
+	padding: 3px 0 15px 0;
+}
+/* Rating styles */
+#content_discussion p.stars {
+	margin: 2px 0 10px 0;
+	padding: 0;
+}
+.product-main-info .stars img {
+	margin: 0;
+	padding-top: 3px;
+}
+.product-main-info .stars {
+	float: left;
+	padding: 0 5px 0 0;
+}
+.product-main-info .image-border .stars {
+	float: none;
+	padding: 8px 0 0 0;
+	text-align: center;
+}
+.stars {
+	padding-bottom: 0;
+}
+#content_discussion p.stars {
+	padding: 3px 0 15px 0;
+	text-align: right;
+	margin: 0;
+}
+.product-image .stars img, .product-item-image .stars img, .feature-image .stars img, .image-border .stars img, .mainbox2-body .product-image .stars img, .mainbox2-body .product-item-image .stars img, .mainbox2-body .mainbox2-body .feature-image .stars img, .mainbox2-body .image-border .stars img  {
+	border: 0 none;
+	background-color: transparent;
+	padding: 0;
+}
+/* /Rating styles */

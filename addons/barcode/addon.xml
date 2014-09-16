@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<addon>
+	<id>barcode</id>
+	<name>Order barcode</name>
+	<priority>2500</priority>
+	<position>4</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">Códico de barras de pedido</item>
+		<item for="name" lang="FR">Activer les codes barre</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="elm_image">
+				<name>Image</name>
+				<type>header</type>
+				<translations>
+					<item lang="ES">Imagen</item>
+				</translations>
+			</item>
+			<item id="elm_image_info">
+				<name></name>
+				<type>info</type>
+				<handler>fn_get_barcode_image</handler>
+			</item>
+			<item id="elm_configs">
+				<name>Configs</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Configuración</item>
+					<item lang="FR">Configurations</item>
+				</translations>
+			</item>
+			<item id="type">
+				<name>Type</name>
+				<type>selectbox</type>
+				<default_value>C128B</default_value>
+				<variants>
+					<item id="C128A">
+						<name>Code 128-A</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="C128B">
+						<name>Code 128-B</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="C128C">
+						<name>Code 128-C</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="I25">
+						<name>Interleaved 2 of 5</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="C39">
+						<name>Code 39</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Tipo</item>
+				</translations>
+			</item>
+			<item id="output">
+				<name>Output</name>
+				<type>selectbox</type>
+				<default_value>png</default_value>
+				<variants>
+					<item id="png">
+						<name>Portable Network Graphics (PNG)</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="jpeg">
+						<name>Joint Photographic Experts Group (JPEG)</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Salida</item>
+				</translations>
+			</item>
+			<item id="text">
+				<name>Text</name>
+				<type>selectbox</type>
+				<default_value>Y</default_value>
+				<variants>
+					<item id="N">
+						<name>Disabled</name>
+						<translations>
+							<item lang="ES">Desactivado</item>
+						</translations>
+					</item>
+					<item id="Y">
+						<name>Enabled</name>
+						<translations>
+							<item lang="ES">Activado</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Texto</item>
+					<item lang="FR">Texte</item>
+				</translations>
+			</item>
+			<item id="height">
+				<name>Height,px</name>
+				<type>input</type>
+				<default_value>60</default_value>
+				<translations>
+					<item lang="ES">Altura,px</item>
+					<item lang="FR">Hauteur,px</item>
+				</translations>
+			</item>
+			<item id="width">
+				<name>Width,px</name>
+				<type>input</type>
+				<default_value>250</default_value>
+				<translations>
+					<item lang="ES">Ancho,px</item>
+					<item lang="FR">Largeur,px</item>
+				</translations>
+			</item>
+			<item id="resolution">
+				<name>Resolution</name>
+				<type>radiogroup</type>
+				<default_value>1</default_value>
+				<variants>
+					<item id="1">
+						<name>    1</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="2">
+						<name>    2</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="3">
+						<name>    3</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Resolución</item>
+					<item lang="FR">Résolution</item>
+				</translations>
+			</item>
+			<item id="text_font">
+				<name>Text Font</name>
+				<type>radiogroup</type>
+				<default_value>3</default_value>
+				<variants>
+					<item id="1">
+						<name>1</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="2">
+						<name>2</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="3">
+						<name>3</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="4">
+						<name>4</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="5">
+						<name>5</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Fuente del tecto</item>
+				</translations>
+			</item>
+			<item id="prefix">
+				<name>Barcode prefix</name>
+				<type>input</type>
+				<default_value>FF45CR99</default_value>
+				<translations>
+					<item lang="ES">Prefijo del código</item>
+				</translations>
+			</item>
+			<item id="elm_specification">
+				<name>Specification</name>
+				<type>header</type>
+				<handler></handler>
+				<translations>
+					<item lang="ES">Especificación</item>
+					<item lang="FR">Spécification</item>
+				</translations>
+			</item>
+			<item id="elm_spec_descr">
+				<name></name>
+				<type>info</type>
+				<handler>fn_get_barcode_specification</handler>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

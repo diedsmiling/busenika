@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<addon>
+	<id>banners</id>
+	<name>Banners management</name>
+	<priority>2800</priority>
+	<position>100</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="DE">Werbeverwaltung</item>
+		<item for="name" lang="ES">Gestor de anuncios</item>
+		<item for="name" lang="FR">Gestions des pubs</item>
+		<item for="name" lang="IT">Amministrazione annunci</item>
+		<item for="name" lang="NL">Advertentiebeheer</item>
+	</translations>
+</addon>

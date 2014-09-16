@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<addon>
+	<id>seo</id>
+	<name>SEO (requires Apache + mod_rewrite installed)</name>
+	<priority>1800</priority>
+	<position>160</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="ES">SEO (requiere Apache + mod_rewrite instalado)</item>
+		<item for="name" lang="FR">SEO (nécessite Apache + mod_rewrite installés)</item>
+	</translations>
+	<opt_settings>
+		<section name="general">
+			<item id="seo_product_type">
+				<name>Product/page SEF URL format</name>
+				<type>selectbox</type>
+				<default_value>category</default_value>
+				<variants>
+					<item id="product_file">
+						<name>product_name.html</name>
+						<translations>
+							<item lang="ES">nombre_producto.html</item>
+						</translations>
+					</item>
+					<item id="product_category">
+						<name>category_name/[subcategory_name/]product_name.html</name>
+						<translations>
+							<item lang="ES">nombre_categoria/[nombre_subcategoria/]nombre_producto.html</item>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Tipo de SEF URL de productos (optimización para motores de busqueda)</item>
+				</translations>
+			</item>
+			<item id="seo_category_type">
+				<name>Categories SEF URL format</name>
+				<type>selectbox</type>
+				<default_value>category</default_value>
+				<variants>
+					<item id="file">
+						<name>[parent_item_name/]item_name[-page2].html</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="category">
+						<name>[parent_item_name/]item_name/[page2/]</name>
+						<translations>
+						</translations>
+					</item>
+					<item id="root_category">
+						<name>item_name/[page2/]</name>
+						<translations>
+						</translations>
+					</item>
+				</variants>
+				<translations>
+					<item lang="ES">Tipo de SEF URL àra Categorías</item>
+				</translations>
+			</item>
+			<item id="single_url">
+				<name>Use single URL for all languages</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+			</item>
+			<item id="seo_language">
+				<name>Show language in the URL</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="ES">Mostrar lenguaje en la URL</item>
+				</translations>
+			</item>
+			<!--
+			<item id="html_catalog">
+				<name>Act as HTML catalog</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+			</item>
+			<item id="html_catalog_desc">
+				<type>info</type>
+				<handler>fn_seo_html_catalog_info</handler>
+			</item>
+			-->
+		</section>
+	</opt_settings>
+</addon>

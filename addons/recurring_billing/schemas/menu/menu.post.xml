@@ -1,0 +1,8 @@
+<orders>
+	<item title="rb_recurring_plans" dispatch="recurring_plans.manage" />
+	<item title="rb_view_subscriptions" dispatch="subscriptions.manage" />
+	<item title="rb_subscription_events" dispatch="subscriptions.events" />
+	<side>
+		<item group="recurring_plans" title="rb_recurring_billing_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#grouprecurring_billing" />
+	</side>
+</orders>

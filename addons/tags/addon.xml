@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<addon>
+	<id>tags</id>
+	<name>Tags</name>
+	<priority>200</priority>
+	<position>200</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<opt_settings>
+		<section name="general">
+			<item id="tags_for_products">
+				<name>Tags for products</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+				<translations>
+					<item lang="FR">Personal delivery (for registered mail only)</item>
+				</translations>
+			</item>
+			<item id="tags_for_pages">
+				<name>Tags for pages</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+				<translations>
+					<item lang="FR">Acknowledgement of delivery (for registered mail only)</item>
+				</translations>
+			</item>
+		</section>
+	</opt_settings>
+</addon>

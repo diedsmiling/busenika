@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<addon>
+	<id>data_feeds</id>
+	<name>Data feeds</name>
+	<priority>4000</priority>
+	<position>0</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	
+	<opt_settings>
+		<item id="cron_password">
+			<name>Cron password</name>
+			<type>input</type>
+			<default_value>MYPASS</default_value>
+ 		</item>
+	</opt_settings>
+	
+	<opt_queries>
+		<item for="install">
+			CREATE TABLE `?:data_feeds` (
+			`datafeed_id` int(11) unsigned NOT NULL auto_increment,
+			`categories` text NOT NULL default '',
+			`products` text NOT NULL default '',
+			`fields` text NOT NULL default '',
+			`export_location` char(1) NOT NULL default 'L',
+			`export_by_cron` char(1) NOT NULL default 'N',
+			`ftp_url` varchar(255) NOT NULL default '',
+			`ftp_user` varchar(50) NOT NULL default '',
+			`ftp_pass` varchar(50) NOT NULL default '',
+			`file_name` varchar(50) NOT NULL default '',
+			`csv_delimiter` char(1) NOT NULL default '',
+			`export_options` text NOT NULL default '',
+			`save_dir` varchar(255) NOT NULL default '',
+			`status` char(1) NOT NULL default '',
+			PRIMARY KEY  (`datafeed_id`)
+			) TYPE=MyISAM DEFAULT CHARSET UTF8;
+		</item>
+		<item for="uninstall">DROP TABLE IF EXISTS `?:data_feeds`</item>
+		
+		<item for="install">
+			CREATE TABLE `?:data_feed_descriptions` (
+			`datafeed_id` int(11) unsigned NOT NULL default '0',
+			`datafeed_name` varchar(255) NOT NULL default '',
+			`lang_code` char(2) NOT NULL default 'EN',
+			PRIMARY KEY  (`datafeed_id`, `lang_code`)
+			) TYPE=MyISAM DEFAULT CHARSET UTF8;
+		</item>
+		<item for="uninstall">DROP TABLE IF EXISTS `?:data_feed_descriptions`</item>
+	</opt_queries>
+	
+	<opt_language_variables>
+		<item lang="EN" id="data_feeds">Data feeds</item>
+		<item lang="EN" id="export_by_cron">Export by cron</item>
+		<item lang="EN" id="add_new_datafeed">New data feed</item>
+		<item lang="EN" id="add_datafeed">Add data feed</item>
+		<item lang="EN" id="datafeed_name">Data feed name</item>
+		<item lang="EN" id="save_directory">Server directory</item>
+		<item lang="EN" id="ftp_url">FTP server</item>
+		<item lang="EN" id="ftp_url_hint">The format is: FTPHOST[:PORT][/DIRECTORY]. Example: ftp.yourhost.com:21/home/username/folder</item>
+		<item lang="EN" id="ftp_user">FTP username</item>
+		<item lang="EN" id="ftp_pass">FTP password</item>
+		<item lang="EN" id="fields">Fields</item>
+		<item lang="EN" id="field_name">Field name</item>
+		<item lang="EN" id="field_type">Field type</item>
+		<item lang="EN" id="map_fields">Fields mapping</item>
+		<item lang="EN" id="update_datafeed">Editing data feed</item>
+		<item lang="EN" id="export_by_cron_to">Export by cron to</item>
+		<item lang="EN" id="export_cron_hint">Use the following line to run the script according to schedule</item>
+		<item lang="EN" id="exported_items">Exported items</item>
+		<item lang="EN" id="ftp_connection_problem">Unable connect to FTP server. Please, check FTP connection information</item>
+		<item lang="EN" id="categories_products">Products from categories</item>
+		<item lang="EN" id="local_export">Download</item>
+		<item lang="EN" id="export_to_server">Save on server</item>
+		<item lang="EN" id="upload_to_ftp">Upload to FTP server</item>
+		<item lang="EN" id="cron_export">Cron export settings</item>
+		<item lang="EN" id="export_to_server ">Export to server</item>
+		<item lang="EN" id="export_to_ftp">FTP server options</item>
+		<item lang="EN" id="ftp">FTP</item>
+		<item lang="EN" id="check_server_export_settings">Check server export settings</item>
+	</opt_language_variables>
+	
+</addon>

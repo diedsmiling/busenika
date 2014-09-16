@@ -1,0 +1,124 @@
+<?php
+
+	if (!defined('WM_ROOTPATH')) define('WM_ROOTPATH', (dirname(__FILE__).'/../'));
+
+	require_once(WM_ROOTPATH.'common/class_convertutils.php');
+
+	/**
+	 * @package WebMailPro
+	 * @subpackage Mime
+	 */
+
+	class Header
+	{
+		/**
+		 * @var string
+		 */
+		var $Name;
+		
+		/**
+		 * @var string
+		 */
+		var $Value;
+		
+		/**
+		 * @var bool
+		 */
+		var $IsParsed;
+		
+		/**
+		 * @param string $name
+		 * @param string $value
+		 * @return Header
+		 */
+		function Header($name, $value, $isParsed = false)
+		{
+			$this->Name = $name;
+			$this->Value = $value;
+			$this->IsParsed = $isParsed;
+		}
+		
+		/**
+		 * @return string
+		 */
+		function ToString()
+		{
+			return  $this->Name.': '.$this->GetEncodedValue();
+		}
+		
+		/**
+		 * @return string
+		 */
+		function GetDecodedValue()
+		{
+			return ($this->IsParsed) ? $this->Value : ConvertUtils::DecodeHeaderString($this->Value, $GLOBALS[MailInputCharset], $GLOBALS[MailOutputCharset], $this->IsWithParameters());
+		}
+		
+		/**
+		 * @return string
+		 */
+		function GetEncodedValue()
+		{
+			if ($this->IsParsed)
+			{
+				if ($this->IsEmailAdress())
+				{
+					$adressCollection = &new EmailAddressCollection($this->Value);
+					return $adressCollection->ToString();
+				}
+				if ($this->IsSubject())
+				{
+					return ConvertUtils::EncodeHeaderString($this->Value, $GLOBALS[MailInputCharset], $GLOBALS[MailOutputCharset], true);
+				}
+				if ($this->IsWithParameters())
+				{
+					$parameterCollection = &new HeaderParameterCollection($this->Value);
+					return $parameterCollection->ToString(true);
+				}
+			}
+			
+			if (ConvertUtils::IsLatin($this->Value))
+			{
+				return $this->Value;
+			}
+			else 
+			{
+				return ConvertUtils::EncodeHeaderString($this->Value, $GLOBALS[MailInputCharset], $GLOBALS[MailOutputCharset]);
+			}
+			
+		}
+		
+		/**
+		 * @return bool
+		 */
+		function IsEmailAdress()
+		{
+			$lowerName = strtolower($this->Name);
+			if ($lowerName == MIMEConst_BccLower || $lowerName == MIMEConst_CcLower ||
+				$lowerName == MIMEConst_FromLower || $lowerName == MIMEConst_ReplyToLower ||
+				$lowerName == MIMEConst_ToLower || $lowerName == MIMEConst_ReturnPathLower)
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * @return bool
+		 */
+		function IsSubject()
+		{
+			return (strtolower($this->Name) == MIMEConst_SubjectLower) ? true : false;
+		}	
+		
+		/**
+		 * @access private
+		 * @return bool
+		 */
+		function IsWithParameters()
+		{
+			$lowerName = strtolower($this->Name);
+			return ($lowerName == MIMEConst_ContentDispositionLower || $lowerName == MIMEConst_ContentTypeLower);
+		}
+			
+	}

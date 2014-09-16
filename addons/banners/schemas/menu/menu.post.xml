@@ -1,0 +1,3 @@
+<content>
+	<item title="banners" dispatch="banners.manage" />
+</content>

@@ -1,0 +1,11 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/news.php
+
+RewriteRule ^(.*)$ news.php [L]
+
+directoryindex news.php
+
+php_flag display_errors on

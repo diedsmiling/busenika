@@ -1,0 +1,3 @@
+<content>
+	<item title="seo_rules" dispatch="seo_rules.manage" />
+</content>

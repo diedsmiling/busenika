@@ -1,0 +1,5 @@
+<content>
+	<side>
+		<item group="pages.update" title="add_poll" href="%INDEX_SCRIPT?dispatch=pages.add&amp;page_type=P&amp;parent_id=%PAGE_ID" />
+	</side>
+</content>

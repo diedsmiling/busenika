@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<addon>
+	<id>price_list</id>
+	<name>Price list</name>
+	<priority>4100</priority>
+	<status>active</status>
+	<dependencies></dependencies>
+	
+	<opt_settings>
+		<section name="general"> 
+			<!-- TABLE LAYOUT -->
+			<item id="table_layout_header">
+				<name>Table layout</name>
+				<type>header</type>
+ 			</item>
+			<item id="price_list_fields">
+				<name>Fields</name>
+				<type>selectable_box</type>
+				<default_value><![CDATA[#M#product_code=Y&product=Y&amount=Y&price=Y]]></default_value>
+ 			</item>
+			<item id="price_list_sorting">
+				<name>Sort by</name>
+				<type>selectbox</type>
+				<default_value>product_code</default_value>
+ 			</item>
+			<item id="group_by_category">
+				<name>Group by category</name>
+				<type>checkbox</type>
+				<default_value>Y</default_value>
+ 			</item>
+			<item id="include_options">
+				<name>Include product options</name>
+				<type>checkbox</type>
+				<default_value>N</default_value>
+ 			</item>
+			<item id="xls_header">
+				<name>XLS layout</name>
+				<type>header</type>
+ 			</item>
+			<item id="xls_url">
+				<name>XLS url</name>
+				<type>info</type>
+				<handler>fn_price_list_xls_url_info</handler>
+ 			</item>
+			<item id="pdf_header">
+				<name>PDF layouts</name>
+				<type>header</type>
+ 			</item>
+			<item id="pdf_url">
+				<name>PDF url</name>
+				<type>info</type>
+				<handler>fn_price_list_pdf_url_info</handler>
+ 			</item>
+			<item id="clear_url">
+				<name>Clear cache</name>
+				<type>info</type>
+				<handler>fn_price_list_clear_url_info</handler>
+ 			</item>
+ 		</section>
+	</opt_settings>
+	
+	<opt_language_variables>
+		<item lang="EN" id="price_list">Price list</item>
+		<item lang="EN" id="selected_fields">Selected fields</item>
+		<item lang="EN" id="xml_info">Use this link to download the price list in XLS (Excel) format</item>
+		<item lang="EN" id="pdf_info">Use this link to download the price list in PDF format</item>
+		<item lang="EN" id="clear_cache_info"><![CDATA[If columns were added or changed, please <a href="[admin_index]?dispatch=addons.manage&cc">clear the cache</a> to regenerate the price list.]]></item>
+		<item lang="EN" id="generating_pdf">Generating PDF. Please, be patient...</item>
+		<item lang="EN" id="generating_xls">Generating XLS. Please, be patient...</item>
+		<item lang="EN" id="xls_images_note">Please, note: at the moment there is no opportunity to display images in xls due to the peculiarities of the conversion library</item>
+	</opt_language_variables>
+</addon>

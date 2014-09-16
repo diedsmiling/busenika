@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<addon>
+	<id>webmail</id>
+	<name>Webmail</name>
+	<priority>1400</priority>
+	<position>250</position>
+	<status>active</status>
+	<dependencies></dependencies>
+</addon>

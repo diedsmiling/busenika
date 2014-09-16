@@ -1,0 +1,36 @@
+ErrorDocument 401 /401.html
+ErrorDocument 403 /403.html
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+DirectoryIndex index.html index.php
+Options +FollowSymLinks 
+
+<IfModule mod_rewrite.c>
+RewriteEngine on
+# Some hostings require RewriteBase to be uncommented
+# Example:
+# Your store url is http://www.yourcompany.com/store/cart
+# So "RewriteBase" should be:
+# RewriteBase /store/cart
+RewriteBase /
+RewriteRule ^news_(.*).html$ /news/news.php [L,QSA]   
+#
+RewriteCond %{REQUEST_FILENAME} !\.(png|gif|ico|swf|jpe?g|js|css)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . index.php?sef_rewrite=1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} .*\/catalog\/.*
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+#RewriteRule . index.php?sef_rewrite=1 [L,QSA]
+#RewriteRule http://lindero.ru/(.*) http://www.lindero.ru/$1 [R=301,L]
+
+
+RewriteCond %{HTTP_HOST}^ lindero.ru
+RewriteRule ^(.*)$ http://www.lindero.ru/$1 [R=301,NC,L,QSA]
+
+</IfModule>
+
+RemoveHandler .html
+AddType application/x-httpd-php .html

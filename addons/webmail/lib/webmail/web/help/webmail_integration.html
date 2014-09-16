@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<!--meta HTTP-EQUIV="Content-Type" Content="text-html; charset=iso8859-1"-->
+		<link rel="stylesheet" href="help_styles.css" type="text/css">
+	</head>
+	<body>
+		<br>
+		<p class="wmh_header" align="center">How to integrate WebMail into another system</p>
+		<p class="wmh_reg">
+			WebMail can be easily integrated into any existing system.<br>
+			<br>
+			To bypass WebMail's login screen and enter user's email account directly, it is 
+			required to set up some data that identify user in WebMail system. WebMail 
+			provides CIntegration object for this purpose.<br>
+			<br>
+		<p class="wmh_reg">
+			<b>Usage</b> of CIntegration object is simple. <blockquote> 1.&nbsp;&nbsp;Include integr.php file<br>
+				<br>
+				<span class="wmh_codeSample">include('integr.php');</span>
+				<br>
+				<br>
+				2.&nbsp;&nbsp;Create "CIntegration" object:<br>
+				<br>
+				<span class="wmh_codeSample">$Integr = new CIntegration($webmailrootpath = null);</span>
+				<br>
+				$webmailrootpath - path to the WebMail root folder necessary for correct UserLoginByEmail method work.
+				If the script calling UserLoginByEmail method is located in the WebMail root folder, or
+				UserLoginByEmail method is not called, you may omit passing this parameter.
+				<br>
+				<br>
+				3.&nbsp;&nbsp;Now, for instance, we need to log a user into WebMail bypassing standard login screen.
+				Let's call UserLoginByEmail method for this purpose:<br>
+				<br>
+				<span class="wmh_codeSample">$Integr-&gt;UserLoginByEmail($email, $login, $startPage, $password);</span>
+				<br>
+				$password - optional parameter.
+				<br>
+				<a href="#consts">$startPage</a> - a constant determining the screen the user will be redirected to
+				after logging in.
+				<br>
+				<br>
+				See also <a href="#usageexamples">Usage Examples</a> for details on user's 
+				account upates in WebMail system.<br>
+				<br>
+				<br>
+			</blockquote>
+		<p class="wmh_reg">
+			<a name="methods" class="wmh_txt"><b>Methods:</b></a><br>
+			<br>
+			<table style="MARGIN-LEFT:30px; VERTICAL-ALIGN:top; BORDER-COLLAPSE:collapse" cellpadding="4"
+				cellspacing="0" class="wmh_reg" border="0">
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>GetAccountById($id)</i></td>
+					<td class="wmh_desc_content">
+						Gets <a href="#account">Account</a> object by id of user in the database
+						(awm_accounts.id_acct), or null on error.
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>GetAccountByMailLogin($email, $login)</i></td>
+					<td class="wmh_desc_content">
+						Gets <a href="#account">Account</a> object by e-mail address and login or null on error.
+						<br>
+						<br>
+						$email, $login - required parameters.
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>CreateUser($email, $login, $password)</i></td>
+					<td class="wmh_desc_content">Creates a user in WebMail database.
+						<br>
+						<br>
+						$email, $login, $password - required parameters
+						<br>
+						Default values are assigned to all other settings like POP3/IMAP4/SMTP servers, etc.
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>CreateUserFromAccount(&amp;$account)</i></td>
+					<td class="wmh_desc_content">
+					    Creates a user in WebMail database with settings specified in
+					    <a href="#account">Account</a> object.					    
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>UserExists($email, $login)</i></td>
+					<td class="wmh_desc_content">
+					    Checks if the user exists in WebMail database.
+						<br>
+						<br>
+						$email, $login - required parameters.
+						<br>
+						<br>
+						Returns true if the user exists, false if doesn't.
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>UserLoginByEmail($email, $login, 
+							$startPage, $password, $toEmail)</i></td>
+					<td class="wmh_desc_content">Performs login and redirects user into WebMail system.
+						<br>
+						<br>
+						$email, $login - required parameters.
+						<br>
+						$startPage - a constant determining the screen the user will be redirected to after logging in.
+						<br>
+						$password - optional parameter
+						<br>
+						$toEmail - optional parameter
+					</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220"><i>GetErrorString()</i></td>
+					<td class="wmh_desc_content">
+					    Gets the last error description.
+					</td>
+				</tr>
+			</table>
+			<br>
+		<p class="wmh_reg">
+			<a name="consts" class="wmh_txt"><b>$startPage constants (determine the screen the user will be redirected to after logging in)</b></a><br>
+			<br>
+			<table style="MARGIN-LEFT:30px; VERTICAL-ALIGN:top; BORDER-COLLAPSE:collapse" cellpadding="4"
+				cellspacing="0" class="wmh_reg" border="0" ID="Table1">
+				<tr>
+					<td class="wmh_desc_header">Value</td>
+					<td class="wmh_desc_header">Description</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220" height="25"><i>START_PAGE_IS_MAILBOX</i></td>
+					<td class="wmh_desc_content" height="25">Message list screen.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>START_PAGE_IS_NEW_MESSAGE</i></td>
+					<td class="wmh_desc_content">Compose message screen.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>START_PAGE_IS_SETTINGS</i></td>
+					<td class="wmh_desc_content">User's settings screen.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>START_PAGE_IS_CONTACTS</i></td>
+					<td class="wmh_desc_content">User's contacts screen (addressbook).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>START_PAGE_IS_CALENDAR</i></td>
+					<td class="wmh_desc_content">User's calendar screen.</td>
+				</tr>
+			</table>
+			<br>
+		<p class="wmh_reg">
+			<a name="account" class="wmh_txt"><b>Account object (represents a user account in WebMail)</b></a><br>
+			<br>
+			<table style="MARGIN-LEFT:30px; VERTICAL-ALIGN:top; BORDER-COLLAPSE:collapse" cellpadding="4"
+				cellspacing="0" class="wmh_reg" border="0" ID="Table2">
+				<tr>
+					<td class="wmh_desc_header">Value</td>
+					<td class="wmh_desc_header">Description</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content" width="220" height="25"><i>Id (int)</i></td>
+					<td class="wmh_desc_content" height="25">Account unique identifier
+						(awm_accounts.acct_id).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>Email (string)</i></td>
+					<td class="wmh_desc_content">Email address.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>DefaultAccount (bool)</i></td>
+					<td class="wmh_desc_content">Indicates if the account is default (primary), i.e. can be used
+					    for logging into WebMail.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailProtocol (int)</i></td>
+					<td class="wmh_desc_content">Protocol of the account.
+						<br>
+						<br>
+						Possible values:<br>
+						MAILPROTOCOL_POP3 - POP3 protocol.<br>
+						MAILPROTOCOL_IMAP4 - IMAP4 protocol.<br>
+						MAILPROTOCOL_WMSERVER - communicating with local mail server.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailIncHost (string)</i></td>
+					<td class="wmh_desc_content">Incoming mail server address (e.g. mail.domain.com).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailIncPort (int)</i></td>
+					<td class="wmh_desc_content">Incoming mail server port number (110 for POP3, 143 for IMAP4).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailIncLogin (string)</i></td>
+					<td class="wmh_desc_content">Login for incoming mail server.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailIncPassword (string)</i></td>
+					<td class="wmh_desc_content">Password for incoming mail server.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailOutHost (string)</i></td>
+					<td class="wmh_desc_content">Outgoing mail server address (e.g. mail.domain.com).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailOutPort (int)</i></td>
+					<td class="wmh_desc_content">Outgoing mail server port number (25 for SMTP).</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailOutLogin (string)</i></td>
+					<td class="wmh_desc_content">Login for outgoing mail server.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>MailOutPassword (string)</i></td>
+					<td class="wmh_desc_content">Password for outgoing mail server.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>FriendlyName (string)</i></td>
+					<td class="wmh_desc_content">A name to be added to e-mail address in From field of outgoing messages.</td>
+				</tr>
+				<tr>
+					<td class="wmh_desc_content"><i>GetMailAtLogin (bool)</i></td>
+					<td class="wmh_desc_content">Indicates if message receiving should be performed automatically
+					    after logging into WebMail under this account.</td>
+				</tr>
+			</table>
+			<br>
+		<p class="wmh_reg">
+			<a name="usageexamples" class="wmh_txt"><b>Usage examples:</b></a><br>
+			<br>
+			Example 1: <blockquote style="MARGIN-TOP:6px"> On the PHP page you want to launch 
+				WebMail from, add the lines similar to the following:<br>
+				<br>
+				<span class="wmh_codeSample">
+			&lt;?php<br>
+			include('integr.php');<br><br>
+	$Integr = new CIntegration();<br><br>
+
+	$mail = 'login@domain.com';<br>
+	$login = 'login';<br>
+	$pass = 'password';<br><br>
+
+	$Integr-&gt;UserLoginByEmail($mail, $login, START_PAGE_IS_MAILBOX, $pass);<br>
+			?&gt;
+		</span>
+				<br>
+				The code above will redirect to WebMail system and immediately open 
+				"login@domain.com" mailbox.<br>
+				<br>
+				Once UserLoginByEmail method called, there are two cases possible:<br>
+				<br>
+				1. Specified email address was found in WebMail database. The user is 
+				redirected to Inbox of the email account. Email account properties are taken 
+				from the database (specified through "WebMail Settings" in "Administration 
+				Panel").<br>
+				<br>
+				2. Specified email address was NOT found in WebMail database. In such case
+				the method returns false.<br>
+				<br>
+			</blockquote>Example 2: <blockquote>
+				<span class="wmh_codeSample">
+			&lt;?php<br>
+			include('integr.php');<br><br>
+		$Integr = new CIntegration();<br><br>
+ if(!$Integr-&gt;CreateUser('login@domain.com', 'login', 'password'))<br>
+{<br>
+ &nbsp;&nbsp;&nbsp;echo $Integr-&gt;GetErrorString();<br>
+}<br>
+			?&gt;
+		</span>
+				<br>
+				This sample creates a user in WebMail database and displays error description on error.
+				<br>
+			</blockquote>
+			<br>
+			<BLOCKQUOTE></BLOCKQUOTE>Example 3: <blockquote>
+				<span class="wmh_codeSample">
+			&lt;?php<br>
+			include('integr.php');<br><br>
+			$Integr = new CIntegration();<br><br>
+			$account = $Integr-&gt;GetAccountByMailLogin('login@domain.com', 'login');<br><br>
+			 echo $account-&gt;Email;<br>
+			
+ 			?&gt;
+		</span>
+				<br>
+				This sample gets all user's data (as Account object) from WebMail database.
+				<br>
+			</blockquote>
+			<br>
+			<hr>
+		<p class="wmh_reg" align="center">
+If you have any questions don't hesitate to email to support@afterlogic.com<br>
+Or visit our support web page at http://www.afterlogic.com/support<br>
+or web forum at http://www.afterlogic.com/forum
+		</p>
+	</body>
+</html>

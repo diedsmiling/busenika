@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<addon>
+	<id>wishlist</id>
+	<name>Wish List</name>
+	<priority>3100</priority>
+	<position>80</position>
+	<status>active</status>
+	<dependencies></dependencies>
+	<translations>
+		<item for="name" lang="DE">Wunschliste</item>
+		<item for="name" lang="ES">Lista de la compra</item>
+		<item for="name" lang="FR">Liste de souhaits</item>
+		<item for="name" lang="GR">Wish List (Λίστα Επιθυμίας)</item>
+		<item for="name" lang="IT">Lista della spesa</item>
+		<item for="name" lang="NL">Wenslijst</item>
+	</translations>
+</addon>

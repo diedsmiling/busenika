@@ -1,0 +1,33 @@
+<users>
+	<item title="affiliates" links_group="users" dispatch="profiles.manage" extra="user_type=P" />
+</users>
+<affiliate>
+	<item title="product_groups" dispatch="product_groups.manage" />
+	<item title="banners" dispatch="banners_manager.manage" />
+	<item title="plans" dispatch="affiliate_plans.manage" />
+	<item title="affiliates" dispatch="partners.manage" />
+	<item title="approve_commissions" dispatch="aff_statistics.approve" />
+	<item title="pay_affiliates" dispatch="payouts.pay" />
+	<item title="payouts" dispatch="payouts.manage" />
+	<item title="accounting_history" dispatch="payouts.previous" />
+
+	<side>
+		<item group="banners_manager" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+		<item group="banners_manager.update" title="add_banner" href="%INDEX_SCRIPT?dispatch=banners_manager.manage&amp;selected_section=%SELECTED_SECTION#add_banner" />
+
+		<item group="affiliate_plans" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+		<item group="affiliate_plans.update" title="add_plan" href="%INDEX_SCRIPT?dispatch=%CONTROLLER.add" />
+		<item group="affiliate_plans.update" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+
+		<item group="partners.manage" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+		<item group="partners.manage" title="affiliate_tiers_tree" href="%INDEX_SCRIPT?dispatch=partners.tree" />
+
+		<item group="aff_statistics.approve.reset_search" title="approve_detailed_commissions" href="%INDEX_SCRIPT?dispatch=aff_statistics.commissions.search&amp;search_type=add" />
+
+		<item group="partners.update" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+		<item group="aff_statistics.commissions.search" title="approve_commissions" href="%INDEX_SCRIPT?dispatch=aff_statistics.approve.reset_search&amp;search_type=add" />
+		<item group="payouts.pay" title="affiliate_settings" href="%INDEX_SCRIPT?dispatch=addons.manage#groupaffiliate" />
+
+		<item group="product_groups.update" title="add_product_group" href="%INDEX_SCRIPT?dispatch=%CONTROLLER.manage&amp;selected_section=%SELECTED_SECTION#add_group" />
+	</side>
+</affiliate>
