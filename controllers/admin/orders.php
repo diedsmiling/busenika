@@ -476,7 +476,7 @@ if ($mode == 'delete') {
 	}
 
 } elseif ($mode == 'manage') {
-	fn_mark_time('BEGIN_CONTROLLER');
+	
 	if (!empty($params['status']) && $params['status'] == STATUS_INCOMPLETED_ORDER) {
 		$params['include_incompleted'] = true;
 		$view->assign('incompleted_view', true);
@@ -497,7 +497,7 @@ if ($mode == 'delete') {
 	$view->assign('totals', $totals);
 	$view->assign('display_totals', fn_display_order_totals($orders));
 	$view->assign('shippings', fn_get_shippings(true, CART_LANGUAGE));
-	fn_mark_time('END_CONTROLLER');
+	
 
 } elseif ($mode == 'google') {
 	// In this action we loop the script until google data is changed

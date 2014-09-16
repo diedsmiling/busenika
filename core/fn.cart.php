@@ -3343,7 +3343,7 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
 		$fields[] = 'invoice_docs.doc_id as invoice_id';
 		$fields[] = 'memo_docs.doc_id as credit_memo_id';
 	}
-
+	
 	// Define sort fields
 	$sortings = array (
 		'order_id' => "?:orders.order_id",
@@ -3444,8 +3444,8 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
 		$condition .= db_quote(" AND ?:new_orders.user_id = ?i", $params['admin_user_id']);
 		$join .= " LEFT JOIN ?:new_orders ON ?:new_orders.order_id = ?:orders.order_id";
 	}
-	if($f_notJoin == 0)
-		$join .= " LEFT JOIN ?:profile_fields_data ON orders.user_id = profile_fields_data.object_id";	
+	
+	//$join .= " LEFT JOIN ?:profile_fields_data ON orders.user_id = profile_fields_data.object_id";	
 	
 	$docs_conditions = array();
 	if (!empty($params['invoice_id']) || !empty($params['has_invoice'])) {
@@ -3465,7 +3465,8 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
 			$docs_conditions[] = db_quote("memo_docs.doc_id = ?i", $params['credit_memo_id']);
 		}
 	}
-	//$join .= " LEFT JOIN ?:order_docs as memo_docs ON memo_docs.order_id = ?:orders.order_id AND memo_docs.type = 'C'";
+	if($f_notJoin == 0)	
+		$join .= " LEFT JOIN ?:order_docs as memo_docs ON memo_docs.order_id = ?:orders.order_id AND memo_docs.type = 'C'";
 
 	if (!empty($docs_conditions)) {
 		$condition .= " AND (" . implode(' OR ', $docs_conditions) . ")";
@@ -3502,11 +3503,11 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
 		$limit = fn_paginate($params['page'], $total, $items_per_page);
 	}
 	
-/*	$ts = 'SELECT ' . implode(', ', $fields) . " FROM ?:orders $join WHERE 1 $condition $group ORDER BY $sorting $limit";*/
+	$ts = 'SELECT ' . implode(', ', $fields) . " FROM ?:orders $join WHERE 1 $condition $group ORDER BY $sorting $limit";
 	//var_dump('SELECT ' . implode(", ", $fields) . ' FROM ?:orders '.$join.' WHERE 1 '.$condition.' '.$group.' ORDER BY '.$sorting.' '.$limit.'');
-	fn_mark_time('BEFORE_QUERY');
+	
 	$orders = db_get_array('SELECT ' . implode(', ', $fields) . " FROM ?:orders $join WHERE 1 $condition $group ORDER BY $sorting $limit");
-	fn_mark_time('AFTER QUERY');
+	
 	if ($get_totals == true) {
 		$totals = array (
 			'gross_total' => db_get_field("SELECT sum(t.total) FROM ( SELECT total FROM ?:orders $join WHERE 1 $condition $group) as t"),
