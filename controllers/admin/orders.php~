@@ -302,7 +302,6 @@ if ($mode == 'delete') {
 	return array(CONTROLLER_STATUS_REDIRECT);
 
 } elseif ($mode == 'print_invoice') {
-	
 	if (!empty($_REQUEST['order_id'])) {
 		$order_info = fn_get_order_info($_REQUEST['order_id']);
 		if (empty($order_info)) {
@@ -476,12 +475,12 @@ if ($mode == 'delete') {
 	}
 
 } elseif ($mode == 'manage') {
-	fn_mark_time('BEGIN_CONTROLLER');
+
 	if (!empty($params['status']) && $params['status'] == STATUS_INCOMPLETED_ORDER) {
 		$params['include_incompleted'] = true;
 		$view->assign('incompleted_view', true);
 	}
-	list($orders, $search, $totals) = fn_get_orders($params, Registry::get('settings.Appearance.admin_orders_per_page'), true, CART_LANGUAGE, 1);
+	list($orders, $search, $totals) = fn_get_orders($params, Registry::get('settings.Appearance.admin_orders_per_page'), true);
 	
 	$orders = fn_UserFieldToArray(44, $orders,'metro');
 	$orders = fn_UserFieldToArray(65, $orders,'firma');
@@ -497,7 +496,6 @@ if ($mode == 'delete') {
 	$view->assign('totals', $totals);
 	$view->assign('display_totals', fn_display_order_totals($orders));
 	$view->assign('shippings', fn_get_shippings(true, CART_LANGUAGE));
-	fn_mark_time('END_CONTROLLER');
 
 } elseif ($mode == 'google') {
 	// In this action we loop the script until google data is changed
@@ -581,30 +579,44 @@ function fn_UserFieldToArray($field_id, $orders,$name){
 	}	
 	$q = "SELECT pf.object_id, pd.description, pf.value, pf.field_id, pd.lang_code FROM cscart_profile_fields_data pf INNER JOIN cscart_profile_field_descriptions pd ON pf.value = pd.object_id  WHERE  pf.object_id IN (".implode(',', $orderId).") AND pf.field_id = ".$field_id." AND pd.lang_code = 'RU' AND pd.object_type = 'V' ";
 	
+	
 	$values = db_get_array($q);
 	
+	
 	if ($field_id!=65)
-	foreach($orders as $k=>$order){	
+	foreach($orders as $k=>$order){
+	
 		foreach($values as $v){
+			
+			
 			if($order['order_id'] == $v['object_id']){
-				$orders[$k][$name] = $v['description'];						
+				$orders[$k][$name] = $v['description'];		
+				
 			}	
 		}	
 	}
 	
-	$q = "SELECT object_id, value, field_id FROM cscart_profile_fields_data  WHERE  object_id IN (".implode(',', $orderId).") AND field_id = ".$field_id."";	
-	$values = db_get_array($q);
-		
-	if ($field_id==65)
-		foreach($orders as $k=>$order){
-			foreach($values as $v){
-				if($order['order_id'] == $v['object_id'] && $v['value']!=""){					
-					$orders[$k][$name] = "(".$v['value'].")";		
-				}	
-			}	
-		}
 
+	
+	$q = "SELECT object_id, value, field_id FROM cscart_profile_fields_data  WHERE  object_id IN (".implode(',', $orderId).") AND field_id = ".$field_id."";
+	
+	$values = db_get_array($q);
+	
+	
+	if ($field_id==65)
+	foreach($orders as $k=>$order){
+	
+		foreach($values as $v){
+						
+			if($order['order_id'] == $v['object_id'] && $v['value']!=""){					
+				$orders[$k][$name] = "(".$v['value'].")";		
+				
+			}	
+		}	
+	}
+	
+
+	
 	return $orders;
 }
 ?>
-
