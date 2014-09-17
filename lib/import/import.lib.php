@@ -82,6 +82,7 @@ class ImportTool {
 		$query = "SELECT * FROM shop_items";
 		$result = mysql_query($query) or die('Failed to select items: ' . mysql_error());
 		while ($item = mysql_fetch_array($result, MYSQL_ASSOC)) {
+				$imageList = unserialize($item['file']);
 				$_REQUEST = array(
 						fake => '1',
 						selected_section => 'images',
@@ -94,8 +95,73 @@ class ImportTool {
 							full_description => $item['description'],
 							status => 'A',
 							amount => $item['quantity'],
-							timestamp => $item['date']
-						)
+							timestamp => $item['date'],
+							product_features => array(
+								20 => $item['color']
+								)
+							),
+						product_main_image_data => array(
+							0 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '',
+								image_alt => '',
+								detailed_alt => ''
+							)),
+						file_product_main_image_icon => array(
+							0 => 'product_main'
+							),
+						type_product_main_image_icon => array(
+							0 => 'local'
+							),
+						file_product_main_image_detailed => array(
+							0 => 'images/import/import111.jpg'
+							),
+						type_product_main_image_detailed => array(
+							0 => 'server'
+							),
+						product_add_additional_image_data => array(
+							0 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							),
+							1 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							),
+							3 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							)),
+						file_product_add_additional_image_icon => array(
+							0 => 'product_add_additional',
+							1 => '',
+							3 => ''
+							),
+						type_product_add_additional_image_icon => array(
+							0 => 'local',
+							1 => '',
+							3 => ''
+							),
+						file_product_add_additional_image_detailed => array(
+							0 => 'images/import/import111.jpg',
+							1 => 'images/import/import112.jpg',
+							3 => 'images/import/import113.jpg'
+							),
+						type_product_add_additional_image_detailed => array(
+							0 => 'server',
+							1 => 'server',
+							3 => 'server'
+							),
 						);
 				$_SERVER['REQUEST_METHOD'] = 'POST';
 				$mode = 'add';

@@ -101,7 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Processing updating of product element
 	//
 	if ($mode == 'update') {
-
+		var_dump($_REQUEST);
+		die();
 		if (!empty($_REQUEST['product_data']['product'])) {
 			// Updating product record
 			fn_update_product($_REQUEST['product_data'], $_REQUEST['product_id'], DESCR_SL);
