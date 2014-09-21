@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:19:58
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:13
          compiled from addons/buy_together/hooks/products/product_data.post.tpl */ ?>
 <?php  ob_start();  ?>
 <?php if ($this->_tpl_vars['bt_chain'] || $this->_tpl_vars['bt_id']): ?>

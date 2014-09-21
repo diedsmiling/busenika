@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:39:40
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:40
          compiled from common_templates/quick_menu.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_link_attach', 'common_templates/quick_menu.tpl', 92, false),array('modifier', 'fn_url', 'common_templates/quick_menu.tpl', 96, false),array('function', 'script', 'common_templates/quick_menu.tpl', 189, false),)), $this); ?>

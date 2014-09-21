@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:19:58
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:13
          compiled from addons/discussion/hooks/products/data_block.pre.tpl */ ?>
 
 <?php if ($this->_tpl_vars['show_rating']): ?>

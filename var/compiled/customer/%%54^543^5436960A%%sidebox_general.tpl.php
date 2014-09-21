@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:19:57
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:12
          compiled from blocks/wrappers/sidebox_general.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'blocks/wrappers/sidebox_general.tpl', 3, false),)), $this); ?>

@@ -39,9 +39,8 @@ function fn_update_product($product_data, $product_id = 0, $lang_code = CART_LAN
 			return false;
 		}
 		echo("data");
-		var_dump($data);
+		var_dump($_data);
 		$product_id = db_query("INSERT INTO ?:products ?e", $_data);
-
 		if (empty($product_id)) {
 			return false;
 		}

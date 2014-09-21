@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:41:06
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:44
          compiled from common_templates/object_group.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_url', 'common_templates/object_group.tpl', 11, false),array('modifier', 'default', 'common_templates/object_group.tpl', 24, false),)), $this); ?>

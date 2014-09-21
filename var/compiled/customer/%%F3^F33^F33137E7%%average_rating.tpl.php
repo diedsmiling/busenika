@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:38:45
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:13
          compiled from addons/discussion/views/discussion/components/average_rating.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_get_average_rating', 'addons/discussion/views/discussion/components/average_rating.tpl', 3, false),array('modifier', 'fn_get_discussion_rating', 'addons/discussion/views/discussion/components/average_rating.tpl', 6, false),)), $this); ?>

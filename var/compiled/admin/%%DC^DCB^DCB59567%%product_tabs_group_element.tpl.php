@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:43:08
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:44
          compiled from views/products/components/product_tabs_group_element.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'script', 'views/products/components/product_tabs_group_element.tpl', 70, false),)), $this); ?>

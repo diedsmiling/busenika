@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:39:41
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:40
          compiled from buttons/search_go.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('search','search'));

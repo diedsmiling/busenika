@@ -400,6 +400,7 @@ if ($mode == 'dev_import') {
 		//$tool->importCategories();
 		$tool->deleteAllProducts();
 		$tool->importProducts();
+		die();
 	}
 
 //

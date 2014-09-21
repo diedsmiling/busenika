@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-17 00:24:29
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:13
          compiled from views/companies/components/product_company_data.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('vendor','supplier'));

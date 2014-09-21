@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:20:01
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:14
          compiled from addons/google_analytics/hooks/index/footer.post.tpl */ ?>
 <?php  ob_start();  ?>
 <script type="text/javascript">

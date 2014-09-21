@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:39:46
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:45
          compiled from addons/buy_together/hooks/product_picker/table_header.post.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('price','discount','value','discounted_price'));

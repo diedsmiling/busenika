@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-17 00:24:29
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:14
          compiled from views/products/components/product_files.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_url', 'views/products/components/product_files.tpl', 12, false),array('modifier', 'unescape', 'views/products/components/product_files.tpl', 17, false),array('modifier', 'formatfilesize', 'views/products/components/product_files.tpl', 27, false),)), $this); ?>

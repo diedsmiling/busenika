@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				);
 				db_query("INSERT INTO ?:products_categories ?e", $_data);
 				fn_update_product_count(array($_REQUEST['product_data']['main_category']));
-				echo "finished?";
 				if (!empty($_REQUEST['product_data']['add_categories'])) {
 					$_data = array (
 						'product_id' => $product_id,
@@ -101,8 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Processing updating of product element
 	//
 	if ($mode == 'update') {
-		var_dump($_REQUEST);
-		die();
 		if (!empty($_REQUEST['product_data']['product'])) {
 			// Updating product record
 			fn_update_product($_REQUEST['product_data'], $_REQUEST['product_id'], DESCR_SL);
@@ -152,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				}
 				fn_update_product_count($new_ids);
 			}
-
 			// Update main images pair
 			fn_attach_image_pairs('product_main', 'product', $_REQUEST['product_id'], DESCR_SL);
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:19:58
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:12
          compiled from common_templates/search.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_url', 'common_templates/search.tpl', 3, false),array('modifier', 'fn_get_subcategories', 'common_templates/search.tpl', 22, false),array('modifier', 'escape', 'common_templates/search.tpl', 23, false),array('block', 'hook', 'common_templates/search.tpl', 15, false),)), $this); ?>

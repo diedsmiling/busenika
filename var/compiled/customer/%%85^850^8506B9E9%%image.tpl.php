@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-16 21:19:57
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:13
          compiled from common_templates/image.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'common_templates/image.tpl', 26, false),array('modifier', 'default', 'common_templates/image.tpl', 45, false),array('modifier', 'fn_generate_thumbnail', 'common_templates/image.tpl', 56, false),)), $this); ?>

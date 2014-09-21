@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-17 00:24:29
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:14
          compiled from addons/buy_together/blocks/product_tabs/buy_together.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'script', 'addons/buy_together/blocks/product_tabs/buy_together.tpl', 5, false),array('modifier', 'fn_url', 'addons/buy_together/blocks/product_tabs/buy_together.tpl', 12, false),array('modifier', 'unescape', 'addons/buy_together/blocks/product_tabs/buy_together.tpl', 96, false),)), $this); ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-15 23:39:42
+<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:41
          compiled from common_templates/last_viewed_items.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_url', 'common_templates/last_viewed_items.tpl', 7, false),array('modifier', 'unescape', 'common_templates/last_viewed_items.tpl', 7, false),array('modifier', 'truncate', 'common_templates/last_viewed_items.tpl', 7, false),)), $this); ?>

@@ -79,10 +79,31 @@ class ImportTool {
 	function importProducts(){
 		$query = "USE {$this->sourceDB}";
 		$result = mysql_query($query) or die('Failed open database: ' . mysql_error());
-		$query = "SELECT * FROM shop_items";
+		$query = "SELECT * FROM shop_items ORDER BY file DESC";
 		$result = mysql_query($query) or die('Failed to select items: ' . mysql_error());
 		while ($item = mysql_fetch_array($result, MYSQL_ASSOC)) {
 				$imageList = unserialize($item['file']);
+				$mainImg = array_shift($imageList);
+				$idx = 0;
+				$product_add_additional_image_data = array();
+				$file_product_add_additional_image_icon = array();
+				$type_product_add_additional_image_icon = array();
+				$file_product_add_additional_image_detailed =array();
+				foreach($imageList as $image)
+				{
+					$product_add_additional_image_data[$idx =($idx!=2)?$idx:3] = array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							);
+					$file_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "product_add_additional" : '';
+					$type_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "local" : '';
+					$file_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = "images/import/{$image}";
+					$type_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = "server";
+					$idx++;
+				}
 				$_REQUEST = array(
 						fake => '1',
 						selected_section => 'images',
@@ -95,16 +116,16 @@ class ImportTool {
 							full_description => $item['description'],
 							status => 'A',
 							amount => $item['quantity'],
-							timestamp => $item['date'],
+							timestamp => strtotime($item['date']),
 							product_features => array(
-								20 => $item['color']
+								20 => $item['color'] //color
 								)
 							),
 						product_main_image_data => array(
 							0 => array (
 								pair_id => '',
-								type => 'A',
-								object_id => '',
+								type => 'M',
+								object_id => '0',
 								image_alt => '',
 								detailed_alt => ''
 							)),
@@ -115,11 +136,11 @@ class ImportTool {
 							0 => 'local'
 							),
 						file_product_main_image_detailed => array(
-							0 => 'images/import/import111.jpg'
+							0 => "images/import/{$mainImg}"
 							),
 						type_product_main_image_detailed => array(
 							0 => 'server'
-							),
+							)/*,
 						product_add_additional_image_data => array(
 							0 => array (
 								pair_id => '',
@@ -153,21 +174,26 @@ class ImportTool {
 							3 => ''
 							),
 						file_product_add_additional_image_detailed => array(
-							0 => 'images/import/import111.jpg',
-							1 => 'images/import/import112.jpg',
-							3 => 'images/import/import113.jpg'
+							0 => 'images/import/3_2.jpg',
+							1 => 'images/import/3_3.jpg',
+							3 => 'images/import/3_4.png'
 							),
 						type_product_add_additional_image_detailed => array(
 							0 => 'server',
 							1 => 'server',
 							3 => 'server'
-							),
+							),*/
 						);
+				$_REQUEST['product_add_additional_image_data'] = $product_add_additional_image_data;
+				$_REQUEST['file_product_add_additional_image_icon'] = $file_product_add_additional_image_icon;
+				$_REQUEST['type_product_add_additional_image_icon'] = $type_product_add_additional_image_icon;
+				$_REQUEST['file_product_add_additional_image_detailed'] = $file_product_add_additional_image_detailed;
+				$_REQUEST['type_product_add_additional_image_detailed'] = $type_product_add_additional_image_detailed;
 				$_SERVER['REQUEST_METHOD'] = 'POST';
 				$mode = 'add';
 				var_dump($_REQUEST);
 				include DIR_ROOT . "/controllers/admin/products.php";
-
+				
 				die();//import one item
 				echo "Item {$item[name]} added.<br>";
 				}
