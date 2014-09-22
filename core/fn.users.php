@@ -947,6 +947,8 @@ function fn_generate_password($length = USER_PASSWORD_LENGTH)
  */
 function fn_update_user($user_id, $user_data, &$auth, $ship_to_another, $notify_customer, $send_password = false)
 {
+	var_dump($user_id, $user_data, $auth);
+	die();
 	if (!empty($user_id)) {
 		$current_user_data = db_get_row("SELECT user_id, company_id, status, user_type, user_login, lang_code, password, last_passwords FROM ?:users WHERE user_id = ?i", $user_id);
 		$action = 'update';
@@ -1047,7 +1049,7 @@ function fn_update_user($user_id, $user_data, &$auth, $ship_to_another, $notify_
 				fn_save_post_data();
 				return false;
 			}
-			
+
 			$user_data['password'] = md5($user_data['password1']);
 			if ($user_data['password'] != $current_user_data['password'] && !empty($user_id)) {
 				// if user set current password - there is no necessity to update password_change_timestamp
