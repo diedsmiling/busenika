@@ -42,8 +42,8 @@ if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
  {
 	$config['db_host'] = 'localhost';
 	$config['db_name'] = 'korzin_db';
-	$config['db_user'] = 'korzin_user';
-	$config['db_password'] = 'kslQi0121oPsl';
+	$config['db_user'] = 'root';
+	$config['db_password'] = 'arsenal82';
 	$config['db_type'] = 'mysql';
  }
  else 

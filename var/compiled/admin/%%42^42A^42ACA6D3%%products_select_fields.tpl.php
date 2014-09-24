@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:41
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:12
          compiled from views/products/components/products_select_fields.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'math', 'views/products/components/products_select_fields.tpl', 4, false),array('function', 'split', 'views/products/components/products_select_fields.tpl', 6, false),array('modifier', 'count', 'views/products/components/products_select_fields.tpl', 4, false),array('modifier', 'default', 'views/products/components/products_select_fields.tpl', 4, false),array('modifier', 'sort_by', 'views/products/components/products_select_fields.tpl', 6, false),array('modifier', 'md5', 'views/products/components/products_select_fields.tpl', 17, false),)), $this); ?>

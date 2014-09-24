@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:45
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:17
          compiled from addons/buy_together/hooks/product_picker/table_rows.pre.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'addons/buy_together/hooks/product_picker/table_rows.pre.tpl', 8, false),array('modifier', 'round', 'addons/buy_together/hooks/product_picker/table_rows.pre.tpl', 29, false),)), $this); ?>

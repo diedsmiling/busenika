@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-22 22:00:55
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:00
          compiled from blocks/wrappers/mainbox_simple.tpl */ ?>
 <?php  ob_start();  ?><?php if ($this->_tpl_vars['anchor']): ?>
 <a name="<?php echo $this->_tpl_vars['anchor']; ?>

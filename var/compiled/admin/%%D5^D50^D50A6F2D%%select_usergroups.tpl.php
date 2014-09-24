@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:44
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:16
          compiled from common_templates/select_usergroups.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'explode', 'common_templates/select_usergroups.tpl', 3, false),array('modifier', 'fn_get_default_usergroups', 'common_templates/select_usergroups.tpl', 7, false),array('modifier', 'in_array', 'common_templates/select_usergroups.tpl', 9, false),array('modifier', 'count', 'common_templates/select_usergroups.tpl', 9, false),array('modifier', 'escape', 'common_templates/select_usergroups.tpl', 10, false),array('modifier', 'defined', 'common_templates/select_usergroups.tpl', 21, false),array('modifier', 'define', 'common_templates/select_usergroups.tpl', 22, false),)), $this); ?>

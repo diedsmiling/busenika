@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:46
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:18
          compiled from common_templates/tabsbox.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'empty_tabs', 'common_templates/tabsbox.tpl', 6, false),array('modifier', 'in_array', 'common_templates/tabsbox.tpl', 13, false),array('modifier', 'fn_url', 'common_templates/tabsbox.tpl', 14, false),array('function', 'script', 'common_templates/tabsbox.tpl', 9, false),)), $this); ?>

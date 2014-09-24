@@ -17,11 +17,13 @@ class ImportTool {
 	private $link;
 	private $sourceDB;
 	private $destinationDB;
+	private $config;
 	
 	function __construct($config, $sourceDB, $destinationDB){
-		$this->link = mysql_connect($config['db_host'], 'root', 'arsenal82')
-		or die('Database connection error. ' . mysql_error());
-		mysql_set_charset( 'utf8' );
+		$this->config = $config;
+		$this->link = mysqli_connect($config['db_host'], $config['db_user'], $config['db_password'])
+		or die('Database connection error. ' . mysqli_error($this->link));
+		mysqli_set_charset($this->link, 'utf8');
 		$this->sourceDB = $sourceDB;
 		$this->destinationDB = $destinationDB;
 	}
@@ -29,7 +31,7 @@ class ImportTool {
 	function purgeTable ($tableName){
 		$this->useDatabase($this->destinationDB);
 		$query = "DELETE FROM {$tableName}";
-		$result = mysql_query($query) or die("Failed to delete table: {$tableName}" . mysql_error());
+		$result = mysqli_query($this->link, $query) or die("Failed to delete table: {$tableName}" . mysql_error());
 		if ($result){
 			echo "Table {$tableName} deleted;";
 		}
@@ -38,8 +40,8 @@ class ImportTool {
 	function importCategories(){
 		$this->useDatabase($this->sourceDB);
 		$query = "SELECT * FROM `categories` ORDER BY `categories`.`cat_id` ASC";
-		$result = mysql_query($query) or die('Failed to select categories: ' . mysql_error());
-		while ($category = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$result = mysqli_query($this->link, $query) or die('Failed to select categories: ' . mysqli_error($this->link));
+		while ($category = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
 				$template = array(
 					category_id => $category[id],
 					category => $category[name],
@@ -64,8 +66,8 @@ class ImportTool {
 	function deleteAllProducts(){
 		$this->useDatabase($this->destinationDB);	
 		$query = "SELECT product_id FROM cscart_products";
-		$result = mysql_query($query) or die("Failed select from: cscart_products" . mysql_error());
-		while ($item = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$result = mysqli_query($this->link, $query) or die("Failed select from: cscart_products" . mysqli_error($this->link));
+		while ($item = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
 			fn_delete_product($item['product_id']);
 			echo "Item {$item['product_id']} deleted<br>";
 		}
@@ -73,9 +75,9 @@ class ImportTool {
 	
 	function importProducts(){
 		$this->useDatabase($this->sourceDB);
-		$query = "SELECT * FROM shop_items ORDER BY file DESC";
-		$result = mysql_query($query) or die('Failed to select items: ' . mysql_error());
-		while ($item = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$query = "SELECT * FROM shop_items";
+		$result = mysqli_query($this->link, $query) or die('Failed to select items: ' . mysqli_error($this->link));
+		while ($item = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
 				$imageList = unserialize($item['file']);
 				$mainImg = array_shift($imageList);
 				$idx = 0;
@@ -198,25 +200,59 @@ class ImportTool {
 		$query = "SELECT * FROM cscart_users";
 		if (!$deleteAdmins)
 			$query = $query . " WHERE user_type != 'A'";
-		$result = mysql_query($query) or die("Failed select from: cscart_users" . mysql_error());
-		while ($user = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$result = mysqli_query($this->link, $query) or die("Failed select from: cscart_users" . mysqli_error($this->link));
+		while ($user = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 			if (fn_delete_user($user['user_id']))
 				echo "User {$user['user_id']} deleted<br>";
 		}	
 	}
 	
-	function addUsers(){
-		$this->useDatabase($sourceDB);
-		$query = "SELECT * FROM members";
-		$result = mysql_query($query) or die("Failed to select from: cscart_users" . mysql_error());
-		while ($user = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			
+	function importUsers(){
+		$this->useDatabase($this->sourceDB);
+		$query = "SELECT * FROM members ORDER BY country DESC";
+		$result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
+		
+		$destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+		or die('Database connection error. ' . mysqli_error($this->link));
+		$this->useDatabase($this->destinationDB, $destLink);
+		while ($user = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+			$timestamp = strtotime($user['date']); 
+			$user_data = array(
+				'user_id' => $user['id'],
+				'user_login' => $user['login'],
+				'email' => $user['email'],
+				'password1' => 'tempPass',
+				'password2' => 'tempPass',
+				'firstname' => $user['name'],
+				'lastname' => $user['surname'],
+				'fields' => array(
+					35 => $user['phone'],
+					61 => $user['from'],
+					36 => $user['comment'],
+					38 => $user['usercomment'],
+					59 => $user['country']
+					),
+				'b_state' => '',
+				'b_zipcode' => $user['index'],
+				'b_address' => $user['adress'],
+				'b_city' => $user['city'],
+				'b_phone' => $user['phone'],
+				'b_country' => $user['country'] == 'Россия' ? 'RU' : ''
+			);
+			$auth = array(
+				'ip' => $user['ip']
+			);
+			fn_update_user('', $user_data, $auth, false, false);
+			$destQuery = "UPDATE cscart_users SET timestamp={$timestamp}, password='{$user['pass']}' WHERE user_id={$user['id']}";
+			mysqli_query($destLink, $destQuery);
+			//die();
 		}
 	}
 
-	private function useDatabase($dbname){
+	private function useDatabase($dbname, $link = null){
+		if (!$link) $link = $this->link;
 		$query = "USE {$dbname}";
-		$result = mysql_query($query) or die("Failed use database: {$dbname}" . mysql_error());
+		$result = mysqli_query($link, $query) or die("Failed use database: {$dbname}" . mysqli_error($this->link, $this->link));
 	}
 }
 ?>

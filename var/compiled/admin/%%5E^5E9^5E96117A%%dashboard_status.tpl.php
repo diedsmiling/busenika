@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 23:25:39
+<?php /* Smarty version 2.6.18, created on 2014-09-24 21:23:53
          compiled from addons/discussion/views/index/components/dashboard_status.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'addons/discussion/views/index/components/dashboard_status.tpl', 5, false),)), $this); ?>

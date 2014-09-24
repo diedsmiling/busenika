@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 23:25:39
+<?php /* Smarty version 2.6.18, created on 2014-09-24 21:23:53
          compiled from addons/discussion/views/discussion_manager/components/stars.tpl */ ?>
 <?php  ob_start();  ?>
 <?php unset($this->_sections['full_star']);

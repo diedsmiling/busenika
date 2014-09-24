@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 23:25:39
+<?php /* Smarty version 2.6.18, created on 2014-09-24 21:23:52
          compiled from common_templates/subheader_statistic.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('hide','hide','close','close'));

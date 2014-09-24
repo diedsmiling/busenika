@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:40
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:12
          compiled from views/products/components/products_search_form.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_url', 'views/products/components/products_search_form.tpl', 7, false),array('modifier', 'default', 'views/products/components/products_search_form.tpl', 8, false),array('modifier', 'fn_show_picker', 'views/products/components/products_search_form.tpl', 41, false),array('modifier', 'fn_get_plain_categories_tree', 'views/products/components/products_search_form.tpl', 51, false),array('modifier', 'indent', 'views/products/components/products_search_form.tpl', 52, false),array('block', 'hook', 'views/products/components/products_search_form.tpl', 116, false),array('function', 'script', 'views/products/components/products_search_form.tpl', 191, false),)), $this); ?>

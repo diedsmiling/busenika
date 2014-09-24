@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:41
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:21:12
          compiled from bottom.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'defined', 'bottom.tpl', 3, false),array('modifier', 'fn_url', 'bottom.tpl', 11, false),array('modifier', 'default', 'bottom.tpl', 14, false),array('modifier', 'fn_check_meta_redirect', 'bottom.tpl', 46, false),)), $this); ?>

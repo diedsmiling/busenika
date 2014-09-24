@@ -404,6 +404,7 @@ if ($mode == 'dev_import') {
 		//$tool->importProducts();
 		
 		$tool->deleteAllUsers();
+		$tool->importUsers();
 		die();
 	}
 

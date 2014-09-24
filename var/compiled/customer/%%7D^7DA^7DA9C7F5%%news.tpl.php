@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-22 22:00:54
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:20:59
          compiled from addons/news_and_emails/blocks/news.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'addons/news_and_emails/blocks/news.tpl', 8, false),array('modifier', 'fn_url', 'addons/news_and_emails/blocks/news.tpl', 9, false),)), $this); ?>

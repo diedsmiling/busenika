@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-22 22:26:38
+<?php /* Smarty version 2.6.18, created on 2014-09-24 21:48:48
          compiled from buttons/register_profile.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('register'));

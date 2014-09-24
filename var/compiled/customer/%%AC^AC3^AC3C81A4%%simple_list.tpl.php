@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-22 22:00:55
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:20:59
          compiled from blocks/list_templates/simple_list.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'default', 'blocks/list_templates/simple_list.tpl', 4, false),array('modifier', 'trim', 'blocks/list_templates/simple_list.tpl', 18, false),)), $this); ?>

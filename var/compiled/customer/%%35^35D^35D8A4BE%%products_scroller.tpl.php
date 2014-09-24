@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-22 22:00:55
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:20:59
          compiled from blocks/products_scroller.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'fn_get_block_scroller_directions', 'blocks/products_scroller.tpl', 7, false),array('modifier', 'to_json', 'blocks/products_scroller.tpl', 7, false),array('modifier', 'fn_url', 'blocks/products_scroller.tpl', 35, false),array('function', 'math', 'blocks/products_scroller.tpl', 25, false),array('function', 'script', 'blocks/products_scroller.tpl', 56, false),)), $this); ?>

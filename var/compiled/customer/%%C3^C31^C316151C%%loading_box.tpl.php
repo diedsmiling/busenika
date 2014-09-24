@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.18, created on 2014-09-18 22:51:11
+<?php /* Smarty version 2.6.18, created on 2014-09-23 21:20:58
          compiled from common_templates/loading_box.tpl */ ?>
 <?php
 fn_preload_lang_vars(array('loading'));
