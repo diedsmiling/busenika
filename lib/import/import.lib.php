@@ -67,7 +67,7 @@ class ImportTool {
 		$this->useDatabase($this->destinationDB);	
 		$query = "SELECT product_id FROM cscart_products";
 		$result = mysqli_query($this->link, $query) or die("Failed select from: cscart_products" . mysqli_error($this->link));
-		while ($item = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
+		while ($item = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 			fn_delete_product($item['product_id']);
 			echo "Item {$item['product_id']} deleted<br>";
 		}
@@ -77,7 +77,7 @@ class ImportTool {
 		$this->useDatabase($this->sourceDB);
 		$query = "SELECT * FROM shop_items";
 		$result = mysqli_query($this->link, $query) or die('Failed to select items: ' . mysqli_error($this->link));
-		while ($item = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
+		while ($item = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 				$imageList = unserialize($item['file']);
 				$mainImg = array_shift($imageList);
 				$idx = 0;
@@ -190,7 +190,7 @@ class ImportTool {
 				var_dump($_REQUEST);
 				include DIR_ROOT . "/controllers/admin/products.php";
 				
-				die();//import one item
+				//die();//import one item
 				echo "Item {$item[name]} added.<br>";
 				}		
 		}
@@ -209,7 +209,7 @@ class ImportTool {
 	
 	function importUsers(){
 		$this->useDatabase($this->sourceDB);
-		$query = "SELECT * FROM members ORDER BY country DESC";
+		$query = "SELECT * FROM members";
 		$result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
 		
 		$destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
@@ -248,11 +248,94 @@ class ImportTool {
 			//die();
 		}
 	}
+	
+	function deleteAllOrders(){
+		$this->useDatabase($this->destinationDB);
+		$query = "SELECT * FROM cscart_orders";
+		$result = mysqli_query($this->link, $query) or die("Failed select from: cscart_orders" . mysqli_error($this->link));
+		while ($user = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+			if (fn_delete_order($user['order_id']))
+				echo "Order {$user['user_id']} deleted<br>";
+		}	
+	}
+	
+	function importOrders(){
+		$this->useDatabase($this->sourceDB);
+		//main link used for selecting orders
+		$query = "SELECT * FROM shop_orders ORDER BY id DESC";
+		$result = mysqli_query($this->link, $query) or die('Failed to select items: ' . mysqli_error($this->link));
+		
+		//lineLink for selecting order lines (ordered products) 
+		$lineLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+		or die('Database connection error. ' . mysqli_error($this->link));
+		$this->useDatabase($this->sourceDB, $lineLink);
+		
+		//destLink used to update timestamp for migrated orders
+		$destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+		or die('Database connection error. ' . mysqli_error($this->link));
+		$this->useDatabase($this->destinationDB, $destLink);
+		
+		while ($order = mysqli_fetch_array($result, MYSQL_ASSOC)) {	
+				$products = array();
+				$lineResult = mysqli_query($lineLink, "SELECT * FROM shop_cart WHERE order_id = {$order['id']}");
+				var_dump(mysqli_error($lineLink));
+				while ($line = mysqli_fetch_array($lineResult, MYSQL_ASSOC)){
+					echo $line['item_id']."<br>";
+					$products[$line['id']] = array(
+						'product_id' => $line['item_id'],
+						'amount' => $line['quantity'],
+						'price' => $line['price_in_order']
+					);
+				}
+				$timestamp = strtotime($order['date']); 
+				$cart = array(
+				'products' => $products,
+				'recalculate' => false,
+				'user_data' => array(
+					'user_id' => $order['member_id'],
+					'firstname' => $order['name'],
+					'lastname' => $order['surname'],
+					'b_country' => $order['country'] == 'Россия' ? 'RU' : '',
+					's_country' => $order['country'] == 'Россия' ? 'RU' : '',
+					's_address' => $order['adress'],
+					'b_address' => $order['adress'],
+					's_zipcode' => $order['index'],
+					'b_zipcode' => $order['index'],
+					's_city' => $order['city'],
+					'b_city' => $order['city'],
+					's_phone' => $order['phone'],
+					'b_phone' => $order['phone'],
+					'email' => $order['email'],
+					'fields' => array(
+						35 => $order['phone'],
+						39 => $order['usercomment'],
+						64 => $order['comment']
+					),
+				),
+				'total' => $order['total'],
+				'shipping_cost' => $order['delivery_cost'],
+				'display_shipping_cost' => $order['delivery_cost'],
+				'timestamp' => $timestamp,
+				'order_id' => $order['id']
+				);
+				$auth = array(
+					'user_id' => $order['member_id']
+				);
+				var_dump($cart);
+				if (fn_place_order($cart, $auth)){
+					$lineResult = mysqli_query($destLink, "UPDATE cscart_orders SET timestamp={$timestamp} WHERE order_id = {$order['id']}");
+					if (!$lineResult) echo mysqli_error($lineLink);
+				}
+				die();
+		}
+	}
 
 	private function useDatabase($dbname, $link = null){
 		if (!$link) $link = $this->link;
 		$query = "USE {$dbname}";
 		$result = mysqli_query($link, $query) or die("Failed use database: {$dbname}" . mysqli_error($this->link, $this->link));
+		
+		
 	}
 }
 ?>
