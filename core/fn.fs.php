@@ -112,8 +112,6 @@ function fn_mkdir($dir, $perms = DEFAULT_DIR_PERMISSIONS)
 				$path .= (empty($k) ? '' : '/') . $v;
 				if (!@is_dir($path)) {
 					umask(0);
-                    //var_dump($path);
-                    //die;
 					mkdir($path, $perms);
 				}
 			}

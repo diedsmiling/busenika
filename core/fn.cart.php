@@ -340,8 +340,6 @@ function fn_update_product_amount($product_id, $amount, $product_options, $sign)
  */
 function fn_place_order(&$cart, &$auth, $action = '', $parent_order_id = 0)
 {
-	//var_dump($cart, $auth);
-	//die();
 	$allow = true;
 
 	fn_set_hook('pre_place_order', $cart, $allow);

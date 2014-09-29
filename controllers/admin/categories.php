@@ -403,11 +403,11 @@ if ($mode == 'dev_import') {
 		//$tool->deleteAllProducts();
 		//$tool->importProducts();
 		
-		//$tool->deleteAllUsers();
-		//$tool->importUsers();
+		$tool->deleteAllUsers(true);
+		$tool->importUsers();
 		
-		$tool->deleteAllOrders();
-		$tool->importOrders();
+		//$tool->deleteAllOrders();
+		//$tool->importOrders();
 		
 		die();
 	}

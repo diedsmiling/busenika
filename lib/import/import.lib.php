@@ -136,49 +136,7 @@ class ImportTool {
 							),
 						type_product_main_image_detailed => array(
 							0 => 'server'
-							)/*,
-						product_add_additional_image_data => array(
-							0 => array (
-								pair_id => '',
-								type => 'A',
-								object_id => '0',
-								image_alt => '',
-								detailed_alt => ''
-							),
-							1 => array (
-								pair_id => '',
-								type => 'A',
-								object_id => '0',
-								image_alt => '',
-								detailed_alt => ''
-							),
-							3 => array (
-								pair_id => '',
-								type => 'A',
-								object_id => '0',
-								image_alt => '',
-								detailed_alt => ''
-							)),
-						file_product_add_additional_image_icon => array(
-							0 => 'product_add_additional',
-							1 => '',
-							3 => ''
-							),
-						type_product_add_additional_image_icon => array(
-							0 => 'local',
-							1 => '',
-							3 => ''
-							),
-						file_product_add_additional_image_detailed => array(
-							0 => 'images/import/3_2.jpg',
-							1 => 'images/import/3_3.jpg',
-							3 => 'images/import/3_4.png'
-							),
-						type_product_add_additional_image_detailed => array(
-							0 => 'server',
-							1 => 'server',
-							3 => 'server'
-							),*/
+							)
 						);
 				$_REQUEST['product_add_additional_image_data'] = $product_add_additional_image_data;
 				$_REQUEST['file_product_add_additional_image_icon'] = $file_product_add_additional_image_icon;
@@ -214,7 +172,9 @@ class ImportTool {
 		
 		$destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
 		or die('Database connection error. ' . mysqli_error($this->link));
+		$destQuery = "UPDATE cscart_users SET user_id=0 WHERE user_id=1";	
 		$this->useDatabase($this->destinationDB, $destLink);
+		mysqli_query($destLink, $destQuery);
 		while ($user = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 			$timestamp = strtotime($user['date']); 
 			$user_data = array(
@@ -245,8 +205,16 @@ class ImportTool {
 			fn_update_user('', $user_data, $auth, false, false);
 			$destQuery = "UPDATE cscart_users SET timestamp={$timestamp}, password='{$user['pass']}' WHERE user_id={$user['id']}";
 			mysqli_query($destLink, $destQuery);
-			//die();
 		}
+		//Add one admin
+		unset($user_data['user_id']);
+		$user_data['email'] = 'admin@admin.admin';
+		$user_data['user_login'] = 'admin@admin.admin';
+		$user_data['password1'] = 'admin';
+		$user_data['password2'] = 'admin';
+		$user_data['user_type'] = 'A';
+		fn_update_user('', $user_data, $auth, false, false);
+
 	}
 	
 	function deleteAllOrders(){
@@ -316,17 +284,15 @@ class ImportTool {
 				'shipping_cost' => $order['delivery_cost'],
 				'display_shipping_cost' => $order['delivery_cost'],
 				'timestamp' => $timestamp,
-				'order_id' => $order['id']
+				'order_id' => $order['id'],
+				'status' => 'C'
 				);
 				$auth = array(
 					'user_id' => $order['member_id']
 				);
-				var_dump($cart);
 				if (fn_place_order($cart, $auth)){
-					$lineResult = mysqli_query($destLink, "UPDATE cscart_orders SET timestamp={$timestamp} WHERE order_id = {$order['id']}");
-					if (!$lineResult) echo mysqli_error($lineLink);
+					$lineResult = mysqli_query($destLink, "UPDATE cscart_orders SET timestamp={$timestamp}, status = 'C' WHERE order_id = {$order['id']}");
 				}
-				die();
 		}
 	}
 
@@ -338,4 +304,47 @@ class ImportTool {
 		
 	}
 }
+/*,
+						product_add_additional_image_data => array(
+							0 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							),
+							1 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							),
+							3 => array (
+								pair_id => '',
+								type => 'A',
+								object_id => '0',
+								image_alt => '',
+								detailed_alt => ''
+							)),
+						file_product_add_additional_image_icon => array(
+							0 => 'product_add_additional',
+							1 => '',
+							3 => ''
+							),
+						type_product_add_additional_image_icon => array(
+							0 => 'local',
+							1 => '',
+							3 => ''
+							),
+						file_product_add_additional_image_detailed => array(
+							0 => 'images/import/3_2.jpg',
+							1 => 'images/import/3_3.jpg',
+							3 => 'images/import/3_4.png'
+							),
+						type_product_add_additional_image_detailed => array(
+							0 => 'server',
+							1 => 'server',
+							3 => 'server'
+							),*/
 ?>
