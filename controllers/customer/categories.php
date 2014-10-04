@@ -33,7 +33,6 @@ if ($mode == 'catalog') {
 	$view->assign('root_categories', $root_categories);
 
 } elseif ($mode == 'view') {
-	
 	$_statuses = array('A', 'H');
 	$_condition = ' AND (' . fn_find_array_in_set($auth['usergroup_ids'], 'usergroup_ids', true) . ')';
 	$_condition .= fn_get_localizations_condition('localization', true);

@@ -3626,9 +3626,14 @@ if(isset($params['doLinks']) && $params['doLinks'] ==1)
 		$sorting = "products.amount DESC, descr1.product ASC";
 		
 	}	
+	var_dump(microtime());
+	var_dump($condition);
 	
 	$products = db_get_array('SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit");
-
+	
+	var_dump($products);
+	var_dump(microtime());
+	die();
 	if (!empty($items_per_page)) {
 		$total = db_get_found_rows();
 		fn_paginate($params['page'], $total, $items_per_page);
