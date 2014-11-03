@@ -232,7 +232,6 @@ function fn_get_payment_methods(&$auth, $lang_code = CART_LANGUAGE)
 	}
 
 	$payment_methods = db_get_hash_array("SELECT ?:payments.payment_id, ?:payments.a_surcharge, ?:payments.p_surcharge, ?:payment_descriptions.* FROM ?:payments LEFT JOIN ?:payment_descriptions ON ?:payments.payment_id = ?:payment_descriptions.payment_id AND ?:payment_descriptions.lang_code = ?s LEFT JOIN ?:payment_processors ON ?:payment_processors.processor_id = ?:payments.processor_id WHERE 1 $condition ORDER BY ?:payments.position", 'payment_id', $lang_code);
-
 	fn_set_hook('get_payment_methods', $payment_methods);
 
 	return $payment_methods;
@@ -1557,7 +1556,6 @@ function fn_calculate_cart_content(&$cart, $auth, $calculate_shipping = 'A', $ca
 
 		// Apply shipping fee
 		if ($calculate_shipping != 'S' && $cart['shipping_required'] == true) {
-
 			if (defined('CACHED_SHIPPING_RATES') && $cart['recalculate'] == false  ) {
 				$shipping_rates = $_SESSION['shipping_rates'];
 			} else {
@@ -3140,7 +3138,7 @@ function fn_apply_cart_shipping_rates(&$cart, &$cart_products, &$auth, &$shippin
 					}
 				} else {
 					$name = db_get_row("SELECT b.shipping as name, b.delivery_time FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE a.shipping_id = ?i AND a.status = 'A'", CART_LANGUAGE, $sh_id);
-					if (!empty($name)) {
+                    if (!empty($name)) {
 						$shipping_rates[$sh_id] = $name;
 						$shipping_rates[$sh_id]['rates'] = array(0);
 						$shipping_rates[$sh_id]['added_manually'] = true;
@@ -3152,12 +3150,12 @@ function fn_apply_cart_shipping_rates(&$cart, &$cart_products, &$auth, &$shippin
 				}
 			}
 		}
-
 		// Delete not existent rates
 		if (!empty($cart['shipping'])) {
 			foreach ($cart['shipping'] as $sh_id => $v) {
 				foreach ($v['rates'] as $o_id => $r) {
-					if (!isset($shipping_rates[$sh_id]['rates'][$o_id]) && empty($shipping_rates[$sh_id]['added_manually'])) {
+                    //03.11.2014 -- added && isset($r) because manual rate ($o_id = '') is being ignored and whole shipping is deleted
+					if (!isset($shipping_rates[$sh_id]['rates'][$o_id]) && !isset($r) && empty($shipping_rates[$sh_id]['added_manually'])) {
 						unset($cart['shipping'][$sh_id]);
 					}
 				}
@@ -4186,4 +4184,3 @@ fclose($file_handle);
 return "";	
 }
 ?>
-

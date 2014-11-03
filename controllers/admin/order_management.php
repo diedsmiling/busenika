@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	if ($mode == 'update') {
-				
 		// Clean up saved shipping rates
 		unset($_SESSION['shipping_rates']);
 		if (is_array($cart['products'])) {
@@ -380,9 +379,11 @@ if ($mode == 'delete_coupon') {
 if ($mode == 'edit' && !empty($_REQUEST['order_id'])) {
 
 	fn_clear_cart($cart, true);
+
 	$customer_auth = fn_fill_auth(array(), array(), false, 'C');
 
 	fn_form_cart($_REQUEST['order_id'], $cart, $customer_auth);
+
 	$cart['order_id'] = $_REQUEST['order_id'];
 
 	return array(CONTROLLER_STATUS_REDIRECT, "order_management.products");
@@ -394,6 +395,7 @@ if ($mode == 'edit' && !empty($_REQUEST['order_id'])) {
 		session_start();
 	$_SESSION['new_order']='1';
 	fn_clear_cart($cart, true);
+
 	$customer_auth = fn_fill_auth(array(), array(), false, 'C');
 
 	return array(CONTROLLER_STATUS_REDIRECT, "order_management.products");
@@ -455,6 +457,7 @@ if ($mode == 'edit' && !empty($_REQUEST['order_id'])) {
 //
 } elseif ($mode == 'totals') {
 //	var_dump($cart);
+
 	if (fn_cart_is_empty($cart)) {
 		fn_set_notification('N', fn_get_lang_var('cart_is_empty'),  fn_get_lang_var('cannot_proccess_checkout'));
 		return array(CONTROLLER_STATUS_REDIRECT, "order_management.products");
