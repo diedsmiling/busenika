@@ -9,7 +9,7 @@ include_once DIR_ROOT . "/core/fn.catalog.php";
 	$config['db_password'] = 'kslQi0121oPsl';
 	$config['db_type'] = 'mysql';
 	
-	$sourseDB - name of soure database
+	$sourceDB - name of source database
 	$destinationDB - name of destination database
 */
 class ImportTool {
@@ -18,6 +18,7 @@ class ImportTool {
 	private $sourceDB;
 	private $destinationDB;
 	private $config;
+    private $watermark;
 	
 	function __construct($config, $sourceDB, $destinationDB){
 		$this->config = $config;
@@ -43,23 +44,23 @@ class ImportTool {
 		$result = mysqli_query($this->link, $query) or die('Failed to select categories: ' . mysqli_error($this->link));
 		while ($category = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
 				$template = array(
-					category_id => $category[id],
-					category => $category[name],
-					parent_id => $category[cat_id],
-					description => '',
-					status => 'A',
-					page_title => '',
-					meta_description => '',
-					meta_keywords => '',
-					usergroup_ids => '',
-					position => $category[position],
-					timestamp => date('j/m/Y'),   //'14/09/2014'
-					product_details_layout => 'default',
-					use_cusom_templates => 'N',
-					discussion_type => 'D'		
+					'category_id' => $category['id'],
+					'category' => $category['name'],
+					'parent_id' => $category['cat_id'],
+					'description' => '',
+					'status' => 'A',
+					'page_title' => '',
+					'meta_description' => '',
+					'meta_keywords' => '',
+					'usergroup_ids' => '',
+					'position' => $category['position'],
+					'timestamp' => date('j/m/Y'),   //'14/09/2014'
+					'product_details_layout' => 'default',
+					'use_cusom_templates' => 'N',
+					'iscussion_type' => 'D'
 					);
 				fn_update_category($template);
-				echo "category {$category[name]} {$category[cat_id]} {$category[position]} added.<br>";
+				echo "category {$category['name']} {$category['cat_id']} {$category['position']} added.<br>";
 			}
 	}
 
@@ -84,15 +85,16 @@ class ImportTool {
 				$product_add_additional_image_data = array();
 				$file_product_add_additional_image_icon = array();
 				$type_product_add_additional_image_icon = array();
-				$file_product_add_additional_image_detailed =array();
+				$file_product_add_additional_image_detailed = array();
+                $type_product_add_additional_image_detailed = array();
 				foreach($imageList as $image)
 				{
 					$product_add_additional_image_data[$idx =($idx!=2)?$idx:3] = array (
-								pair_id => '',
-								type => 'A',
-								object_id => '0',
-								image_alt => '',
-								detailed_alt => ''
+								'pair_id' => '',
+								'type' => 'A',
+								'object_id' => '0',
+								'image_alt' => '',
+								'detailed_alt' => ''
 							);
 					$file_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "product_add_additional" : '';
 					$type_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "local" : '';
@@ -101,40 +103,40 @@ class ImportTool {
 					$idx++;
 				}
 				$_REQUEST = array(
-						fake => '1',
-						selected_section => 'images',
+						'fake' => '1',
+						'selected_section' => 'images',
 						//product_id => $item['id'] ,
-						product_data => array(
-							product_id => $item['id'] ,
-							product => $item['name'],
-							main_category => $item['cat_id'],
-							price => $item['price'],
-							full_description => $item['description'],
-							status => 'A',
-							amount => $item['quantity'],
-							timestamp => strtotime($item['date']),
-							product_features => array(
+						'product_data' => array(
+							'product_id' => $item['id'] ,
+							'product' => $item['name'],
+							'main_category' => $item['cat_id'],
+							'price' => $item['price'],
+							'full_description' => $item['description'],
+							'status' => 'A',
+							'amount' => $item['quantity'],
+							'timestamp' => strtotime($item['date']),
+							'product_features' => array(
 								20 => $item['color'] //color
 								)
 							),
-						product_main_image_data => array(
+						'product_main_image_data' => array(
 							0 => array (
-								pair_id => '',
-								type => 'M',
-								object_id => '0',
-								image_alt => '',
-								detailed_alt => ''
+								'pair_id' => '',
+								'type' => 'M',
+								'object_id' => '0',
+								'image_alt' => '',
+								'detailed_alt' => ''
 							)),
-						file_product_main_image_icon => array(
+						'file_product_main_image_icon' => array(
 							0 => 'product_main'
 							),
-						type_product_main_image_icon => array(
+						'type_product_main_image_icon' => array(
 							0 => 'local'
 							),
-						file_product_main_image_detailed => array(
+						'file_product_main_image_detailed' => array(
 							0 => "images/import/{$mainImg}"
 							),
-						type_product_main_image_detailed => array(
+						'type_product_main_image_detailed' => array(
 							0 => 'server'
 							)
 						);
@@ -145,7 +147,7 @@ class ImportTool {
 				$_REQUEST['type_product_add_additional_image_detailed'] = $type_product_add_additional_image_detailed;
 				$_SERVER['REQUEST_METHOD'] = 'POST';
 				$mode = 'add';
-				var_dump($_REQUEST);
+
 				include DIR_ROOT . "/controllers/admin/products.php";
 				
 				//die();//import one item
@@ -295,6 +297,58 @@ class ImportTool {
 				}
 		}
 	}
+
+    function setWatermark($watermark){
+        if (getimagesize($watermark)){
+            $this->watermark = imagecreatefrompng($watermark);
+        }
+
+    }
+
+    function addAllWatermarks($folder){
+        $files = scandir($folder);
+        foreach($files as $fileName) {
+            $file = $folder . "/" . $fileName;
+            if (is_dir($file) && ($fileName != '.') && ($fileName != '..')){
+                $this->addAllWatermarks($file);
+                echo $file . "<br>";
+            } else if (($fileName != '.') && ($fileName != '..')){
+                $this->placeWatermark($file, $this->watermark);
+                echo $file . " file <br>";
+            }
+
+        }
+    }
+
+
+    function placeWatermark($image, $waterMark){
+
+        $imageType = getimagesize($image);
+
+        if ($imageType){
+
+            $im = imagecreatefromjpeg($image);
+            $marge_right = 10;
+            $marge_top = 15;
+
+            imagecopy($im, $waterMark, $marge_right, $marge_top, 0, 0, imagesx($waterMark), imagesy($waterMark));
+
+            switch ($imageType[2]){
+                case IMG_GIF:
+                    imagegif($im, $image);
+                    break;
+                case IMG_JPG:
+                    imagejpeg($im, $image);
+                    break;
+                case IMG_PNG:
+                    imagepng($im, $image);
+                    break;
+                default:
+                    break;
+            }
+            imagedestroy($im);
+        }
+    }
 
 	private function useDatabase($dbname, $link = null){
 		if (!$link) $link = $this->link;
