@@ -29,7 +29,7 @@ if ( !defined('AREA') ) { die('Access denied'); }
 function db_get_array($query)
 {
 	$args = func_get_args();
-	
+
 	if ($cached_result = db_get_cached_result($query, $args)) {
 		return $cached_result;
 	}
@@ -283,9 +283,10 @@ function db_query($query)
 	}
 	
 	$time_start = microtime(true);
+    file_put_contents("D:/query.txt", $query . "\r\n", FILE_APPEND);
 	$result = driver_db_query($query);
 	$time_exec = microtime(true) - $time_start;
-	
+
 	if (defined('PROFILER')) {
 		Profiler::set_query($query, $time_exec);
 	}
@@ -843,5 +844,3 @@ function db_import_sql_file($file, $buffer = 16384, $show_status = true, $show_c
 
 	return false;
 }
-
-?>

@@ -15,5 +15,3 @@ $god = new God();
 define('INDEX_SCRIPT',  Registry::get('config.admin_index'));
 
 fn_dispatch();
-
-?>

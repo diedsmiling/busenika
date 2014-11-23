@@ -3021,7 +3021,8 @@ function fn_get_sales_products(){
 
 function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAGE)
 {
-	
+    $stopwatch = new StopWatch();
+    $stopwatch->start();
 	if(isset($params['doLinks']) && $params['doLinks'] ==1){
 		$neighbours = fn_get_neighbours($_REQUEST['product_id']);
 		
@@ -3624,11 +3625,17 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 if(isset($params['doLinks']) && $params['doLinks'] ==1)
 	{
 		$sorting = "products.amount DESC, descr1.product ASC";
-		
 	}	
 
 	$products = db_get_array('SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit");
 	
+	}
+	//http://local.busenki.ru/index.php?dispatch=categories.view&category_id=80&subcats=Y&features_hash=P10.R43.R37.V6.V22.R33.R19
+    //http://local.busenki.ru/index.php?dispatch=categories.view&category_id=183&subcats=Y&features_hash=P8.V6.V22.R38
+    $sqlquery = 'SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit";
+	$products = db_get_array($sqlquery);
+
+
 	if (!empty($items_per_page)) {
 		$total = db_get_found_rows();
 		fn_paginate($params['page'], $total, $items_per_page);
@@ -4512,5 +4519,3 @@ function fn_get_product_details_layout($template_path, $product_id)
 	
 	return $template_path.$selected_layout;
 }
-
-?>

@@ -476,7 +476,7 @@ if ($mode == 'delete') {
 	}
 
 } elseif ($mode == 'manage') {
-	
+
 	if (!empty($params['status']) && $params['status'] == STATUS_INCOMPLETED_ORDER) {
 		$params['include_incompleted'] = true;
 		$view->assign('incompleted_view', true);
