@@ -1369,7 +1369,8 @@ function fn_get_shippings($simple, $lang_code = CART_LANGUAGE)
 	if ($simple == true) {
 		return db_get_hash_single_array("SELECT a.shipping_id, b.shipping FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE ?p ORDER BY a.position", array('shipping_id', 'shipping'), $lang_code, $conditions);
 	} else {
-		return db_get_array("SELECT a.shipping_id, a.min_weight, a.max_weight, a.position, a.status, b.shipping, b.delivery_time, a.usergroup_ids FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE ?p ORDER BY a.position", $lang_code, $conditions);
+		// -- 20.11.2014 - added a.self_service to query
+		return db_get_array("SELECT a.shipping_id, a.min_weight, a.max_weight, a.position, a.status, a.self_service, b.shipping, b.delivery_time, a.usergroup_ids FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE ?p ORDER BY a.position", $lang_code, $conditions);
 	}
 }
 
@@ -4186,4 +4187,3 @@ fclose($file_handle);
 return "";	
 }
 ?>
-

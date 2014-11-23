@@ -225,7 +225,6 @@ jQuery.extend({
 				if (matches) {
 					for (var i = 0; i < matches.length; i++ ) {
 						var m = $(matches[i]);
-
 						// External script
 						if (m.attr('src')) {
 							var _src = jQuery.getBaseName(m.attr('src'));

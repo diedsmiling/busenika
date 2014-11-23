@@ -1710,7 +1710,7 @@ function form_handler(name)
 
 				// Check for multiple selectbox
 				if (elm.is(':input')) {
-					if (lbl.hasClass('cm-required') && ((elm.is(':checkbox') && !elm.attr('checked')) || jQuery.is.blank(elm.val()) == true || (elm.hasClass('cm-hint') && elm.val() == elm.attr('defaultValue')))) {
+					if (lbl.hasClass('cm-required') && ((elm.is(':checkbox') && !elm.attr('checked')) || jQuery.is.blank(elm.val()) == true || (elm.hasClass('cm-hint') && elm.val() == elm.attr('defaultValue')) || elm.hasClass('failedEarlier'))) {
 						this.form_message(lang.error_validator_required, lbl);
 						is_ok = false;
 						set_mark = true;
