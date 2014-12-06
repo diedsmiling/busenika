@@ -177,15 +177,11 @@ function fn_redirect($location, $no_delay = false, $allow_external_redirect = fa
  */
 function fn_set_notification($type, $title, $message, $save_state = false, $extra = '')
 {
-	//var_dump($message);
-	
 	if (empty($_SESSION['notifications'])) {
 		$_SESSION['notifications'] = array();
 	}
 
-	$key = md5(uniqid());
-
-	$_SESSION['notifications'][$key] = array(
+	$_SESSION['notifications'][] = array(
 		'type' => $type,
 		'title' => $title,
 		'message' => $message,
@@ -193,7 +189,6 @@ function fn_set_notification($type, $title, $message, $save_state = false, $extr
 		'new' => true,
 		'extra' => $extra
 	);
-
 	return true;
 }
 

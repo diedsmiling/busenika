@@ -88,6 +88,15 @@
 {include file="views/localizations/components/select.tpl" data_name="shipping_data[localization]" data_from=$shipping.localization}
 
 {include file="common_templates/select_status.tpl" input_name="shipping_data[status]" id="shipping_data" obj=$shipping}
+
+<div class="form-field">
+    <label for="products_tax_id">{$lang.self_service}:</label>
+    <div class="select-field">
+            <input type="hidden"	name="shipping_data[self_service]" id="self_service_hidden" {if $shipping.self_service}checked="checked"{/if} class="checkbox" value="0" />
+            <input type="checkbox"	name="shipping_data[self_service]" id="self_service"        {if $shipping.self_service}checked="checked"{/if} class="checkbox" value="1" />
+            <label for="self_service">{$lang.free}</label>
+    </div>
+</div>
 </fieldset>
 
 <div class="buttons-container buttons-bg">

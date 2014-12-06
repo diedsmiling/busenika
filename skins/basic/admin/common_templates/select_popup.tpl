@@ -61,6 +61,12 @@
 					<label for="{$prefix}_{$id}_notify_supplier">{$lang.notify_supplier}</label>
 				</li>
 			{/if}
+            {if $notify}
+            <li class="select-field">
+                <input type="checkbox" name="__send_sms" id="{$prefix}_{$id}_notify_supplier" value="Y" class="checkbox" onclick="$('input[name=__send_sms]').attr('checked', this.checked);" />
+                <label for="{$prefix}_{$id}_notify_supplier">{$lang.send_sms}</label>
+            </li>
+            {/if}
 			</ul>
 		</div>
 		{if !$smarty.capture.avail_box}
@@ -97,6 +103,9 @@
 			if ($('input[name=__notify_supplier]:checked', upd_elm).length) {
 				$(obj).attr('href', $(obj).attr('href') + '&notify_supplier=Y');
 			}
+            if ($('input[name=__send_sms]:checked', upd_elm).length) {
+                $(obj).attr('href', $(obj).attr('href') + '&send_sms=Y');
+            }
 			$('.cm-select-list li a', upd_elm).removeClass('cm-active').addClass('cm-ajax');
 			$('.status-link-' + status, upd_elm).addClass('cm-active');
 			$('#sw_' + upd_elm_id + ' a').text($('.status-link-' + status, upd_elm).text());

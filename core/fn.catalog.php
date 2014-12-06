@@ -3016,648 +3016,646 @@ function fn_get_sales_products(){
 #очень большой костыль. БЕРЕМ ТОВАРЫ С БЛОКА РАСПРОДАЖ
 	
 	return db_get_fields("SELECT product_id FROM cscart_products WHERE sale = 1");
-}	
+}
 
 
 function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAGE)
 {
-    $stopwatch = new StopWatch();
-    $stopwatch->start();
-	if(isset($params['doLinks']) && $params['doLinks'] ==1){
-		$neighbours = fn_get_neighbours($_REQUEST['product_id']);
-		
-		$params['pid'] = $neighbours;
-		$params['limit'] = 4;
-	
-	}
-		
-	if(isset($params['doSales']) && $params['doSales'] ==1){
-		
-		$params['pid'] = fn_get_sales_products();
-	
-		
-	}
-	if(isset($params['doSameLine']) && $params['doSameLine'] ==1){
-		
-		$sameLineProducts = fn_get_same_line_products($_REQUEST['product_id']);
-		if($sameLineProducts){
-			$params['pid'] = $sameLineProducts;
-		}
-		else	
-			return false;
-
-	}		
-	
-	// Init filter
-	$relevanceField = '';
-	$relevanceOrder = '';
-	$params = fn_init_view('products', $params);
-
-	// Set default values to input params
-	$default_params = array (
-		'pname' => '',
-		'pshort' => '',
-		'pfull' => '',
-		'pkeywords' => '',
-		'feature' => array(),
-		'type' => 'simple',
-		'page' => 1,
-		'action' => '',
-		'variants' => array(),
-		'ranges' => array(),
-		'custom_range' => array(),
-		'field_range' => array(),
-		'features_hash' => '',
-		'limit' => 0,
-		'bid' => 0,
-		'match' => '',
-		'search_tracking_flags' => array()
-	);
-
-	$params = array_merge($default_params, $params);
-
-	if ((empty($params['pname']) || $params['pname'] != 'Y') && (empty($params['pshort']) || $params['pshort'] != 'Y') && (empty($params['pfull']) || $params['pfull'] != 'Y') && (empty($params['pkeywords']) || $params['pkeywords'] != 'Y') && (empty($params['feature']) || $params['feature'] != 'Y') && !empty($params['q'])) {
-		$params['pname'] = 'Y';
-	}
-
-	$auth = & $_SESSION['auth'];
-
-	// Define fields that should be retrieved
-	$fields = array (
-		'products.product_id',
-		'products.company_id',
-		'companies.company as company_name',
-		'descr1.product as product',
-		'products.tracking',
-		'products.feature_comparison',
-		'products.zero_price_action',
-		'products.product_type',
-		'products.tax_ids',
-		'products.weight',
-		"GROUP_CONCAT(IF(products_categories.link_type = 'M', CONCAT(products_categories.category_id, 'M'), products_categories.category_id)) as category_ids",
-		'min_qty',
-		'max_qty',
-		'products.qty_step',
-		'products.list_qty_count',
-		'products.is_edp',
-		'avail_since',
-		'buy_in_advance',
-		'products.options_type',
-		'products.exceptions_type',
-		'companies.company as company_name',
-		
-		
-	);
-
-	// Define sort fields
-	$sortings = array (
-		'code' => 'products.product_code',
-		'status' => 'products.status',
-		'product' => 'descr1.product',
-		'position' => 'products_categories.position',
-		'price' => 'prices.price',
-		'list_price' => 'products.list_price',
-		'weight' => 'products.weight',
-		'amount' => 'products.amount',
-		'timestamp' => 'products.timestamp',
-		'popularity' => 'popularity.total',
-		'company' => "company_name",
-	);
-
-	$directions = array (
-		'asc' => 'asc',
-		'desc' => 'desc'
-	);
-
-	$join = $condition = $inventory_condition = '';
-
-	$condition .= fn_get_company_condition('products.company_id');
-
-	if (isset($params['company_id']) && $params['company_id'] != '') {
-		$params['company_id'] = intval($params['company_id']);
-		$condition .= db_quote(' AND products.company_id = ?i ', $params['company_id']);
-	}
-
-	if (AREA == 'C') {
-		if (fn_check_suppliers_functionality()) {
-			// if MVE or suppliers enabled
-			$condition .= " AND (companies.status = 'A' OR products.company_id = 0) ";
-		} else {
-			// if suppliers disabled
-			$condition .= fn_get_company_condition('products.company_id', true, '0', false, true);
-		}
-	}
-
-	$join .= db_quote(" LEFT JOIN ?:companies companies ON companies.company_id = products.company_id ");
-	$join .= db_quote(" LEFT JOIN ?:product_descriptions as descr1 ON descr1.product_id = products.product_id AND descr1.lang_code = ?s ", $lang_code);
-
-	// Search string condition for SQL query
-	if (isset($params['q']) && fn_string_no_empty($params['q'])) {
-
-		$params['q'] = trim($params['q']);
-		if ($params['match'] == 'any') {
-			$pieces = fn_explode(' ', $params['q']);
-			$search_type = ' OR ';
-		} elseif ($params['match'] == 'all') {
-			$pieces = fn_explode(' ', $params['q']);
-			$search_type = ' AND ';
-		} else {
-			$pieces = array($params['q']);
-			$search_type = '';
-		}
-
-		$_condition = array();
-		foreach ($pieces as $piece) {
-			if (strlen($piece) == 0) {
-				continue;
-			}
-			$pieceTrimed = str_replace(array(' ','-'), '', $piece);
-			
-			$tmp = db_quote("(descr1.search_words LIKE ?l)", "%$piece%"); // check search words
-
-			if ($params['pname'] == 'Y') {
-				$tmp .= db_quote(" OR MATCH (product) AGAINST ('".mysql_real_escape_string($piece)."')");
-				//$tmp .= db_quote(" OR MATCH (product) AGAINST ('$piece')");
-				$tmp .= db_quote(" OR REPLACE( REPLACE(upper(descr1.product),  ' ',  '' ) ,  '-',  '' ) LIKE ?l", "%$pieceTrimed%");
-				$relevanceField = " ,MATCH(product) AGAINST ('".mysql_real_escape_string($piece)."' IN BOOLEAN MODE) AS relevance";
-				$relevanceOrder = "relevance DESC,";
-			}
-			if ($params['pshort'] == 'Y') {
-				//$tmp .= db_quote(" OR descr1.short_description LIKE ?l", "%$piece%");
-			}
-			if ($params['pfull'] == 'Y') {
-				//$tmp .= db_quote(" OR descr1.full_description LIKE ?l", "%$piece%");
-			}
-			if ($params['pkeywords'] == 'Y') {
-			//	$tmp .= db_quote(" OR (descr1.meta_keywords LIKE ?l OR descr1.meta_description LIKE ?l)", "%$piece%", "%$piece%");
-			}
-			if (!empty($params['feature']) && $params['action'] != 'feature_search') {
-			//	$tmp .= db_quote(" OR ?:product_features_values.value LIKE ?l", "%$piece%");
-			}
-			$tmp .= db_quote(" OR products.product_code LIKE ?l", "%$piece%");
-			fn_set_hook('additional_fields_in_search', $params, $fields, $sortings, $condition, $join, $sorting, $group_by, $tmp);
-
-			$_condition[] = '(' . $tmp . ')';
-		}
-
-		$_cond = implode($search_type, $_condition);
-
-		if (!empty($_condition)) {
-			$condition .= ' AND (' . $_cond . ') ';
-		}
-
-		if (!empty($params['feature']) && $params['action'] != 'feature_search') {
-			$join .= " LEFT JOIN ?:product_features_values ON ?:product_features_values.product_id = products.product_id";
-			$condition .= db_quote(" AND (?:product_features_values.feature_id IN (?n) OR ?:product_features_values.feature_id IS NULL)", array_values($params['feature']));
-		}
-
-		unset($_condition);
-	}
-
-	//
-	// [Advanced and feature filters]
-	//
-
-	if (!empty($params['apply_limit']) && $params['apply_limit']) {
-		$pids = array();
-		foreach ($params['pid'] as $pid) {
-			if ($pid != $params['exclude_pid']) {
-				if (count($pids) == $params['limit']) {
-					break;
-				}
-				else {
-					$pids[] = $pid;
-				}
-			}
-		}
-		$params['pid'] = $pids;
-	}
-	if (!empty($params['features_hash']) || (!fn_is_empty($params['variants']))) {
-		$join .= db_quote(" LEFT JOIN ?:product_features_values ON ?:product_features_values.product_id = products.product_id AND ?:product_features_values.lang_code = ?s", CART_LANGUAGE);
-	}
-
-	if (!empty($params['variants'])) {
-		$params['features_hash'] .= implode('.', $params['variants']);
-	}
-
-	$advanced_variant_ids = $simple_variant_ids = $ranges_ids = $fields_ids = array();
-
-	if (!empty($params['features_hash'])) {
-		if (!empty($params['advanced_filter'])) {
-			list($av_ids, $ranges_ids, $fields_ids) = fn_parse_features_hash($params['features_hash']);
-			$advanced_variant_ids = db_get_hash_multi_array("SELECT feature_id, variant_id FROM ?:product_feature_variants WHERE variant_id IN (?n)", array('feature_id', 'variant_id'), $av_ids);
-		} else {
-			list($simple_variant_ids, $ranges_ids, $fields_ids) = fn_parse_features_hash($params['features_hash']);
-		}
-	}
-	if (!empty($params['multiple_variants']) && !empty($params['advanced_filter'])) {
-		$simple_variant_ids = $params['multiple_variants'];
-	}
-
-	if (!empty($advanced_variant_ids)) {
-		$join .= db_quote(" LEFT JOIN (SELECT product_id, GROUP_CONCAT(?:product_features_values.variant_id) AS advanced_variants FROM ?:product_features_values WHERE lang_code = ?s GROUP BY product_id) AS pfv_advanced ON pfv_advanced.product_id = products.product_id", CART_LANGUAGE);
-
-		$where_and_conditions = array();
-		foreach ($advanced_variant_ids as $k => $variant_ids) {
-			$where_or_conditions = array();
-			foreach ($variant_ids as $variant_id => $v) {
-				$where_or_conditions[] = db_quote(" FIND_IN_SET('?i', advanced_variants)", $variant_id);
-			}
-			$where_and_conditions[] = "(".implode(' OR ', $where_or_conditions).")";
-		}
-		$condition .= ' AND '.implode(' AND ', $where_and_conditions);
-	}
-
-	if (!empty($simple_variant_ids)) {
-		$join .= db_quote(" LEFT JOIN (SELECT product_id, GROUP_CONCAT(?:product_features_values.variant_id) AS simple_variants FROM ?:product_features_values WHERE lang_code = ?s GROUP BY product_id) AS pfv_simple ON pfv_simple.product_id = products.product_id", CART_LANGUAGE);
-
-		$where_conditions = array();
-		foreach ($simple_variant_ids as $k => $variant_id) {
-			$where_conditions[] = db_quote(" FIND_IN_SET('?i', simple_variants)", $variant_id);
-		}
-		$condition .= ' AND '.implode(' AND ', $where_conditions);
-	}
-
-	//
-	// Ranges from text inputs
-	//
-
-	// Feature ranges
-	if (!empty($params['custom_range'])) {
-		foreach ($params['custom_range'] as $k => $v) {
-			$k = intval($k);
-			if (fn_string_no_empty($v['from']) || fn_string_no_empty($v['to'])) {
-				if (!empty($v['type'])) {
-					if ($v['type'] == 'D') {
-						$v['from'] = fn_parse_date($v['from']);
-						$v['to'] = fn_parse_date($v['to']);
-					}
-				}
-				$join .= db_quote(" LEFT JOIN ?:product_features_values as custom_range_$k ON custom_range_$k.product_id = products.product_id AND custom_range_$k.lang_code = ?s", CART_LANGUAGE);
-				if (fn_string_no_empty($v['from']) && fn_string_no_empty($v['to'])) {
-					$condition .= db_quote(" AND (custom_range_$k.value_int >= ?i AND custom_range_$k.value_int <= ?i AND custom_range_$k.value = '' AND custom_range_$k.feature_id = ?i) ", $v['from'], $v['to'], $k);
-				} else {
-					$condition .= " AND custom_range_$k.value_int" . (fn_string_no_empty($v['from']) ? db_quote(' >= ?i', $v['from']) : db_quote(" <= ?i AND custom_range_$k.value = '' AND custom_range_$k.feature_id = ?i ", $v['to'], $k));
-				}
-			}
-		}
-	}
-	// Product field ranges
-	$filter_fields = fn_get_product_filter_fields();
-	if (!empty($params['field_range'])) {
-		foreach ($params['field_range'] as $field_type => $v) {
-			$structure = $filter_fields[$field_type];
-			if (!empty($structure) && (!empty($v['from']) || !empty($v['to']))) {
-				$params["$structure[db_field]_from"] = trim($v['from']);
-				$params["$structure[db_field]_to"] = trim($v['to']);
-			}
-		}
-	}
-	// Ranges from database
-	if (!empty($ranges_ids)) {
-		$range_conditions = db_get_array("SELECT `from`, `to`, feature_id FROM ?:product_filter_ranges WHERE range_id IN (?n)", $ranges_ids);
-		foreach ($range_conditions as $k => $range_condition) {
-			$join .= db_quote(" LEFT JOIN ?:product_features_values as var_val_$k ON var_val_$k.product_id = products.product_id AND var_val_$k.lang_code = ?s", CART_LANGUAGE);
-			$condition .= db_quote(" AND (var_val_$k.value_int >= ?i AND var_val_$k.value_int <= ?i AND var_val_$k.value = '' AND var_val_$k.feature_id = ?i) ", $range_condition['from'], $range_condition['to'], $range_condition['feature_id']);
-		}
-	}
-
-	// Field ranges
-	$fields_ids = empty($params['fields_ids']) ? $fields_ids : $params['fields'];
-	if (!empty($fields_ids)) {
-		foreach ($fields_ids as $rid => $field_type) {
-			$structure = $filter_fields[$field_type];
-			if ($structure['condition_type'] == 'D') {
-				$range_condition = db_get_row("SELECT `from`, `to`, range_id FROM ?:product_filter_ranges WHERE range_id = ?i", $rid);
-				if (!empty($range_condition)) {
-					$params["$structure[db_field]_from"] = $range_condition['from'];
-					$params["$structure[db_field]_to"] = $range_condition['to'];
-				}
-			} elseif ($structure['condition_type'] == 'F') {
-				$params[$structure['db_field']] = $rid;
-			} elseif ($structure['condition_type'] == 'C') {
-				$params[$structure['db_field']] = ($rid == 1) ? 'Y' : 'N';
-			}
-		}
-	}
-
-	// Checkbox features
-	if (!empty($params['ch_filters']) && !fn_is_empty($params['ch_filters'])) {
-		foreach ($params['ch_filters'] as $k => $v) {
-			// Product field filter
-			if (is_string($k) == true && !empty($v) && $structure = $filter_fields[$k]) {
-				$condition .= db_quote(" AND $structure[table].$structure[db_field] IN (?a)", ($v == 'A' ? array('Y', 'N') : $v));
-			// Feature filter
-			} elseif (!empty($v)) {
-				$fid = intval($k);
-				$join .= db_quote(" LEFT JOIN ?:product_features_values as ch_features_$fid ON ch_features_$fid.product_id = products.product_id AND ch_features_$fid.lang_code = ?s", CART_LANGUAGE);
-				$condition .= db_quote(" AND ch_features_$fid.feature_id = ?i AND ch_features_$fid.value IN (?a)", $fid, ($v == 'A' ? array('Y', 'N') : $v));
-			}
-		}
-	}
-
-	// Text features
-	if (!empty($params['tx_features'])) {
-		foreach ($params['tx_features'] as $k => $v) {
-			if (fn_string_no_empty($v)) {
-				$fid = intval($k);
-				$join .= " LEFT JOIN ?:product_features_values as tx_features_$fid ON tx_features_$fid.product_id = products.product_id";
-				$condition .= db_quote(" AND tx_features_$fid.value LIKE ?l AND tx_features_$fid.lang_code = ?s", "%" . trim($v) . "%", CART_LANGUAGE);
-			}
-		}
-	}
-
-	//
-	// [/Advanced filters]
-	//
-
-	$feature_search_condition = '';
-	if (!empty($params['feature'])) {
-		// Extended search by product fields
-		$_cond = array();
-		$total_hits = 0;
-		foreach ($params['feature'] as $f_id) {
-			if (!empty($f_val)) {
-				$total_hits++;
-				$_cond[] = db_quote("(?:product_features_values.feature_id = ?i)", $f_id);
-			}
-		}
-
-		if (!empty($_cond)) {
-			$cache_feature_search = db_get_fields("SELECT product_id, COUNT(product_id) as cnt FROM ?:product_features_values WHERE (" . implode(' OR ', $_cond) . ") GROUP BY product_id HAVING cnt = $total_hits");
-
-			$feature_search_condition .= db_quote(" AND products_categories.product_id IN (?n)", $cache_feature_search);
-		}
-	}
-
-	// Category search condition for SQL query
-	if (!empty($params['cid'])) {
-		$cids = is_array($params['cid']) ? $params['cid'] : array($params['cid']);
-
-		if (!empty($params['subcats']) && $params['subcats'] == 'Y') {
-			$_ids = db_get_fields("SELECT a.category_id FROM ?:categories as a LEFT JOIN ?:categories as b ON b.category_id IN (?n) WHERE a.id_path LIKE CONCAT(b.id_path, '/%')", $cids);
-
-			$cids = fn_array_merge($cids, $_ids, false);
-		}
-
-		$condition .= db_quote(" AND ?:categories.category_id IN (?n)", $cids);
-	}
-
-	// If we need to get the products by IDs and no IDs passed, don't search anything
-	if (!empty($params['force_get_by_ids']) && empty($params['pid']) && empty($params['product_id'])) {
-		return array(array(), array(), 0);
-	}
-
-	// Product ID search condition for SQL query
-	if (!empty($params['pid'])) {
-		if(isset($params['doLinks']) && $params['doLinks'] ==1){
-			$condition .= db_quote(' AND products.product_id IN ('.$params['pid'].')', $params['pid']);
-		}
-		else{
-			$condition .= db_quote(' AND products.product_id IN (?n)', $params['pid']);
-		}
-	}
-
-	// Exclude products from search results
-	if (!empty($params['exclude_pid'])) {
-		$condition .= db_quote(' AND products.product_id NOT IN (?n)', $params['exclude_pid']);
-	}
-
-	// Search by feature comparison flag
-	if (!empty($params['feature_comparison'])) {
-		$condition .= db_quote(' AND products.feature_comparison = ?s', $params['feature_comparison']);
-	}
-
-	// Search products by localization
-	$condition .= fn_get_localizations_condition('products.localization', true);
-	$condition .= fn_get_localizations_condition('?:categories.localization', true);
-
-	if (isset($params['price_from']) && fn_is_numeric($params['price_from'])) {
-		$condition .= db_quote(' AND prices.price >= ?d', fn_convert_price(trim($params['price_from'])));
-	}
-
-	if (isset($params['price_to']) && fn_is_numeric($params['price_to'])) {
-		$condition .= db_quote(' AND prices.price <= ?d', fn_convert_price(trim($params['price_to'])));
-	}
-
-	if (isset($params['weight_from']) && fn_is_numeric($params['weight_from'])) {
-		$condition .= db_quote(' AND products.weight >= ?d', fn_convert_weight(trim($params['weight_from'])));
-	}
-
-	if (isset($params['weight_to']) && fn_is_numeric($params['weight_to'])) {
-		$condition .= db_quote(' AND products.weight <= ?d', fn_convert_weight(trim($params['weight_to'])));
-	}
-
-	// search specific inventory status
-	if (!empty($params['search_tracking_flags'])) {
-		$condition .= db_quote(' AND products.tracking IN(?a)', $params['search_tracking_flags']);
-	}
-
-	if (isset($params['amount_from']) && fn_is_numeric($params['amount_from'])) {
-		$condition .= db_quote(" AND IF(products.tracking = 'O', inventory.amount >= ?i, products.amount >= ?i)", $params['amount_from'], $params['amount_from']);
-		$inventory_condition .= db_quote(' AND inventory.amount >= ?i', $params['amount_from']);
-	}
-
-	if (isset($params['amount_to']) && fn_is_numeric($params['amount_to'])) {
-		$condition .= db_quote(" AND IF(products.tracking = 'O', inventory.amount <= ?i, products.amount <= ?i)", $params['amount_to'], $params['amount_to']);
-		$inventory_condition .= db_quote(' AND inventory.amount <= ?i', $params['amount_to']);
-	}
-
-	if (Registry::get('settings.General.show_out_of_stock_products') == 'N' && AREA == 'C') { // FIXME? Registry in model
-		$condition .= " AND IF(products.tracking = 'O', inventory.amount > 0, products.amount > 0)";
-	}
-
-	if (!empty($params['status'])) {
-		$condition .= db_quote(' AND products.status IN (?a)', $params['status']);
-	}
-
-	if (!empty($params['shipping_freight_from'])) {
-		$condition .= db_quote(' AND products.shipping_freight >= ?d', $params['shipping_freight_from']);
-	}
-
-	if (!empty($params['shipping_freight_to'])) {
-		$condition .= db_quote(' AND products.shipping_freight <= ?d', $params['shipping_freight_to']);
-	}
-
-	if (!empty($params['free_shipping'])) {
-		$condition .= db_quote(' AND products.free_shipping = ?s', $params['free_shipping']);
-	}
-
-	if (!empty($params['downloadable'])) {
-		$condition .= db_quote(' AND products.is_edp = ?s', $params['downloadable']);
-	}
-
-	if (!empty($params['b_id'])) {
-		$join .= " LEFT JOIN ?:block_links ON ?:block_links.object_id = products.product_id AND ?:block_links.location = 'products'";
-		$condition .= db_quote(' AND ?:block_links.block_id = ?i', $params['b_id']);
-	}
-
-	if (isset($params['pcode']) && fn_string_no_empty($params['pcode'])) {
-		$pcode = trim($params['pcode']);
-		$fields[] = 'inventory.combination';
-		$condition .= db_quote(" AND (inventory.product_code LIKE ?l OR products.product_code LIKE ?l)", "%$pcode%", "%$pcode%");
-		$inventory_condition .= db_quote(" AND inventory.product_code LIKE ?l", "%$pcode%");
-	}
-
-	if ((isset($params['amount_to']) && fn_is_numeric($params['amount_to'])) || (isset($params['amount_from']) && fn_is_numeric($params['amount_from'])) || !empty($params['pcode']) || (Registry::get('settings.General.show_out_of_stock_products') == 'N' && AREA == 'C')) {
-		$join .= " LEFT JOIN ?:product_options_inventory as inventory ON inventory.product_id = products.product_id $inventory_condition";
-	}
-
-	if (!empty($params['period']) && $params['period'] != 'A') {
-		list($params['time_from'], $params['time_to']) = fn_create_periods($params);
-		$condition .= db_quote(" AND (products.timestamp >= ?i AND products.timestamp <= ?i)", $params['time_from'], $params['time_to']);
-	}
-
-	if (!empty($params['item_ids'])) {
-		$condition .= db_quote(" AND products.product_id IN (?n)", explode(',', $params['item_ids']));
-	}
-
-	if (isset($params['popularity_from']) && fn_is_numeric($params['popularity_from'])) {
-		$condition .= db_quote(' AND popularity.total >= ?i', $params['popularity_from']);
-	}
-
-	if (isset($params['popularity_to']) && fn_is_numeric($params['popularity_to'])) {
-		$condition .= db_quote(' AND popularity.total <= ?i', $params['popularity_to']);
-	}
-
-	// Extended search mode condition for SQL query
-	if ($params['type'] == 'extended') {
-		array_push($fields,
-			'products.product_code',
-			'products.amount',
-			'MIN(prices.price) as price',
-			'products.status',
-			'products.list_price',
-			'descr1.short_description',
-			"IF(descr1.short_description = '', descr1.full_description, '') as full_description"
-		);
-
-		if (!empty($params['cid'])) {
-			$fields[] = 'products_categories.position';
-		}
-
-	}
-	
-	$price_usergroup_cond = db_quote(' AND prices.usergroup_id IN (?n)', ((AREA == 'A') ? USERGROUP_ALL : array_merge(array(USERGROUP_ALL), $auth['usergroup_ids'])));
-	
-	$condition .= $price_usergroup_cond;
-	
-	$price_usergroup_cond_2 = str_replace('prices', 'prices_2', $price_usergroup_cond);
-
-	$join .= " LEFT JOIN ?:product_prices as prices ON prices.product_id = products.product_id AND prices.lower_limit = 1 LEFT JOIN ?:product_prices as prices_2 ON prices.product_id = prices_2.product_id AND prices_2.lower_limit = 1 AND prices_2.price < prices.price " . $price_usergroup_cond_2;
-
-	$condition .= ' AND prices_2.price IS NULL';
-
-	// Show enabled products/categories
-	$_p_statuses = array('A');
-	$_c_statuses = array('A' , 'H');
-
-	$avail_cond = (AREA == 'C') ? ' AND (' . fn_find_array_in_set($auth['usergroup_ids'], '?:categories.usergroup_ids', true) . ')' : '';
-	$avail_cond .= (AREA == 'C') ? ' AND (' . fn_find_array_in_set($auth['usergroup_ids'], 'products.usergroup_ids', true) . ')' : '';
-	$avail_cond .= (AREA == 'C') ? db_quote(" AND ?:categories.status IN (?a) AND products.status IN (?a)", $_c_statuses, $_p_statuses) : '';
-
-	$join .= " INNER JOIN ?:products_categories as products_categories ON products_categories.product_id = products.product_id INNER JOIN ?:categories ON ?:categories.category_id = products_categories.category_id $avail_cond $feature_search_condition";
-	$limit = '';
-	$group_by = 'products.product_id';
-	fn_set_hook('get_products', $params, $fields, $sortings, $condition, $join, $sorting, $group_by, $lang_code);
-
-	if (empty($params['sort_by']) || empty($sortings[$params['sort_by']])) {
-		$params['sort_by'] = Registry::get('settings.Appearance.default_products_sorting');
-		if (empty($sortings[$params['sort_by']])) {
-			$_products_sortings = fn_get_products_sorting(false);
-			$params['sort_by'] = key($_products_sortings);
-		}
-	}
-
-	if ($params['type'] != 'extended' && $params['sort_by'] == 'price') {
-		$params['sort_by'] = 'product';
-	}
-
-	$default_sorting = fn_get_products_sorting(false);
-
-	if (empty($params['sort_order']) || empty($directions[$params['sort_order']])) {
-		if (!empty($default_sorting[$params['sort_by']]['default_order'])) {
-			$params['sort_order'] = $default_sorting[$params['sort_by']]['default_order'];
-		} else {
-			$params['sort_order'] = 'asc';
-		}
-	}
-
-	if (AREA == 'A' || $params['sort_by'] == 'popularity') {
-		$fields[]   = 'popularity.total as popularity';
-		$join .= db_quote(" LEFT JOIN ?:product_popularity as popularity ON popularity.product_id = products.product_id");
-	}
-
-	$sorting = $sortings[$params['sort_by']] . ' ' . $directions[$params['sort_order']];
-
-	// Reverse sorting (for usage in view)
-	$params['sort_order'] = $params['sort_order'] == 'asc' ? 'desc' : 'asc';
-
-	// Used for View cascading
-	if (!empty($params['get_query'])) {
-		return "SELECT products.product_id FROM ?:products as products $join WHERE 1 $condition GROUP BY products.product_id";
-	}
-
-	// Used for Extended search
-	if (!empty($params['get_conditions'])) {
-		return array($fields, $join, $condition);
-	}
-
- 	if (!empty($params['limit'])) {
-		$limit = db_quote(" LIMIT 0, ?i", $params['limit']);
- 	}
-	
-		
-	$total = 0;
-	if (!empty($items_per_page)) {
-		if (!empty($params['limit']) && $total > $params['limit']) {
-			$total = $params['limit'];
-		}
-
-		$limit = fn_paginate($params['page'], 0, $items_per_page, true);
-	}
-	
-	if(isset($_GET['no_pagination'])){
-		ini_set('memory_limit','128M');
-		$limit = db_quote("");
-	}
-
-if(isset($params['doLinks']) && $params['doLinks'] ==1)
-	{
-		$sorting = "products.amount DESC, descr1.product ASC";
-		
-	}
-	//http://local.busenki.ru/index.php?dispatch=categories.view&category_id=80&subcats=Y&features_hash=P10.R43.R37.V6.V22.R33.R19
-    //http://local.busenki.ru/index.php?dispatch=categories.view&category_id=183&subcats=Y&features_hash=P8.V6.V22.R38
-    $sqlquery = 'SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit";
-	$products = db_get_array($sqlquery);
-
-
-
-	if (!empty($items_per_page)) {
-		$total = db_get_found_rows();
-		fn_paginate($params['page'], $total, $items_per_page);
-	} else {
-		$total = count($products);
-	}
-
-	// Post processing
-	foreach ($products as $k => $v) {
-		$products[$k]['category_ids'] = fn_convert_categories($v['category_ids']);
-	}
-
-	if (!empty($params['item_ids'])) {
-		$products = fn_sort_by_ids($products, explode(',', $params['item_ids']));
-	}
-	if (!empty($params['pid']) && !empty($params['apply_limit']) && $params['apply_limit']) {
-		$products = fn_sort_by_ids($products, $params['pid']);
-	}
-
-	fn_set_hook('get_products_post', $products);
-
-	return array($products, $params, $total);
+
+    if(isset($params['doLinks']) && $params['doLinks'] ==1){
+        $neighbours = fn_get_neighbours($_REQUEST['product_id']);
+
+        $params['pid'] = $neighbours;
+        $params['limit'] = 4;
+
+    }
+
+    if(isset($params['doSales']) && $params['doSales'] ==1){
+
+        $params['pid'] = fn_get_sales_products();
+
+
+    }
+    if(isset($params['doSameLine']) && $params['doSameLine'] ==1){
+
+        $sameLineProducts = fn_get_same_line_products($_REQUEST['product_id']);
+        if($sameLineProducts){
+            $params['pid'] = $sameLineProducts;
+        }
+        else
+            return false;
+
+    }
+
+    // Init filter
+    $relevanceField = '';
+    $relevanceOrder = '';
+    $params = fn_init_view('products', $params);
+
+    // Set default values to input params
+    $default_params = array (
+        'pname' => '',
+        'pshort' => '',
+        'pfull' => '',
+        'pkeywords' => '',
+        'feature' => array(),
+        'type' => 'simple',
+        'page' => 1,
+        'action' => '',
+        'variants' => array(),
+        'ranges' => array(),
+        'custom_range' => array(),
+        'field_range' => array(),
+        'features_hash' => '',
+        'limit' => 0,
+        'bid' => 0,
+        'match' => '',
+        'search_tracking_flags' => array()
+    );
+
+    $params = array_merge($default_params, $params);
+
+    if ((empty($params['pname']) || $params['pname'] != 'Y') && (empty($params['pshort']) || $params['pshort'] != 'Y') && (empty($params['pfull']) || $params['pfull'] != 'Y') && (empty($params['pkeywords']) || $params['pkeywords'] != 'Y') && (empty($params['feature']) || $params['feature'] != 'Y') && !empty($params['q'])) {
+        $params['pname'] = 'Y';
+    }
+
+    $auth = & $_SESSION['auth'];
+
+    // Define fields that should be retrieved
+    $fields = array (
+        'products.product_id',
+        'products.company_id',
+        'companies.company as company_name',
+        'descr1.product as product',
+        'products.tracking',
+        'products.feature_comparison',
+        'products.zero_price_action',
+        'products.product_type',
+        'products.tax_ids',
+        'products.weight',
+        "GROUP_CONCAT(IF(products_categories.link_type = 'M', CONCAT(products_categories.category_id, 'M'), products_categories.category_id)) as category_ids",
+        'min_qty',
+        'max_qty',
+        'products.qty_step',
+        'products.list_qty_count',
+        'products.is_edp',
+        'avail_since',
+        'buy_in_advance',
+        'products.options_type',
+        'products.exceptions_type',
+        'companies.company as company_name',
+
+
+    );
+
+    // Define sort fields
+    $sortings = array (
+        'code' => 'products.product_code',
+        'status' => 'products.status',
+        'product' => 'descr1.product',
+        'position' => 'products_categories.position',
+        'price' => 'prices.price',
+        'list_price' => 'products.list_price',
+        'weight' => 'products.weight',
+        'amount' => 'products.amount',
+        'timestamp' => 'products.timestamp',
+        'popularity' => 'popularity.total',
+        'company' => "company_name",
+    );
+
+    $directions = array (
+        'asc' => 'asc',
+        'desc' => 'desc'
+    );
+
+    $join = $condition = $inventory_condition = '';
+
+    $condition .= fn_get_company_condition('products.company_id');
+
+    if (isset($params['company_id']) && $params['company_id'] != '') {
+        $params['company_id'] = intval($params['company_id']);
+        $condition .= db_quote(' AND products.company_id = ?i ', $params['company_id']);
+    }
+
+    if (AREA == 'C') {
+        if (fn_check_suppliers_functionality()) {
+            // if MVE or suppliers enabled
+            $condition .= " AND (companies.status = 'A' OR products.company_id = 0) ";
+        } else {
+            // if suppliers disabled
+            $condition .= fn_get_company_condition('products.company_id', true, '0', false, true);
+        }
+    }
+
+    $join .= db_quote(" LEFT JOIN ?:companies companies ON companies.company_id = products.company_id ");
+    $join .= db_quote(" LEFT JOIN ?:product_descriptions as descr1 ON descr1.product_id = products.product_id AND descr1.lang_code = ?s ", $lang_code);
+
+    // Search string condition for SQL query
+    if (isset($params['q']) && fn_string_no_empty($params['q'])) {
+
+        $params['q'] = trim($params['q']);
+        if ($params['match'] == 'any') {
+            $pieces = fn_explode(' ', $params['q']);
+            $search_type = ' OR ';
+        } elseif ($params['match'] == 'all') {
+            $pieces = fn_explode(' ', $params['q']);
+            $search_type = ' AND ';
+        } else {
+            $pieces = array($params['q']);
+            $search_type = '';
+        }
+
+        $_condition = array();
+        foreach ($pieces as $piece) {
+            if (strlen($piece) == 0) {
+                continue;
+            }
+            $pieceTrimed = str_replace(array(' ','-'), '', $piece);
+
+            $tmp = db_quote("(descr1.search_words LIKE ?l)", "%$piece%"); // check search words
+
+            if ($params['pname'] == 'Y') {
+                $tmp .= db_quote(" OR MATCH (product) AGAINST ('".mysql_real_escape_string($piece)."')");
+                //$tmp .= db_quote(" OR MATCH (product) AGAINST ('$piece')");
+                $tmp .= db_quote(" OR REPLACE( REPLACE(upper(descr1.product),  ' ',  '' ) ,  '-',  '' ) LIKE ?l", "%$pieceTrimed%");
+                $relevanceField = " ,MATCH(product) AGAINST ('".mysql_real_escape_string($piece)."') AS relevance"; //Removed IN BOOLEAN MODE
+                $relevanceOrder = "relevance DESC,";
+            }
+            if ($params['pshort'] == 'Y') {
+                //$tmp .= db_quote(" OR descr1.short_description LIKE ?l", "%$piece%");
+            }
+            if ($params['pfull'] == 'Y') {
+                //$tmp .= db_quote(" OR descr1.full_description LIKE ?l", "%$piece%");
+            }
+            if ($params['pkeywords'] == 'Y') {
+                //	$tmp .= db_quote(" OR (descr1.meta_keywords LIKE ?l OR descr1.meta_description LIKE ?l)", "%$piece%", "%$piece%");
+            }
+            if (!empty($params['feature']) && $params['action'] != 'feature_search') {
+                //	$tmp .= db_quote(" OR ?:product_features_values.value LIKE ?l", "%$piece%");
+            }
+            $tmp .= db_quote(" OR products.product_code LIKE ?l", "%$piece%");
+            fn_set_hook('additional_fields_in_search', $params, $fields, $sortings, $condition, $join, $sorting, $group_by, $tmp);
+
+            $_condition[] = '(' . $tmp . ')';
+        }
+
+        $_cond = implode($search_type, $_condition);
+
+        if (!empty($_condition)) {
+            $condition .= ' AND (' . $_cond . ') ';
+        }
+
+        if (!empty($params['feature']) && $params['action'] != 'feature_search') {
+            $join .= " LEFT JOIN ?:product_features_values ON ?:product_features_values.product_id = products.product_id";
+            $condition .= db_quote(" AND (?:product_features_values.feature_id IN (?n) OR ?:product_features_values.feature_id IS NULL)", array_values($params['feature']));
+        }
+
+        unset($_condition);
+    }
+
+    //
+    // [Advanced and feature filters]
+    //
+
+    if (!empty($params['apply_limit']) && $params['apply_limit']) {
+        $pids = array();
+        foreach ($params['pid'] as $pid) {
+            if ($pid != $params['exclude_pid']) {
+                if (count($pids) == $params['limit']) {
+                    break;
+                }
+                else {
+                    $pids[] = $pid;
+                }
+            }
+        }
+        $params['pid'] = $pids;
+    }
+    if (!empty($params['features_hash']) || (!fn_is_empty($params['variants']))) {
+        $join .= db_quote(" LEFT JOIN ?:product_features_values ON ?:product_features_values.product_id = products.product_id AND ?:product_features_values.lang_code = ?s", CART_LANGUAGE);
+    }
+
+    if (!empty($params['variants'])) {
+        $params['features_hash'] .= implode('.', $params['variants']);
+    }
+
+    $advanced_variant_ids = $simple_variant_ids = $ranges_ids = $fields_ids = array();
+
+    if (!empty($params['features_hash'])) {
+        if (!empty($params['advanced_filter'])) {
+            list($av_ids, $ranges_ids, $fields_ids) = fn_parse_features_hash($params['features_hash']);
+            $advanced_variant_ids = db_get_hash_multi_array("SELECT feature_id, variant_id FROM ?:product_feature_variants WHERE variant_id IN (?n)", array('feature_id', 'variant_id'), $av_ids);
+        } else {
+            list($simple_variant_ids, $ranges_ids, $fields_ids) = fn_parse_features_hash($params['features_hash']);
+        }
+    }
+    if (!empty($params['multiple_variants']) && !empty($params['advanced_filter'])) {
+        $simple_variant_ids = $params['multiple_variants'];
+    }
+
+    if (!empty($advanced_variant_ids)) {
+        $join .= db_quote(" LEFT JOIN (SELECT product_id, GROUP_CONCAT(?:product_features_values.variant_id) AS advanced_variants FROM ?:product_features_values WHERE lang_code = ?s GROUP BY product_id) AS pfv_advanced ON pfv_advanced.product_id = products.product_id", CART_LANGUAGE);
+
+        $where_and_conditions = array();
+        foreach ($advanced_variant_ids as $k => $variant_ids) {
+            $where_or_conditions = array();
+            foreach ($variant_ids as $variant_id => $v) {
+                $where_or_conditions[] = db_quote(" FIND_IN_SET('?i', advanced_variants)", $variant_id);
+            }
+            $where_and_conditions[] = "(".implode(' OR ', $where_or_conditions).")";
+        }
+        $condition .= ' AND '.implode(' AND ', $where_and_conditions);
+    }
+
+    if (!empty($simple_variant_ids)) {
+        $join .= db_quote(" LEFT JOIN (SELECT product_id, GROUP_CONCAT(?:product_features_values.variant_id) AS simple_variants FROM ?:product_features_values WHERE lang_code = ?s GROUP BY product_id) AS pfv_simple ON pfv_simple.product_id = products.product_id", CART_LANGUAGE);
+
+        $where_conditions = array();
+        foreach ($simple_variant_ids as $k => $variant_id) {
+            $where_conditions[] = db_quote(" FIND_IN_SET('?i', simple_variants)", $variant_id);
+        }
+        $condition .= ' AND '.implode(' AND ', $where_conditions);
+    }
+
+    //
+    // Ranges from text inputs
+    //
+
+    // Feature ranges
+    if (!empty($params['custom_range'])) {
+        foreach ($params['custom_range'] as $k => $v) {
+            $k = intval($k);
+            if (fn_string_no_empty($v['from']) || fn_string_no_empty($v['to'])) {
+                if (!empty($v['type'])) {
+                    if ($v['type'] == 'D') {
+                        $v['from'] = fn_parse_date($v['from']);
+                        $v['to'] = fn_parse_date($v['to']);
+                    }
+                }
+                $join .= db_quote(" LEFT JOIN ?:product_features_values as custom_range_$k ON custom_range_$k.product_id = products.product_id AND custom_range_$k.lang_code = ?s", CART_LANGUAGE);
+                if (fn_string_no_empty($v['from']) && fn_string_no_empty($v['to'])) {
+                    $condition .= db_quote(" AND (custom_range_$k.value_int >= ?i AND custom_range_$k.value_int <= ?i AND custom_range_$k.value = '' AND custom_range_$k.feature_id = ?i) ", $v['from'], $v['to'], $k);
+                } else {
+                    $condition .= " AND custom_range_$k.value_int" . (fn_string_no_empty($v['from']) ? db_quote(' >= ?i', $v['from']) : db_quote(" <= ?i AND custom_range_$k.value = '' AND custom_range_$k.feature_id = ?i ", $v['to'], $k));
+                }
+            }
+        }
+    }
+    // Product field ranges
+    $filter_fields = fn_get_product_filter_fields();
+    if (!empty($params['field_range'])) {
+        foreach ($params['field_range'] as $field_type => $v) {
+            $structure = $filter_fields[$field_type];
+            if (!empty($structure) && (!empty($v['from']) || !empty($v['to']))) {
+                $params["$structure[db_field]_from"] = trim($v['from']);
+                $params["$structure[db_field]_to"] = trim($v['to']);
+            }
+        }
+    }
+    // Ranges from database
+    if (!empty($ranges_ids)) {
+        $range_conditions = db_get_array("SELECT `from`, `to`, feature_id FROM ?:product_filter_ranges WHERE range_id IN (?n)", $ranges_ids);
+        foreach ($range_conditions as $k => $range_condition) {
+            $join .= db_quote(" LEFT JOIN ?:product_features_values as var_val_$k ON var_val_$k.product_id = products.product_id AND var_val_$k.lang_code = ?s", CART_LANGUAGE);
+            $condition .= db_quote(" AND (var_val_$k.value_int >= ?i AND var_val_$k.value_int <= ?i AND var_val_$k.value = '' AND var_val_$k.feature_id = ?i) ", $range_condition['from'], $range_condition['to'], $range_condition['feature_id']);
+        }
+    }
+
+    // Field ranges
+    $fields_ids = empty($params['fields_ids']) ? $fields_ids : $params['fields'];
+    if (!empty($fields_ids)) {
+        foreach ($fields_ids as $rid => $field_type) {
+            $structure = $filter_fields[$field_type];
+            if ($structure['condition_type'] == 'D') {
+                $range_condition = db_get_row("SELECT `from`, `to`, range_id FROM ?:product_filter_ranges WHERE range_id = ?i", $rid);
+                if (!empty($range_condition)) {
+                    $params["$structure[db_field]_from"] = $range_condition['from'];
+                    $params["$structure[db_field]_to"] = $range_condition['to'];
+                }
+            } elseif ($structure['condition_type'] == 'F') {
+                $params[$structure['db_field']] = $rid;
+            } elseif ($structure['condition_type'] == 'C') {
+                $params[$structure['db_field']] = ($rid == 1) ? 'Y' : 'N';
+            }
+        }
+    }
+
+    // Checkbox features
+    if (!empty($params['ch_filters']) && !fn_is_empty($params['ch_filters'])) {
+        foreach ($params['ch_filters'] as $k => $v) {
+            // Product field filter
+            if (is_string($k) == true && !empty($v) && $structure = $filter_fields[$k]) {
+                $condition .= db_quote(" AND $structure[table].$structure[db_field] IN (?a)", ($v == 'A' ? array('Y', 'N') : $v));
+                // Feature filter
+            } elseif (!empty($v)) {
+                $fid = intval($k);
+                $join .= db_quote(" LEFT JOIN ?:product_features_values as ch_features_$fid ON ch_features_$fid.product_id = products.product_id AND ch_features_$fid.lang_code = ?s", CART_LANGUAGE);
+                $condition .= db_quote(" AND ch_features_$fid.feature_id = ?i AND ch_features_$fid.value IN (?a)", $fid, ($v == 'A' ? array('Y', 'N') : $v));
+            }
+        }
+    }
+
+    // Text features
+    if (!empty($params['tx_features'])) {
+        foreach ($params['tx_features'] as $k => $v) {
+            if (fn_string_no_empty($v)) {
+                $fid = intval($k);
+                $join .= " LEFT JOIN ?:product_features_values as tx_features_$fid ON tx_features_$fid.product_id = products.product_id";
+                $condition .= db_quote(" AND tx_features_$fid.value LIKE ?l AND tx_features_$fid.lang_code = ?s", "%" . trim($v) . "%", CART_LANGUAGE);
+            }
+        }
+    }
+
+    //
+    // [/Advanced filters]
+    //
+
+    $feature_search_condition = '';
+    if (!empty($params['feature'])) {
+        // Extended search by product fields
+        $_cond = array();
+        $total_hits = 0;
+        foreach ($params['feature'] as $f_id) {
+            if (!empty($f_val)) {
+                $total_hits++;
+                $_cond[] = db_quote("(?:product_features_values.feature_id = ?i)", $f_id);
+            }
+        }
+
+        if (!empty($_cond)) {
+            $cache_feature_search = db_get_fields("SELECT product_id, COUNT(product_id) as cnt FROM ?:product_features_values WHERE (" . implode(' OR ', $_cond) . ") GROUP BY product_id HAVING cnt = $total_hits");
+
+            $feature_search_condition .= db_quote(" AND products_categories.product_id IN (?n)", $cache_feature_search);
+        }
+    }
+
+    // Category search condition for SQL query
+    if (!empty($params['cid'])) {
+        $cids = is_array($params['cid']) ? $params['cid'] : array($params['cid']);
+
+        if (!empty($params['subcats']) && $params['subcats'] == 'Y') {
+            $_ids = db_get_fields("SELECT a.category_id FROM ?:categories as a LEFT JOIN ?:categories as b ON b.category_id IN (?n) WHERE a.id_path LIKE CONCAT(b.id_path, '/%')", $cids);
+
+            $cids = fn_array_merge($cids, $_ids, false);
+        }
+
+        $condition .= db_quote(" AND ?:categories.category_id IN (?n)", $cids);
+    }
+
+    // If we need to get the products by IDs and no IDs passed, don't search anything
+    if (!empty($params['force_get_by_ids']) && empty($params['pid']) && empty($params['product_id'])) {
+        return array(array(), array(), 0);
+    }
+
+    // Product ID search condition for SQL query
+    if (!empty($params['pid'])) {
+        if(isset($params['doLinks']) && $params['doLinks'] ==1){
+            $condition .= db_quote(' AND products.product_id IN ('.$params['pid'].')', $params['pid']);
+        }
+        else{
+            $condition .= db_quote(' AND products.product_id IN (?n)', $params['pid']);
+        }
+    }
+
+    // Exclude products from search results
+    if (!empty($params['exclude_pid'])) {
+        $condition .= db_quote(' AND products.product_id NOT IN (?n)', $params['exclude_pid']);
+    }
+
+    // Search by feature comparison flag
+    if (!empty($params['feature_comparison'])) {
+        $condition .= db_quote(' AND products.feature_comparison = ?s', $params['feature_comparison']);
+    }
+
+    // Search products by localization
+    $condition .= fn_get_localizations_condition('products.localization', true);
+    $condition .= fn_get_localizations_condition('?:categories.localization', true);
+
+    if (isset($params['price_from']) && fn_is_numeric($params['price_from'])) {
+        $condition .= db_quote(' AND prices.price >= ?d', fn_convert_price(trim($params['price_from'])));
+    }
+
+    if (isset($params['price_to']) && fn_is_numeric($params['price_to'])) {
+        $condition .= db_quote(' AND prices.price <= ?d', fn_convert_price(trim($params['price_to'])));
+    }
+
+    if (isset($params['weight_from']) && fn_is_numeric($params['weight_from'])) {
+        $condition .= db_quote(' AND products.weight >= ?d', fn_convert_weight(trim($params['weight_from'])));
+    }
+
+    if (isset($params['weight_to']) && fn_is_numeric($params['weight_to'])) {
+        $condition .= db_quote(' AND products.weight <= ?d', fn_convert_weight(trim($params['weight_to'])));
+    }
+
+    // search specific inventory status
+    if (!empty($params['search_tracking_flags'])) {
+        $condition .= db_quote(' AND products.tracking IN(?a)', $params['search_tracking_flags']);
+    }
+
+    if (isset($params['amount_from']) && fn_is_numeric($params['amount_from'])) {
+        $condition .= db_quote(" AND IF(products.tracking = 'O', inventory.amount >= ?i, products.amount >= ?i)", $params['amount_from'], $params['amount_from']);
+        $inventory_condition .= db_quote(' AND inventory.amount >= ?i', $params['amount_from']);
+    }
+
+    if (isset($params['amount_to']) && fn_is_numeric($params['amount_to'])) {
+        $condition .= db_quote(" AND IF(products.tracking = 'O', inventory.amount <= ?i, products.amount <= ?i)", $params['amount_to'], $params['amount_to']);
+        $inventory_condition .= db_quote(' AND inventory.amount <= ?i', $params['amount_to']);
+    }
+
+    if (Registry::get('settings.General.show_out_of_stock_products') == 'N' && AREA == 'C') { // FIXME? Registry in model
+        $condition .= " AND IF(products.tracking = 'O', inventory.amount > 0, products.amount > 0)";
+    }
+
+    if (!empty($params['status'])) {
+        $condition .= db_quote(' AND products.status IN (?a)', $params['status']);
+    }
+
+    if (!empty($params['shipping_freight_from'])) {
+        $condition .= db_quote(' AND products.shipping_freight >= ?d', $params['shipping_freight_from']);
+    }
+
+    if (!empty($params['shipping_freight_to'])) {
+        $condition .= db_quote(' AND products.shipping_freight <= ?d', $params['shipping_freight_to']);
+    }
+
+    if (!empty($params['free_shipping'])) {
+        $condition .= db_quote(' AND products.free_shipping = ?s', $params['free_shipping']);
+    }
+
+    if (!empty($params['downloadable'])) {
+        $condition .= db_quote(' AND products.is_edp = ?s', $params['downloadable']);
+    }
+
+    if (!empty($params['b_id'])) {
+        $join .= " LEFT JOIN ?:block_links ON ?:block_links.object_id = products.product_id AND ?:block_links.location = 'products'";
+        $condition .= db_quote(' AND ?:block_links.block_id = ?i', $params['b_id']);
+    }
+
+    if (isset($params['pcode']) && fn_string_no_empty($params['pcode'])) {
+        $pcode = trim($params['pcode']);
+        $fields[] = 'inventory.combination';
+        $condition .= db_quote(" AND (inventory.product_code LIKE ?l OR products.product_code LIKE ?l)", "%$pcode%", "%$pcode%");
+        $inventory_condition .= db_quote(" AND inventory.product_code LIKE ?l", "%$pcode%");
+    }
+
+    if ((isset($params['amount_to']) && fn_is_numeric($params['amount_to'])) || (isset($params['amount_from']) && fn_is_numeric($params['amount_from'])) || !empty($params['pcode']) || (Registry::get('settings.General.show_out_of_stock_products') == 'N' && AREA == 'C')) {
+        $join .= " LEFT JOIN ?:product_options_inventory as inventory ON inventory.product_id = products.product_id $inventory_condition";
+    }
+
+    if (!empty($params['period']) && $params['period'] != 'A') {
+        list($params['time_from'], $params['time_to']) = fn_create_periods($params);
+        $condition .= db_quote(" AND (products.timestamp >= ?i AND products.timestamp <= ?i)", $params['time_from'], $params['time_to']);
+    }
+
+    if (!empty($params['item_ids'])) {
+        $condition .= db_quote(" AND products.product_id IN (?n)", explode(',', $params['item_ids']));
+    }
+
+    if (isset($params['popularity_from']) && fn_is_numeric($params['popularity_from'])) {
+        $condition .= db_quote(' AND popularity.total >= ?i', $params['popularity_from']);
+    }
+
+    if (isset($params['popularity_to']) && fn_is_numeric($params['popularity_to'])) {
+        $condition .= db_quote(' AND popularity.total <= ?i', $params['popularity_to']);
+    }
+
+    // Extended search mode condition for SQL query
+    if ($params['type'] == 'extended') {
+        array_push($fields,
+            'products.product_code',
+            'products.amount',
+            'MIN(prices.price) as price',
+            'products.status',
+            'products.list_price',
+            'descr1.short_description',
+            "IF(descr1.short_description = '', descr1.full_description, '') as full_description"
+        );
+
+        if (!empty($params['cid'])) {
+            $fields[] = 'products_categories.position';
+        }
+
+    }
+
+    $price_usergroup_cond = db_quote(' AND prices.usergroup_id IN (?n)', ((AREA == 'A') ? USERGROUP_ALL : array_merge(array(USERGROUP_ALL), $auth['usergroup_ids'])));
+
+    $condition .= $price_usergroup_cond;
+
+    $price_usergroup_cond_2 = str_replace('prices', 'prices_2', $price_usergroup_cond);
+
+    $join .= " LEFT JOIN ?:product_prices as prices ON prices.product_id = products.product_id AND prices.lower_limit = 1 LEFT JOIN ?:product_prices as prices_2 ON prices.product_id = prices_2.product_id AND prices_2.lower_limit = 1 AND prices_2.price < prices.price " . $price_usergroup_cond_2;
+
+    $condition .= ' AND prices_2.price IS NULL';
+
+    // Show enabled products/categories
+    $_p_statuses = array('A');
+    $_c_statuses = array('A' , 'H');
+
+    $avail_cond = (AREA == 'C') ? ' AND (' . fn_find_array_in_set($auth['usergroup_ids'], '?:categories.usergroup_ids', true) . ')' : '';
+    $avail_cond .= (AREA == 'C') ? ' AND (' . fn_find_array_in_set($auth['usergroup_ids'], 'products.usergroup_ids', true) . ')' : '';
+    $avail_cond .= (AREA == 'C') ? db_quote(" AND ?:categories.status IN (?a) AND products.status IN (?a)", $_c_statuses, $_p_statuses) : '';
+
+    $join .= " INNER JOIN ?:products_categories as products_categories ON products_categories.product_id = products.product_id INNER JOIN ?:categories ON ?:categories.category_id = products_categories.category_id $avail_cond $feature_search_condition";
+    $limit = '';
+    $group_by = 'products.product_id';
+    fn_set_hook('get_products', $params, $fields, $sortings, $condition, $join, $sorting, $group_by, $lang_code);
+
+    if (empty($params['sort_by']) || empty($sortings[$params['sort_by']])) {
+        $params['sort_by'] = Registry::get('settings.Appearance.default_products_sorting');
+        if (empty($sortings[$params['sort_by']])) {
+            $_products_sortings = fn_get_products_sorting(false);
+            $params['sort_by'] = key($_products_sortings);
+        }
+    }
+
+    if ($params['type'] != 'extended' && $params['sort_by'] == 'price') {
+        $params['sort_by'] = 'product';
+    }
+
+    $default_sorting = fn_get_products_sorting(false);
+
+    if (empty($params['sort_order']) || empty($directions[$params['sort_order']])) {
+        if (!empty($default_sorting[$params['sort_by']]['default_order'])) {
+            $params['sort_order'] = $default_sorting[$params['sort_by']]['default_order'];
+        } else {
+            $params['sort_order'] = 'asc';
+        }
+    }
+
+    if (AREA == 'A' || $params['sort_by'] == 'popularity') {
+        $fields[]   = 'popularity.total as popularity';
+        $join .= db_quote(" LEFT JOIN ?:product_popularity as popularity ON popularity.product_id = products.product_id");
+    }
+
+    $sorting = $sortings[$params['sort_by']] . ' ' . $directions[$params['sort_order']];
+
+    // Reverse sorting (for usage in view)
+    $params['sort_order'] = $params['sort_order'] == 'asc' ? 'desc' : 'asc';
+
+    // Used for View cascading
+    if (!empty($params['get_query'])) {
+        return "SELECT products.product_id FROM ?:products as products $join WHERE 1 $condition GROUP BY products.product_id";
+    }
+
+    // Used for Extended search
+    if (!empty($params['get_conditions'])) {
+        return array($fields, $join, $condition);
+    }
+
+    if (!empty($params['limit'])) {
+        $limit = db_quote(" LIMIT 0, ?i", $params['limit']);
+    }
+
+
+    $total = 0;
+    if (!empty($items_per_page)) {
+        if (!empty($params['limit']) && $total > $params['limit']) {
+            $total = $params['limit'];
+        }
+
+        $limit = fn_paginate($params['page'], 0, $items_per_page, true);
+    }
+
+    if(isset($_GET['no_pagination'])){
+        ini_set('memory_limit','128M');
+        $limit = db_quote("");
+    }
+
+    if(isset($params['doLinks']) && $params['doLinks'] ==1)
+    {
+        $sorting = "products.amount DESC, descr1.product ASC";
+
+    }
+    //$start = microtime(true);
+    $sqlQuery = 'SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit";
+    $products = db_get_array($sqlQuery);
+    //$time = microtime(true) - $start;
+    //if ($time > 3)
+    //	file_put_contents(DIR_ROOT . '/perflog.log', date(DATE_ATOM) . "|" .$time . "|" .$sqlQuery . "|".serialize($params) . "\r\n" , FILE_APPEND);
+
+    if (!empty($items_per_page)) {
+        $total = db_get_found_rows();
+        fn_paginate($params['page'], $total, $items_per_page);
+    } else {
+        $total = count($products);
+    }
+
+    // Post processing
+    foreach ($products as $k => $v) {
+        $products[$k]['category_ids'] = fn_convert_categories($v['category_ids']);
+    }
+
+    if (!empty($params['item_ids'])) {
+        $products = fn_sort_by_ids($products, explode(',', $params['item_ids']));
+    }
+    if (!empty($params['pid']) && !empty($params['apply_limit']) && $params['apply_limit']) {
+        $products = fn_sort_by_ids($products, $params['pid']);
+    }
+
+    fn_set_hook('get_products_post', $products);
+
+    return array($products, $params, $total);
 }
-
 
 function fn_sort_by_ids($items, $ids, $field = 'product_id')
 {

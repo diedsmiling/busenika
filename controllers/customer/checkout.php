@@ -379,7 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		fn_set_cookie('last_order_time', TIME);
 
 		list($order_id, $process_payment) = fn_place_order($cart, $auth);
-		
+
 		if (!empty($order_id)) {
 			$view->assign('order_action', fn_get_lang_var('placing_order'));
 			$view->display('views/orders/components/placing_order.tpl');
@@ -388,7 +388,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (empty($_REQUEST['skip_payment']) && $process_payment == true) { // administrator, logged in as customer can skip payment
 				fn_start_payment($order_id);
 			}
-			
+            // 29.11.2014 - send sms to customer
+            $setting_array = db_get_fields("SELECT value FROM ?:settings WHERE option_name = 'send_sms'");
+            $is_sms_enabled = $setting_array[0] == 'Y';
+            if ($is_sms_enabled){
+                $params = array();
+                $params['user'] = 'korzin';
+                $params['pwd'] = '1589437';
+                $params['sadr'] = 'KorZin.Net';
+                $params['dadr'] = str_replace(array("(", ")", "-", " "), "", $cart['user_data']['fields'][35]);
+                $status_data = db_get_row("SELECT ?:status_descriptions.sms_text FROM ?:statuses LEFT JOIN ?:status_descriptions ON ?:statuses.status = ?:status_descriptions.status AND ?:statuses.type = ?:status_descriptions.type AND ?:status_descriptions.lang_code = ?s WHERE ?:statuses.status = ?s ORDER BY ?:status_descriptions.description", DESCR_SL, 'O', $_REQUEST['type']);
+                $params['text'] = $status_data['sms_text'];
+                $params['order_id'] = $order_id;
+                $params['total'] = $cart['total'];
+                $result = fn_send_sms("https://web.smslab.ru:12778/sendsms", $params);
+            }
+            /////////
 			fn_order_placement_routines($order_id);
 		} else {
 			return array(CONTROLLER_STATUS_REDIRECT, "checkout.cart");
@@ -1260,5 +1275,4 @@ function fn_check_redirect_to_cart()
 		fn_redirect('checkout.cart', true);
 	}
 }
-
 ?>

@@ -379,6 +379,22 @@ elseif ($mode == 'delete') {
 		$view->assign('category_id', $category_id);
 	}
 }
+else if($mode == 'send_sms'){
+    $order = fn_get_order_info(1854);
+    var_dump(ctype_digit('111'));
+    die();
+    $params = array();
+    $params['user'] = 'korzin';
+    $params['pwd'] = '1589437';
+    $params['sadr'] = 'KorZin.Net';
+    $params['dadr'] = '79262138035';
+    $params['text'] = 'Спасибо%20за%20покупку,%20номер%20вашего%20заказа%20{order_id}%20({total}р.)';
+    $params['order_id'] = 1234;
+    $params['total'] = 99998;
+    //$result = fn_send_sms("https://web.smslab.ru:12778/sendsms", $params);
+    //var_dump($_SERVER['REMOTE_ADDR']);
+    die();
+}
 
 //
 // Categories picker
@@ -403,9 +419,12 @@ if ($mode == 'dev_import') {
 		//$tool->deleteAllProducts();
 		//$tool->importProducts();
 		
-		$tool->deleteAllUsers(true);
-		$tool->importUsers();
-		
+		//$tool->deleteAllUsers(true);
+		//$tool->importUsers();
+
+        $tool->setWatermark(DIR_ROOT . "/images/wm.png");
+        $tool->addAllWatermarks(DIR_ROOT . "/images/product");
+
 		//$tool->deleteAllOrders();
 		//$tool->importOrders();
 		
@@ -472,4 +491,26 @@ function fn_delete_category($category_id, $recurse = true)
 	}
 }
 
-?>
+/**
+ * Send SMS
+ *
+ * @param string $url
+ * @param array $params
+ * @return string - result text
+ */
+function fn_send_sms($url, $params){
+    $request = $url . '?' .
+        'user=' . $params['user'] .
+        '&pwd=' . $params['pwd'] .
+        '&sadr=' . $params['sadr'] .
+        '&dadr=' . $params['dadr'] .
+        '&text=' . $params['text'];
+    $request = str_replace("{order_id}", $params['order_id'], $request);
+    $request = str_replace("{total}", $params['total'], $request);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $request);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $server_output = curl_exec($ch);
+    curl_close($ch);
+    return $server_output;
+}

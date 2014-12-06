@@ -453,10 +453,28 @@ if ($mode == 'delete') {
 
 } elseif ($mode == 'update_status') {
 
-	$order_info = fn_get_order_short_info($_REQUEST['id']);
-	$old_status = $order_info['status'];
+    $order_info = fn_get_order_info($_REQUEST['id']);
+    $old_status = $order_info['status'];
 	if (fn_change_order_status($_REQUEST['id'], $_REQUEST['status'], '', fn_get_notification_rules($_REQUEST))) {
-		$order_info = fn_get_order_short_info($_REQUEST['id']);
+        if ($_REQUEST['send_sms'] == 'Y') {
+            $status_data = db_get_row("SELECT ?:status_descriptions.sms_text FROM ?:statuses LEFT JOIN ?:status_descriptions ON ?:statuses.status = ?:status_descriptions.status AND ?:statuses.type = ?:status_descriptions.type AND ?:status_descriptions.lang_code = ?s WHERE ?:statuses.status = ?s ORDER BY ?:status_descriptions.description", DESCR_SL, $_REQUEST['status'], $_REQUEST['type']);
+            if ($status_data['sms_text']){
+                $params = array();
+                $params['user'] = 'korzin';
+                $params['pwd'] = '1589437';
+                $params['sadr'] = 'KorZin.Net';
+                $params['dadr'] = str_replace(array("(", ")", "-", " "), "", $order_info['fields'][35]);
+                $params['text'] = $status_data['sms_text'];
+                $params['order_id'] = $_REQUEST['id'];
+                $params['total'] = (int) $order_info['total'];
+                $result = fn_send_sms("https://web.smslab.ru:12778/sendsms", $params);
+                if (ctype_digit($result){
+                    fn_set_notification('N', fn_get_lang_var('notice'), fn_get_lang_var('sms_sent'));
+                }else{
+                    fn_set_notification('W', fn_get_lang_var('warning'), fn_get_lang_var('sms_failed') . ' ('. $result . ')');
+                }
+            }
+        }
 		$new_status = $order_info['status'];
 		if ($_REQUEST['status'] != $new_status) {
 			$ajax->assign('return_status', $new_status);
@@ -606,5 +624,25 @@ function fn_UserFieldToArray($field_id, $orders,$name){
 
 	return $orders;
 }
-?>
-
+// 29.11.2014 - send sms to customer
+function fn_send_sms($url, $params){
+    $params['text'] = str_replace("{order_id}", $params['order_id'], $params['text']);
+    $params['text'] = str_replace("{total}", $params['total'], $params['text']);
+    $params['text'] = urlencode($params['text']);
+    $request = $url . '?' .
+        'user=' . $params['user'] .
+        '&pwd=' . $params['pwd'] .
+        '&sadr=' . $params['sadr'] .
+        '&dadr=' . $params['dadr'] .
+        '&text=' . $params['text'];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $request);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    if( ! $result = curl_exec($ch))
+    {
+        return curl_error($ch);
+    }
+    curl_close($ch);
+    return $result;
+}
