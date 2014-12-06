@@ -109,7 +109,6 @@
 	{if ($section == "B" || $section == "S") && $field.field_type == "A"}
 	<span>&nbsp;
 	<script type="text/javascript">
-	$("#elm_35").mask("7(999) 999-9999");
 	//<![CDATA[
 	default_state[{if $section == 'S'}'shipping'{else}'billing'{/if}] = '{$value|default:$settings.General.default_country|escape:javascript}';
 	
@@ -127,10 +126,37 @@
 {/if}
 {/if}
 {literal}
-	<script type="text/javascript">
+	<script type="text/javascript" class="cm-ajax-force">
+		console.log("executed2");
 	$(document).ready(function(){
-	$("#elm_35").mask("7(999) 999-9999");
-});
+		$("#elm_35").change(function(){
+			if (/^(7[\- ]?)?(\(?9\d{2}\)?[\- ]?)?[\d\- ]{7,10}$/.test($("#elm_35").val())){
+				$("#elm_35").removeClass("cm-failed-field");
+				$("#elm_35").removeClass("failedEarlier");
+				$(".error-message, elm_35").remove();
+			}else{
+				$("#elm_35").addClass("cm-failed-field");		
+				$("#elm_35").addClass("failedEarlier");			
+				if ($(".error-message.elm_35").length){
+					$(".error-message.elm_35 .message").html("Неправильный номер");
+				}else {
+					$($("#elm_35").parent()).append('<div class="error-message elm_35"><div class="arrow"></div><div class="message"> Неправильный номер </div></div>');
+				}
+			}
+		});
+		$("#elm_35").mask("7(999) 999-9999");
+	});
 	
 	</script>
+{/literal}
+{if $selfService}
+	{literal}
+	<script type="text/javascript" class="cm-ajax-force">
+	console.log("executed3");
+	$(document).ready(function(){
+		$(".cm-required").not("label[for='elm_35']").removeClass("cm-required");
+		$("#elm_54, #elm_25, #elm_44, #elm_19, #elm_56, #elm_58, #elm_60, #elm_62, #elm_48").addClass("disabled").attr("disabled", true);
+	});
+	</script>
 	{/literal}
+{/if}

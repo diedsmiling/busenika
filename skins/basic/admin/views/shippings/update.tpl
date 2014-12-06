@@ -94,7 +94,7 @@
     <div class="select-field">
             <input type="hidden"	name="shipping_data[self_service]" id="self_service_hidden" {if $shipping.self_service}checked="checked"{/if} class="checkbox" value="0" />
             <input type="checkbox"	name="shipping_data[self_service]" id="self_service"        {if $shipping.self_service}checked="checked"{/if} class="checkbox" value="1" />
-            <label for="self_service">{$lang.free}</label>
+            <label for="self_service">{$lang.self_service}</label>
     </div>
 </div>
 </fieldset>

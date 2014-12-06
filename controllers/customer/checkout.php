@@ -464,7 +464,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 
 			// Update billing/shipping information
-			if ($_REQUEST['update_step'] == 'step_two') {
+			if ($_REQUEST['update_step'] == 'step_three') {
 				$user_data = fn_array_merge($current_user_data, $user_data);
 				!empty($_REQUEST['copy_address']) ? $_REQUEST['ship_to_another'] = '' : $_REQUEST['ship_to_another'] = 'Y';
 				
@@ -525,6 +525,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 		if (!empty($_REQUEST['shipping_ids'])) {
 			fn_checkout_update_shipping($cart, $_REQUEST['shipping_ids']);
+			// Add variable to session for self-service shipment, no need to fill shipment data in next steps
+			$shippings = fn_get_shippings();
+			$selected_shipping_id = $_REQUEST['shipping_ids'][0];
+			foreach($shippings as $shipping){
+				if ($shipping['shipping_id'] == $selected_shipping_id){
+					$_SESSION['selfService'] = $shipping['self_service'];
+				}
+			}
 		}
 
 		if (!empty($_REQUEST['payment_id'])) {
@@ -537,6 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			} else {
 				unset($cart['extra_payment_info']);
 			}
+
 			unset($cart['payment_updated']);
 			fn_update_payment_surcharge($cart);
 
@@ -787,16 +796,17 @@ if ($mode == 'cart') {
 		// All mandatory Billing address data exist.
 		$billing_population = fn_check_profile_fields_population($cart['user_data'], 'B', $profile_fields);
 		$view->assign('billing_population', $billing_population);
-
-		if ($billing_population == true || empty($profile_fields['B'])) {
+		
+		if ($billing_population == true || empty($profile_fields['B']) || ($_SESSION['selfService'] && isset($cart['user_data']['fields'][35]))) {
 			// All mandatory Shipping address data exist.
 			$shipping_population = fn_check_profile_fields_population($cart['user_data'], 'S', $profile_fields);
 			$view->assign('shipping_population', $shipping_population);
 
-			if ($shipping_population == true || empty($profile_fields['S'])) {
-				$completed_steps['step_two'] = true;
+			if ($shipping_population == true || empty($profile_fields['S']) || ($_SESSION['selfService'] && isset($cart['user_data']['fields'][35]))) {
+				$completed_steps['step_three'] = true;
 			}
 		}
+		
 	}
 
 	// Define the variable only if the profiles have not been changed and settings.General.user_multiple_profiles == Y.
@@ -808,15 +818,15 @@ if ($mode == 'cart') {
 		$old_shipping_hash = md5(serialize($_SESSION['shipping_rates']));
 	}
 
-	list ($cart_products, $_SESSION['shipping_rates']) = fn_calculate_cart_content($cart, $auth, !empty($completed_steps['step_two']) ? 'A' : 'S', true, 'F');
+	list ($cart_products, $_SESSION['shipping_rates']) = fn_calculate_cart_content($cart, $auth, !empty($completed_steps['step_one']) ? 'A' : 'S', true, 'F');
 
 	// if address step is completed, check if shipping step is completed
-	if (!empty($completed_steps['step_two'])) {
-		$completed_steps['step_three'] = true;
+	if (!empty($completed_steps['step_one']) && !empty($cart['user_data']['lastname'])) {
+		$completed_steps['step_two'] = true;
 	}
 
 	// If shipping step is completed, assume that payment step is completed too
-	if (!empty($completed_steps['step_three']) && empty($cart['payment_updated'])) {
+	if (!empty($completed_steps['step_two']) && empty($cart['payment_updated'])) {
 		$completed_steps['step_four'] = true;
 	} elseif (!empty($completed_steps['step_three']) && $edit_step == 'step_four') {
 		fn_set_notification('N', fn_get_lang_var('notice'), fn_get_lang_var('payment_method_was_changed'));
@@ -851,7 +861,7 @@ if ($mode == 'cart') {
 		$view->assign('payment_info', $payment_info);
 		$view->assign('credit_cards', fn_get_static_data_section('C', true, 'credit_card'));
 	}
-
+	
 	$view->assign('shipping_rates', $_SESSION['shipping_rates']);
 	$view->assign('payment_methods', $payment_methods = fn_prepare_checkout_payment_methods($cart, $auth));
 	
@@ -886,16 +896,22 @@ if ($mode == 'cart') {
 		$edit_step = 'step_four';
 	}*/
 
-	if (empty($edit_step) || empty($completed_steps[$edit_step])) {
+	if (empty($edit_step) ){//|| empty($completed_steps[$edit_step])) {
 		// If we don't pass step to edit, open default (from settings)
-		if (!empty($completed_steps['step_three'])) {
-			$edit_step = 'step_three';
+		if (!empty($completed_steps['step_two'])) {
+			$edit_step = 'step_two';
 		} else {
-			$edit_step = !empty($completed_steps['step_one']) ? 'step_two' : 'step_one';
+			$edit_step = !empty($completed_steps['step_one']) ? 'step_three' : 'step_one';
 		}
 	}
 
 	$_SESSION['edit_step'] = $edit_step;
+	
+	// If self shipment type is self service, disable address fields in view
+	if ($_SESSION['selfService']){
+		$view->assign('selfService', true);
+	}	
+	
 	$view->assign('use_ajax', 'true');
 	$view->assign('edit_step', $edit_step);
 	$view->assign('completed_steps', $completed_steps);
