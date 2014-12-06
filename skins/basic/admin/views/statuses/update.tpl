@@ -72,6 +72,15 @@
 				{/if}
 			</div>
 		{/foreach}
+
+        <div class="form-field">
+            <label for="sms_text_{$st}">{$lang.sms_text}:</label>
+            <textarea id="sms_text_{$st}" name="status_data[sms_text]" class="input-textarea-long" onkeyup="calculate_symbols('{$st}')">{$status_data.sms_text}</textarea>
+            <div>
+                Введенно символов:<span id="symbol_count_{$st}"></span> (<span id="sms_count_{$st}"></span> СМС)
+            </div>
+        </div>
+
 	</fieldset>
 	</div>
 </div>
@@ -80,5 +89,24 @@
 	{include file="buttons/save_cancel.tpl" but_name="dispatch[statuses.update]" cancel_action="close"}
 </div>
 
+        <script class="cm-ajax-force">
+            calculate_symbols('{$st}');
+            {literal}
+            function calculate_symbols(st){
+                if(st != '_'){
+                    var sms_text = $('#sms_text_'+st).val();
+                    var symbols = sms_text.length;
+                    if (sms_text.indexOf("{order_id}") !=-1) {
+                        symbols -= 6;
+                    }
+                    if (sms_text.indexOf("{total}") !=-1) {
+                        symbols -= 1;
+                    }
+                    $('#symbol_count_'+st).text(symbols);
+                    $('#sms_count_'+st).text(~~(symbols/70)+1);
+                }
+            }
+        </script>
+    {/literal}
 </form>
 <!--content_group{$st}--></div>
