@@ -115,6 +115,7 @@ class ImportTool {
 							'status' => 'A',
 							'amount' => $item['quantity'],
 							'timestamp' => strtotime($item['date']),
+							'relative' => $item['relative'],
 							'product_features' => array(
 								20 => $item['color'] //color
 								)
