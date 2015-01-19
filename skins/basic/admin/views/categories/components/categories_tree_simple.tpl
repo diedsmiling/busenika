@@ -36,7 +36,7 @@
 		{if $display == "radio"}
 		<input type="radio" name="{$checkbox_name}" value="{$cur_cat.category_id}" class="radio cm-item" />
 		{else}
-		<input type="checkbox" name="{$checkbox_name}[{$cur_cat.category_id}]" value="{$cur_cat.category_id}" class="checkbox cm-item" />
+		<input type="checkbox" name="{$checkbox_name}[{$cur_cat.category_id}]" value="{$cur_cat.category_id}" class="checkbox cm-item" onclick="toggleSubcategories(event)"/>
 		{/if}
 	</td>
 	<td width="97%">
@@ -83,5 +83,20 @@
 	<!--cat_{$cur_cat.category_id}--></div>
 {/if}
 {/foreach}
+    {literal}
+        <script class="cm-ajax-force">
+    {/literal}
+            {if $parent_id}
+                $('#cat_'+{$parent_id}+' input').attr('checked', $('[value='+{$parent_id} + ']').attr('checked'));
+            {else}
+                $('input').attr('checked', true);
+            {/if}
+    {literal}
+            function toggleSubcategories(event){
+                var cat_id =event.target.value;
+                $('#cat_'+ cat_id + ' input').attr('checked', $(event.target).attr('checked'));
+            }
+        </script>
+    {/literal}
 {if $parent_id}<!--cat_{$parent_id}--></div>{/if}
 {* --------- /CATEGORY TREE --------------*}
