@@ -639,7 +639,7 @@ function fn_send_mail($to, $from, $subj, $body, $attachments = array(), $lang_co
 {
 	$__from = array();
 	$__to = array();
-	$from = 'zakaz2013@korzin.net';
+	$from = Registry::get('settings.Company.company_orders_department');
 	fn_init_mailer();
 	$mailer = & Registry::get('mailer');
 	$languages = Registry::get('languages');

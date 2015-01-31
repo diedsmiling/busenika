@@ -23,6 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if ($mode == 'update') {
 		fn_update_product_filter($_REQUEST['filter_data'], $_REQUEST['filter_id'], DESCR_SL);
+        if ($_REQUEST['filter_data']['categories_path']){
+            $newCategories = explode(',', $_REQUEST['filter_data']['categories_path']);
+
+            $categories = db_get_field("SELECT categories_path FROM ?:product_filters WHERE filter_id = ?i", $_REQUEST['filter_id']);
+            $categories = explode(',',$categories);
+            foreach ($newCategories as $newCategory)
+            {
+                $categories = fn_updateCategoriesInFilter($newCategory, $categories);
+            }
+
+        db_query('UPDATE ?:product_filters SET categories_path = ?s WHERE filter_id = ?i', implode(',',$categories),$_REQUEST['filter_id']);
+        }
 	}
 
 	return array(CONTROLLER_STATUS_OK, "product_filters.manage");
@@ -138,5 +150,19 @@ function fn_update_product_filter($filter_data, $filter_id, $lang_code = DESCR_S
 
 	return $filter_id;
 }
+function fn_updateCategoriesInFilter($category, $oldCategories)
+{
+    $subcategories = db_get_array("SELECT category_id FROM ?:categories WHERE parent_id = ?i", $category);
+    foreach ($subcategories as $subcategory)
+    {
+        $oldCategories = fn_updateCategoriesInFilter($subcategory['category_id'], $oldCategories);
+    }
 
+    if(!in_array($category, $oldCategories))
+    {
+        $oldCategories[] = $category;
+        return $oldCategories;
+    }
+    return $oldCategories;
+}
 ?>

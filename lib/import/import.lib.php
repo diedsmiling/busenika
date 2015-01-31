@@ -19,6 +19,8 @@ class ImportTool {
 	private $destinationDB;
 	private $config;
     private $watermark;
+    private $originalImageFolder = 'images/original/';
+    private $downloadUrl = 'http://buseni4ka.ru/upload/original/';
 	
 	function __construct($config, $sourceDB, $destinationDB){
 		$this->config = $config;
@@ -42,7 +44,7 @@ class ImportTool {
 		$this->useDatabase($this->sourceDB);
 		$query = "SELECT * FROM `categories` ORDER BY `categories`.`cat_id` ASC";
 		$result = mysqli_query($this->link, $query) or die('Failed to select categories: ' . mysqli_error($this->link));
-		while ($category = mysqli_fetch_array($this->link, $result, MYSQL_ASSOC)) {
+		while ($category = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 				$template = array(
 					'category_id' => $category['id'],
 					'category' => $category['name'],
@@ -75,86 +77,113 @@ class ImportTool {
 	}
 	
 	function importProducts(){
+        ini_set('max_execution_time', 0);
 		$this->useDatabase($this->sourceDB);
-		$query = "SELECT * FROM shop_items";
+		$query = "SELECT * FROM shop_items WHERE id > 1335 AND id != 4909 AND id != 5016 AND id != 5017 AND id != 5018 AND id != 5019";
 		$result = mysqli_query($this->link, $query) or die('Failed to select items: ' . mysqli_error($this->link));
 		while ($item = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-				$imageList = unserialize($item['file']);
-				$mainImg = array_shift($imageList);
-				$idx = 0;
-				$product_add_additional_image_data = array();
-				$file_product_add_additional_image_icon = array();
-				$type_product_add_additional_image_icon = array();
-				$file_product_add_additional_image_detailed = array();
-                $type_product_add_additional_image_detailed = array();
-				foreach($imageList as $image)
-				{
-					$product_add_additional_image_data[$idx =($idx!=2)?$idx:3] = array (
-								'pair_id' => '',
-								'type' => 'A',
-								'object_id' => '0',
-								'image_alt' => '',
-								'detailed_alt' => ''
-							);
-					$file_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "product_add_additional" : '';
-					$type_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "local" : '';
-					$file_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = "images/import/{$image}";
-					$type_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = "server";
-					$idx++;
-				}
-				$_REQUEST = array(
-						'fake' => '1',
-						'selected_section' => 'images',
-						//product_id => $item['id'] ,
-						'product_data' => array(
-							'product_id' => $item['id'] ,
-							'product' => $item['name'],
-							'main_category' => $item['cat_id'],
-							'price' => $item['price'],
-							'full_description' => $item['description'],
-							'status' => 'A',
-							'amount' => $item['quantity'],
-							'timestamp' => strtotime($item['date']),
-							'relative' => $item['relative'],
-							'product_features' => array(
-								20 => $item['color'] //color
-								)
-							),
-						'product_main_image_data' => array(
-							0 => array (
-								'pair_id' => '',
-								'type' => 'M',
-								'object_id' => '0',
-								'image_alt' => '',
-								'detailed_alt' => ''
-							)),
-						'file_product_main_image_icon' => array(
-							0 => 'product_main'
-							),
-						'type_product_main_image_icon' => array(
-							0 => 'local'
-							),
-						'file_product_main_image_detailed' => array(
-							0 => "images/import/{$mainImg}"
-							),
-						'type_product_main_image_detailed' => array(
-							0 => 'server'
-							)
-						);
-				$_REQUEST['product_add_additional_image_data'] = $product_add_additional_image_data;
-				$_REQUEST['file_product_add_additional_image_icon'] = $file_product_add_additional_image_icon;
-				$_REQUEST['type_product_add_additional_image_icon'] = $type_product_add_additional_image_icon;
-				$_REQUEST['file_product_add_additional_image_detailed'] = $file_product_add_additional_image_detailed;
-				$_REQUEST['type_product_add_additional_image_detailed'] = $type_product_add_additional_image_detailed;
-				$_SERVER['REQUEST_METHOD'] = 'POST';
-				$mode = 'add';
+            $imageList = unserialize($item['file']);
+            $mainImg = array_shift($imageList);
+            if (!file_exists($this->originalImageFolder . $mainImg))
+                $this->downLoadImage($mainImg);
+            $idx = 0;
+            $product_add_additional_image_data = array();
+            $file_product_add_additional_image_icon = array();
+            $type_product_add_additional_image_icon = array();
+            $file_product_add_additional_image_detailed = array();
+            $type_product_add_additional_image_detailed = array();
+            foreach($imageList as $image)
+            {
+                if (!file_exists($this->originalImageFolder . $image))
+                    $this->downLoadImage($image);
+                $product_add_additional_image_data[$idx =($idx!=2)?$idx:3] = array (
+                            'pair_id' => '',
+                            'type' => 'A',
+                            'object_id' => '0',
+                            'image_alt' => '',
+                            'detailed_alt' => ''
+                        );
+                $file_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "product_add_additional" : '';
+                $type_product_add_additional_image_icon[$idx =($idx!=2)?$idx:3] = ($idx==0) ? "local" : '';
+                $file_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = $this->originalImageFolder . $image;
+                $type_product_add_additional_image_detailed[$idx =($idx!=2)?$idx:3] = "server";
+                $idx++;
+            }
+            $_REQUEST = array(
+                    'fake' => '1',
+                    'selected_section' => 'images',
+                    //product_id => $item['id'] ,
+                    'product_data' => array(
+                        'product_id' => $item['id'],
+                        'product_code' => $item['id'],
+                        'product' => $item['name'],
+                        'main_category' => $item['cat_id'],
+                        'price' => $item['price'],
+                        'full_description' => $item['description'],
+                        'status' => 'A',
+                        'amount' => $item['quantity'],
+                        'timestamp' => strtotime($item['date']),
+                        'relative' => $item['relative'],
+                        'product_features' => array(
+                            20 => $item['color'] //color
+                            )
+                        ),
+                    'product_main_image_data' => array(
+                        0 => array (
+                            'pair_id' => '',
+                            'type' => 'M',
+                            'object_id' => '0',
+                            'image_alt' => '',
+                            'detailed_alt' => ''
+                        )),
+                    'file_product_main_image_icon' => array(
+                        0 => 'product_main'
+                        ),
+                    'type_product_main_image_icon' => array(
+                        0 => 'local'
+                        ),
+                    'file_product_main_image_detailed' => array(
+                        0 => $this->originalImageFolder . $mainImg
+                        ),
+                    'type_product_main_image_detailed' => array(
+                        0 => 'server'
+                        )
+                    );
+            $_REQUEST['product_add_additional_image_data'] = $product_add_additional_image_data;
+            $_REQUEST['file_product_add_additional_image_icon'] = $file_product_add_additional_image_icon;
+            $_REQUEST['type_product_add_additional_image_icon'] = $type_product_add_additional_image_icon;
+            $_REQUEST['file_product_add_additional_image_detailed'] = $file_product_add_additional_image_detailed;
+            $_REQUEST['type_product_add_additional_image_detailed'] = $type_product_add_additional_image_detailed;
+            $_SERVER['REQUEST_METHOD'] = 'POST';
+            $mode = 'add';
 
-				include DIR_ROOT . "/controllers/admin/products.php";
-				
-				//die();//import one item
-				echo "Item {$item[name]} added.<br>";
-				}		
+            $this->useDatabase($this->destinationDB);
+            $checkQuery = "SELECT EXISTS(SELECT 1 FROM cscart_products WHERE product_id = {$item['id']})";
+            $checkResult = mysqli_query($this->link, $checkQuery) or die('Failed to select items: ' . mysqli_error($this->link));
+            $response = mysqli_fetch_array($checkResult);
+             if($response[0]){
+                 var_dump($checkResult, $item['id'], $response);
+                 continue;
+             }
+
+            include DIR_ROOT . "/controllers/admin/products.php";
+
+            //die();//import one item
+            echo "Item {$item[name]} added.<br>";
+            }
 		}
+
+    private function downLoadImage($imageName){
+        $url = $this->downloadUrl . $imageName;
+        $img = $this->originalImageFolder . $imageName;
+        $ch = curl_init($url);
+        $fp = fopen($img, 'wb');
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+    }
 		
 	function deleteAllUsers($deleteAdmins = false){
 		$this->useDatabase($this->destinationDB);
@@ -217,9 +246,30 @@ class ImportTool {
 		$user_data['password2'] = 'admin';
 		$user_data['user_type'] = 'A';
 		fn_update_user('', $user_data, $auth, false, false);
-
 	}
-	
+
+    function importSubscriberList($list_id)
+    {
+        $this->useDatabase($this->sourceDB);
+        $query = "DELETE FROM subscribers WHERE id = 25 OR id = 41 OR id = 56";
+        $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
+        $query = "SELECT * FROM subscribers";
+        $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
+
+        $destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+        or die('Database connection error. ' . mysqli_error($this->link));
+        $this->useDatabase($this->destinationDB, $destLink);
+        db_query("TRUNCATE TABLE ?:subscribers");
+        while ($busenkaSubscriber = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+            $subscriber['timestamp'] = $busenkaSubscriber['date'];
+            $subscriber['email'] = $busenkaSubscriber['email'];
+            $subscriber_id = db_query("INSERT INTO ?:subscribers ?e", $subscriber);
+
+            // we launch update_subscriptions for each msqiling list to allow different format and lang for each item
+            fn_update_subscriptions($subscriber_id, array($list_id), '2', NEWSLETTER_ONLY_CHECKED, 1);
+        }
+    }
+
 	function deleteAllOrders(){
 		$this->useDatabase($this->destinationDB);
 		$query = "SELECT * FROM cscart_orders";
@@ -231,6 +281,7 @@ class ImportTool {
 	}
 	
 	function importOrders(){
+        ini_set('max_execution_time', 0);
 		$this->useDatabase($this->sourceDB);
 		//main link used for selecting orders
 		$query = "SELECT * FROM shop_orders ORDER BY id DESC";
@@ -307,6 +358,8 @@ class ImportTool {
     }
 
     function addAllWatermarks($folder){
+        ini_set('memory_limit', '100M');
+        ini_set('max_execution_time', 0);
         $files = scandir($folder);
         foreach($files as $fileName) {
             $file = $folder . "/" . $fileName;
@@ -316,6 +369,7 @@ class ImportTool {
             } else if (($fileName != '.') && ($fileName != '..')){
                 $this->placeWatermark($file, $this->watermark);
                 echo $file . " file <br>";
+                if ($fileName == '1009_1.jpg') die();
             }
 
         }
@@ -323,14 +377,13 @@ class ImportTool {
 
 
     function placeWatermark($image, $waterMark){
-
         $imageType = getimagesize($image);
 
         if ($imageType){
 
             $im = imagecreatefromjpeg($image);
-            $marge_right = 10;
-            $marge_top = 15;
+            $marge_right = 50;
+            $marge_top = 75;
 
             imagecopy($im, $waterMark, $marge_right, $marge_top, 0, 0, imagesx($waterMark), imagesy($waterMark));
 
@@ -351,12 +404,49 @@ class ImportTool {
         }
     }
 
+    function importNews($deleteOldNews)
+    {
+        ini_set('max_execution_time', 0);
+        if($deleteOldNews){
+            require(DIR_ROOT . "/addons/news_and_emails/controllers/admin/news.php");
+
+            //Delete news
+            $destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+            or die('Database connection error. ' . mysqli_error($this->link));
+            $this->useDatabase($this->destinationDB, $destLink);
+            $oldNews = db_get_fields("SELECT news_id FROM cscart_news");
+            foreach($oldNews as $newsToDelete)
+            {
+                fn_delete_news($newsToDelete);
+            }
+        }
+        $this->useDatabase($this->sourceDB);
+        //main link used for selecting news
+        $query = "SELECT * FROM news ORDER BY id DESC";
+        $result = mysqli_query($this->link, $query) or die('Failed to select items: ' . mysqli_error($this->link));
+
+        //Destination link
+        $destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
+        or die('Database connection error. ' . mysqli_error($this->link));
+        $this->useDatabase($this->destinationDB, $destLink);
+
+        while ($news = mysqli_fetch_array($result, MYSQL_ASSOC))
+        {
+            //import
+            $newsData = array();
+            $newsData['news'] = $news['theme'];
+            $newsData['description'] = $news['post'];
+            $newsData['date'] = date('d/m/Y', $news['date']);
+            $newsData['status'] = 'A';
+            fn_update_news("", $newsData, DESCR_SL);
+        }
+
+    }
+
 	private function useDatabase($dbname, $link = null){
 		if (!$link) $link = $this->link;
 		$query = "USE {$dbname}";
 		$result = mysqli_query($link, $query) or die("Failed use database: {$dbname}" . mysqli_error($this->link, $this->link));
-		
-		
 	}
 }
 /*,

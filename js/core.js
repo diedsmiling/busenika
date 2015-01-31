@@ -1457,7 +1457,7 @@ jQuery.fn.extend({
 //
 function fn_reset_checkbox()
 {
-	$(':checkbox').removeAttr('checked');
+	$('[type="checkbox"]').not('.leaveChecked').removeAttr('checked');
 };
 
 //

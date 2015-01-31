@@ -395,7 +395,11 @@ function fn_update_newsletter($newsletter_data, $newsletter_id = 0, $lang_code =
 		if (empty($newsletter_data['users'])) {
 			$newsletter_data['users'] = '';
 		}
-
+        //Override if there is "All" user - 29.01.2015 - MLazarev
+        if (in_array("All", explode(',', $newsletter_data['users']))){
+            $user_recipients = db_get_fields("SELECT user_id FROM ?:users ");
+            $newsletter_data['users'] = implode(',', $user_recipients);
+        }
 		$_data = $newsletter_data;
 		$_data['mailing_lists'] = implode(',', $_data['mailing_lists']);
 

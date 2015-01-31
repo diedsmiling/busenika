@@ -79,6 +79,7 @@
 			{if !$extra_var}
 				{capture name=$extra_buttons}
 					{include file="buttons/button.tpl" but_text=$lang.add_users but_type="button" but_onclick="jQuery.submit_picker('#iframe_`$data_id`', '#add_item', '#users_picker_form_inject')"}
+                    {include file="buttons/button.tpl" but_text=$lang.add_all_users but_type="button" but_onclick="jQuery.submit_picker('#iframe_`$data_id`', '#add_all_items', '#users_picker_form_inject')"}
 				{/capture}
 			{/if}
 			{include file="buttons/save_cancel.tpl" but_type="button" but_onclick="jQuery.submit_picker('#iframe_`$data_id`', '`$_act`', '`$_mode`')" but_text=$_but_text cancel_action="close" extra=$smarty.capture.$extra_buttons}

@@ -46,9 +46,9 @@
 	<a name="top"></a>
 	{include file="common_templates/loading_box.tpl"}
 	{include file="common_templates/notification.tpl"}
-    
+
 	{include file="main.tpl"}
-      
+
 	{if "TRANSLATION_MODE"|defined}
 		{include file="common_templates/translate_box.tpl"}
 	{/if}

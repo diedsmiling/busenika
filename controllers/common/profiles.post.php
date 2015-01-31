@@ -282,6 +282,13 @@ if ($mode == 'add' || $mode == 'update') {
 	}
 	$view->assign('usergroups', $usergroups);
 	$profile_fields = fn_get_profile_fields($user_type);
+
+    //Do not show 'only for admin' field 21.01.2015 MLazarev
+    if ($auth['area'] == 'C' && isset($profile_fields['C']['36']))
+    {
+        unset($profile_fields['C']['36']);
+    }
+
 	$view->assign('user_type', $user_type);
 	$view->assign('profile_fields', $profile_fields);
 	$view->assign('user_data', $user_data);

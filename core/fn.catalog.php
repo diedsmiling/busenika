@@ -1104,6 +1104,13 @@ function fn_update_category($category_data, $category_id = 0, $lang_code = CART_
 	return $category_id;
 
 }
+//
+// Add category to all filters
+//
+function fn_add_category_to_filters($category_id)
+{
+    db_query("UPDATE ?:product_filters SET categories_path = IF(LENGTH(categories_path) = 0, '" .$category_id. "', CONCAT(categories_path, '," .$category_id. "'))");
+}
 
 //
 // Change category parent
@@ -3021,33 +3028,31 @@ function fn_get_sales_products(){
 
 function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAGE)
 {
-    $stopwatch = new StopWatch();
-    $stopwatch->start();
 	if(isset($params['doLinks']) && $params['doLinks'] ==1){
 		$neighbours = fn_get_neighbours($_REQUEST['product_id']);
-		
+
 		$params['pid'] = $neighbours;
 		$params['limit'] = 4;
-	
+
 	}
-		
+
 	if(isset($params['doSales']) && $params['doSales'] ==1){
-		
+
 		$params['pid'] = fn_get_sales_products();
-	
-		
+
+
 	}
 	if(isset($params['doSameLine']) && $params['doSameLine'] ==1){
-		
+
 		$sameLineProducts = fn_get_same_line_products($_REQUEST['product_id']);
 		if($sameLineProducts){
 			$params['pid'] = $sameLineProducts;
 		}
-		else	
+		else
 			return false;
 
-	}		
-	
+	}
+
 	// Init filter
 	$relevanceField = '';
 	$relevanceOrder = '';
@@ -3105,8 +3110,8 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 		'products.options_type',
 		'products.exceptions_type',
 		'companies.company as company_name',
-		
-		
+
+
 	);
 
 	// Define sort fields
@@ -3172,7 +3177,7 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 				continue;
 			}
 			$pieceTrimed = str_replace(array(' ','-'), '', $piece);
-			
+
 			$tmp = db_quote("(descr1.search_words LIKE ?l)", "%$piece%"); // check search words
 
 			if ($params['pname'] == 'Y') {
@@ -3537,11 +3542,11 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 		}
 
 	}
-	
+
 	$price_usergroup_cond = db_quote(' AND prices.usergroup_id IN (?n)', ((AREA == 'A') ? USERGROUP_ALL : array_merge(array(USERGROUP_ALL), $auth['usergroup_ids'])));
-	
+
 	$condition .= $price_usergroup_cond;
-	
+
 	$price_usergroup_cond_2 = str_replace('prices', 'prices_2', $price_usergroup_cond);
 
 	$join .= " LEFT JOIN ?:product_prices as prices ON prices.product_id = products.product_id AND prices.lower_limit = 1 LEFT JOIN ?:product_prices as prices_2 ON prices.product_id = prices_2.product_id AND prices_2.lower_limit = 1 AND prices_2.price < prices.price " . $price_usergroup_cond_2;
@@ -3606,8 +3611,8 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
  	if (!empty($params['limit'])) {
 		$limit = db_quote(" LIMIT 0, ?i", $params['limit']);
  	}
-	
-		
+
+
 	$total = 0;
 	if (!empty($items_per_page)) {
 		if (!empty($params['limit']) && $total > $params['limit']) {
@@ -3616,7 +3621,7 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 
 		$limit = fn_paginate($params['page'], 0, $items_per_page, true);
 	}
-	
+
 	if(isset($_GET['no_pagination'])){
 		ini_set('memory_limit','128M');
 		$limit = db_quote("");
@@ -3625,14 +3630,11 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 if(isset($params['doLinks']) && $params['doLinks'] ==1)
 	{
 		$sorting = "products.amount DESC, descr1.product ASC";
-		
+
 	}
-	//http://local.busenki.ru/index.php?dispatch=categories.view&category_id=80&subcats=Y&features_hash=P10.R43.R37.V6.V22.R33.R19
-    //http://local.busenki.ru/index.php?dispatch=categories.view&category_id=183&subcats=Y&features_hash=P8.V6.V22.R38
+
     $sqlquery = 'SELECT SQL_CALC_FOUND_ROWS ' . implode(', ', $fields) . ",products.amount $relevanceField FROM ?:products as products $join WHERE 1 $condition GROUP BY $group_by ORDER BY  $relevanceOrder `products`.`amount` DESC, $sorting $limit";
 	$products = db_get_array($sqlquery);
-
-
 
 	if (!empty($items_per_page)) {
 		$total = db_get_found_rows();

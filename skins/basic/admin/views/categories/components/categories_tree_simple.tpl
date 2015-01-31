@@ -87,9 +87,10 @@
         <script class="cm-ajax-force">
     {/literal}
             {if $parent_id}
-                $('#cat_'+{$parent_id}+' input').attr('checked', $('[value='+{$parent_id} + ']').attr('checked'));
+                $('#cat_' + {$parent_id}+' input').attr('checked', $('[value='+{$parent_id} + ']').attr('checked'));
             {else}
-                $('input').attr('checked', true);
+                var checkboxes = $('input').attr('checked', true);
+                if (parent.document.getElementById("manage_filters_list") != null) checkboxes.addClass('leaveChecked');
             {/if}
     {literal}
             function toggleSubcategories(event){

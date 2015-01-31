@@ -108,8 +108,13 @@ if ($_SERVER['REQUEST_METHOD']	== 'POST') {
 
 			$user_recipients = array();
 			if (!empty($_REQUEST['newsletter_data']['users'])) {
-				$users = fn_explode(',', $_REQUEST['newsletter_data']['users']);
-				$user_recipients = db_get_array("SELECT user_id, email, lang_code FROM ?:users WHERE user_id IN (?n)", $users);
+                //Add all users to newsletter recipients - 27.01.2014 Maxim Lazarev
+                if ($_REQUEST['newsletter_data']['users'] == "All"){
+                    $user_recipients = db_get_array("SELECT user_id, email, lang_code FROM ?:users ");
+                }else{
+                    $users = fn_explode(',', $_REQUEST['newsletter_data']['users']);
+                    $user_recipients = db_get_array("SELECT user_id, email, lang_code FROM ?:users WHERE user_id IN (?n)", $users);
+                }
 				foreach ($user_recipients as $k => $v) {
 					// populate user array with sensible defaults
 					$user_recipients[$k]['format'] = NEWSLETTER_FORMAT_HTML;

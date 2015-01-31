@@ -954,7 +954,7 @@ function fn_get_order_info($order_id, $native_language = false, $format_info = t
 				$order['items'][$k]['cart_id'] = $v['item_id'];
 				$deps['P_'.$order['items'][$k]['cart_id']] = $k;
 
-$order['items'][$k]['sklad'] = fn_numsklad($order['items'][$k]['product']);
+//$order['items'][$k]['sklad'] = fn_numsklad($order['items'][$k]['product']);
 
 				// Unserialize and collect product options information
 				if (!empty($v['extra']['product_options'])) {

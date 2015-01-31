@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if (!empty($category_id)) {
 				// Adding category images pair
 				fn_attach_image_pairs('category_main', 'category', $category_id, DESCR_SL);
-
+                fn_add_category_to_filters($category_id);
 				$suffix = ".update?category_id=$category_id";
 			} else {
 
@@ -422,11 +422,15 @@ if ($mode == 'dev_import') {
 		//$tool->deleteAllUsers(true);
 		//$tool->importUsers();
 
-        $tool->setWatermark(DIR_ROOT . "/images/wm.png");
-        $tool->addAllWatermarks(DIR_ROOT . "/images/product");
+        $tool->importSubscriberList(1);
+
+        //$tool->setWatermark("D:\\Max\\www\\busenki\\wm_new.png");
+        //$tool->addAllWatermarks("D:\\Max\\www\\busenki\\detailed");
 
 		//$tool->deleteAllOrders();
 		//$tool->importOrders();
+
+        //$tool->importNews(true);
 		
 		die();
 	}

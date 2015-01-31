@@ -2,3 +2,6 @@
 /images
 /var
 /custom
+/.idea
+/*.log
+/index.php

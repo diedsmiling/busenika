@@ -449,7 +449,16 @@ jQuery.extend({
 			}	
 		    
 		}
-		$(picker_id).contents().find(button_id).click();
+        if (button_id == "#add_all_items")
+        {
+            users = {};
+            users['All'] = {'email': "All users", 'user_name': "All users"};
+            console.log(users);
+            parent.window.jQuery.add_js_item(users, 'u', null, true);
+        }else{
+            $(picker_id).contents().find(button_id).click();
+        }
+
 	}
 });
 
