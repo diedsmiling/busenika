@@ -20,8 +20,17 @@
 if ( !defined('AREA') ) { die('Access denied'); }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_REQUEST['name1']))
+    {
+        $subj = "Вопрос с контактов";
+        $body = "Имя: ".$_REQUEST['name1']."<br /> Почта: ".$_REQUEST['e-mail1']."<br /> Телефон: ".$_REQUEST['telephon1']."<br /> Сообщение: ".$_REQUEST['message1']."<br />";
+        Registry::get('view_mail')->assign('body', $body);
+        Registry::get('view_mail')->assign('subj', $subj);
 
-	return;
+        fn_send_mail("maxlazarev@gmail.com", Registry::get('settings.Company.company_orders_department'),'addons/news_and_emails/newsletter_subj.tpl', 'addons/news_and_emails/newsletter_body.tpl');
+        $view->assign('sent', 'Y');
+    }
+    return array(CONTROLLER_STATUS_OK, "pages.view?page_id=$_REQUEST[page_id]");
 }
 
 
