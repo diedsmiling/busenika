@@ -1,0 +1,6 @@
+//Add min price for shippings to regions 06.02.2015
+ALTER TABLE `cscart_shippings` ADD min_total_price DECIMAL(12,2) NOT NULL DEFAULT 0
+//lang vars
+min_total_price - Минимальная сумма заказа
+total_less_then_min - Недостаточная сумма заказа
+total_less_then_min_detailed - Вы не можете оформить заказ, так как минимальная сумма заказа не превышает минимальную сумму выбранной вами доставки

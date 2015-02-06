@@ -97,6 +97,12 @@
             <label for="self_service">{$lang.self_service}</label>
     </div>
 </div>
+
+<div class="form-field">
+    <label for="min_total_price">{$lang.min_total_price}:</label>
+    <input type="text" name="shipping_data[min_total_price]" id="min_total_price" size="10" value="{$shipping.min_total_price}" class="input-text" />
+</div>
+
 </fieldset>
 
 <div class="buttons-container buttons-bg">

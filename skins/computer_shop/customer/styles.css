@@ -56,10 +56,12 @@ hr.dashed {
 /* Notification box */
 .notification-w, .notification-n, .notification-e {
 	background-color: #d72323;
+    font-size: 150%;
 }
 .notification-header-w, .notification-header-n, .notification-header-e {
 	color: #ffffff;
 	background: #b50000 url('images/icons/notification_icon_e.gif') no-repeat left center;
+    font-size: 150%;
 }
 .notification-body {
 	color: #ffffff;

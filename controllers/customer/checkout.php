@@ -526,11 +526,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_REQUEST['shipping_ids'])) {
             fn_checkout_update_shipping($cart, $_REQUEST['shipping_ids']);
             // Add variable to session for self-service shipment, no need to fill shipment data in next steps
-            $shippings = fn_get_shippings();
+            $shippings = fn_get_shippings(false);
             $selected_shipping_id = $_REQUEST['shipping_ids'][0];
             foreach($shippings as $shipping){
                 if ($shipping['shipping_id'] == $selected_shipping_id){
                     $_SESSION['selfService'] = $shipping['self_service'];
+                    if ($shipping['min_total_price'] > $cart['subtotal']){
+                        fn_set_notification('W', fn_get_lang_var('total_less_then_min'),  fn_get_lang_var('total_less_then_min_detailed') . $shipping['min_total_price']);
+                        return array(CONTROLLER_STATUS_DENIED);
+                    }
                 }
             }
         }
