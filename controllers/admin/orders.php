@@ -458,8 +458,8 @@ if ($mode == 'delete') {
     $old_status = $order_info['status'];
     if (fn_change_order_status($_REQUEST['id'], $_REQUEST['status'], '', fn_get_notification_rules($_REQUEST))) {
         $order_info = fn_get_order_info($_REQUEST['id']);
-        if ($_REQUEST['send_sms'] == 'Y') {
-            $status_data = db_get_row("SELECT ?:status_descriptions.sms_text FROM ?:statuses LEFT JOIN ?:status_descriptions ON ?:statuses.status = ?:status_descriptions.status AND ?:statuses.type = ?:status_descriptions.type AND ?:status_descriptions.lang_code = ?s WHERE ?:statuses.status = ?s ORDER BY ?:status_descriptions.description", DESCR_SL, $_REQUEST['status'], $_REQUEST['type']);
+        $status_data = db_get_row("SELECT ?:status_descriptions.sms_text, ?:status_descriptions.sms_send_default FROM ?:statuses LEFT JOIN ?:status_descriptions ON ?:statuses.status = ?:status_descriptions.status AND ?:statuses.type = ?:status_descriptions.type AND ?:status_descriptions.lang_code = ?s WHERE ?:statuses.status = ?s ORDER BY ?:status_descriptions.description", DESCR_SL, $_REQUEST['status'], $_REQUEST['type']);
+        if ($_REQUEST['send_sms'] == 'Y' || $status_data['sms_send_default']) {
             if ($status_data['sms_text']){
                 $params = array();
                 $params['user'] = 'korzin';

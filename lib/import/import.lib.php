@@ -253,8 +253,8 @@ class ImportTool {
         $this->useDatabase($this->sourceDB);
         $query = "DELETE FROM subscribers WHERE id = 25 OR id = 41 OR id = 56";
         $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
-        $query = "SELECT * FROM subscribers";
-        $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
+        $query = "SELECT email FROM subscribers UNION SELECT email FROM members WHERE subscribe = 1";
+        $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link));
 
         $destLink = mysqli_connect($this->config['db_host'], $this->config['db_user'], $this->config['db_password'])
         or die('Database connection error. ' . mysqli_error($this->link));

@@ -80,6 +80,11 @@
                 Введенно символов:<span id="symbol_count_{$st}"></span> (<span id="sms_count_{$st}"></span> СМС)
             </div>
         </div>
+        <div class="form-field">
+            <label for="sms_text_{$st}">{$lang.sms_send_default}:</label>
+            <input type="hidden" name="status_data[sms_send_default]" value="0" />
+            <input type="checkbox" name="status_data[sms_send_default]" id="status_param_{$st}_{$name}" value="1" {if $status_data.sms_send_default == "1"} checked="checked"{/if} class="checkbox" />
+        </div>
 
 	</fieldset>
 	</div>

@@ -2942,7 +2942,7 @@ function fn_get_status_data($status, $type = STATUSES_ORDER, $object_id = 0, $la
 function fn_get_statuses($type = STATUSES_ORDER, $simple = false, $additional_statuses = false, $exclude_parent = false, $lang_code = CART_LANGUAGE)
 {
 	if ($simple) {
-		$statuses = db_get_hash_single_array("SELECT a.status, b.description FROM ?:statuses as a LEFT JOIN ?:status_descriptions as b ON b.status = a.status AND b.type = a.type AND b.lang_code = ?s WHERE a.type = ?s", array('status', 'description'), $lang_code, $type);
+		$statuses = db_get_hash_single_array("SELECT a.status, b.description FROM ?:statuses as a LEFT JOIN ?:status_descriptions as b ON b.status = a.status AND b.type = a.type AND b.lang_code = ?s WHERE a.type = ?s ORDER BY b.description", array('status', 'description'), $lang_code, $type);
 		if ($type == STATUSES_ORDER && !empty($additional_statuses)) {
 			$statuses['N'] = fn_get_lang_var('incompleted', $lang_code);
 			if (empty($exclude_parent)) {
@@ -2950,7 +2950,7 @@ function fn_get_statuses($type = STATUSES_ORDER, $simple = false, $additional_st
 			}
 		}
 	} else {
-		$statuses = db_get_hash_array("SELECT a.status, b.description FROM ?:statuses as a LEFT JOIN ?:status_descriptions as b ON b.status = a.status AND b.type = a.type AND b.lang_code = ?s WHERE a.type = ?s", 'status', $lang_code, $type);
+		$statuses = db_get_hash_array("SELECT a.status, b.description FROM ?:statuses as a LEFT JOIN ?:status_descriptions as b ON b.status = a.status AND b.type = a.type AND b.lang_code = ?s WHERE a.type = ?s ORDER BY b.description", 'status', $lang_code, $type);
 		foreach ($statuses as $status => $data) {
 			$statuses[$status] = fn_array_merge($statuses[$status], fn_get_status_params($status, $type));
 		}
@@ -3656,7 +3656,7 @@ function fn_order_notification(&$order_info, $edp_data = array(), $force_notific
 			$manifest = fn_get_manifest('customer', $order_info['lang_code'], $company_id);
 			Registry::get('view_mail')->assign('manifest', $manifest);
 			
-			fn_send_mail($order_info['email'], Registry::get('settings.Company.company_orders_department'), 'orders/order_notification_subj.tpl', 'orders/order_notification.tpl', '', $order_info['lang_code']);
+			fn_send_mail($order_info['email'], Registry::get('settings.Company.company_newsletter_email'), 'orders/order_notification_subj.tpl', 'orders/order_notification.tpl', '', $order_info['lang_code']);
 	//		fn_send_mail('diedsmiling@gmail.com', Registry::get('settings.Company.company_orders_department'), 'orders/order_notification_subj.tpl', 'orders/order_notification.tpl', '', $order_info['lang_code']);
 		}
 
