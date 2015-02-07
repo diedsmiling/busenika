@@ -442,7 +442,17 @@ elseif($mode == 'import_daemon'){
 	//var_dump($er);
 	//var_dump($return);
 	die('a');
-}	
+
+
+}	elseif($mode == 'enable_discussions'){
+    $product_ids = db_get_fields("SELECT product_id FROM cscart_products");
+    foreach ($product_ids as $product_id){
+        $product_data = array();
+        $product_data['discussion_type'] = "B";
+        fn_discussion_update_product($product_data, $product_id);
+    }
+
+}
 		
 
 // --------- ExIm core functions ------------------
