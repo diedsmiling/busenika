@@ -422,7 +422,16 @@ if ($mode == 'dev_import') {
 		//$tool->deleteAllUsers(true);
 		//$tool->importUsers();
 
-        $tool->importSubscriberList(1);
+        $tool->importDiscounts(
+            array(
+                'threePercent' => 15,
+                'fivePercent' => 16,
+                'tenPercent' => 17,
+
+            )
+        );
+
+        //$tool->importSubscriberList(1);
 
         //$tool->setWatermark("D:\\Max\\www\\busenki\\wm_new.png");
         //$tool->addAllWatermarks("D:\\Max\\www\\busenki\\detailed");

@@ -248,6 +248,30 @@ class ImportTool {
 		fn_update_user('', $user_data, $auth, false, false);
 	}
 
+    public function importDiscounts($groupIds){
+        include_once DIR_ROOT . '/controllers/admin/usergroups.php';
+        $this->useDatabase($this->sourceDB);
+        $query = "SELECT * FROM shop_member_discounts";
+        $result = mysqli_query($this->link, $query) or die("Failed to select from: cscart_users" . mysqli_error($this->link, $this->link));
+        while ($discount = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+            switch($discount['discount']){
+                case '3.00':
+                    $groupId = $groupIds['threePercent'];
+                    break;
+                case '5.00':
+                    $groupId = $groupIds['fivePercent'];
+                    break;
+                case '10.00':
+                    $groupId = $groupIds['tenPercent'];
+                    break;
+                default:
+                    $groupId = 1;
+                    break;
+            }
+            fn_change_usergroup_status('A', $discount['member_id'], $groupId);
+        }
+    }
+
     function importSubscriberList($list_id)
     {
         $this->useDatabase($this->sourceDB);
@@ -334,7 +358,10 @@ class ImportTool {
 						64 => $order['comment']
 					),
 				),
-				'total' => $order['total'],
+                'subtotal' => $order['total'],
+                'original_subtotal' => $order['total'],
+                'display_subtotal' => $order['total'],
+                'total' => $order['total'] + $order['delivery_cost'],
 				'shipping_cost' => $order['delivery_cost'],
 				'display_shipping_cost' => $order['delivery_cost'],
 				'timestamp' => $timestamp,
