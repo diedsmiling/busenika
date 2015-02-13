@@ -453,8 +453,20 @@ elseif($mode == 'import_daemon'){
     }
 
 }
-		
+elseif($mode == 'sync_vendors'){
+    define("DIR_SYNC_VENDORS", DIR_CUSTOM . "SyncVendorProducts/");
+    include_once DIR_SYNC_VENDORS . "SyncVendor.php";
+    include_once DIR_SYNC_VENDORS . "PHPExcel.php";
 
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+
+    ini_set('max_execution_time', 0);
+    ini_set('memory_limit', '256M');
+
+    $svp = new SyncVendor();
+    $svp->run();
+}
 // --------- ExIm core functions ------------------
 
 

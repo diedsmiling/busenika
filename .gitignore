@@ -1,9 +1,11 @@
 /config.local.php
 /images
 /var
-/custom
+custom/*
 /.idea
 /*.log
 /index.php
 *.bak
 /debug
+*.png
+!custom/SyncVendorProducts/

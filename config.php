@@ -59,6 +59,7 @@ define('DIR_EXIM', DIR_ROOT . '/var/exim/');
 define('DIR_CACHE', DIR_ROOT . '/var/cache/');
 define('DIR_SKINS_REPOSITORY', DIR_ROOT . '/var/skins_repository/');
 define('DIR_CUSTOM_FILES', DIR_ROOT . '/var/custom_files/');
+define('DIR_CUSTOM', DIR_ROOT . '/custom/');
 
 // Week days
 define('SUNDAY',    0);
