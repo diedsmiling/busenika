@@ -440,6 +440,7 @@ function fn_place_order(&$cart, &$auth, $action = '', $parent_order_id = 0)
 		if (!empty($cart['rewrite_order_id'])) {
 			$order['order_id'] = array_shift($cart['rewrite_order_id']);
 		}
+        $order['referer'] = $_SESSION['referer'];
 		$order_id = db_query("INSERT INTO ?:orders ?e", $order);
 
 		// Log order creation

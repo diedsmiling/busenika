@@ -3233,4 +3233,19 @@ function fn_check_db_prefix($query)
 	return $query;
 }
 
+function fn_store_referer()
+{
+    if (!isset($_SESSION['referer']))
+    {
+        if (isset($_SERVER["HTTP_REFERER"]))
+        {
+            $_SESSION['referer'] = $_SERVER["HTTP_REFERER"];
+        }
+        else
+        {
+            $_SESSION['referer'] = "Адрессная строка";
+        }
+    }
+}
+
 ?>

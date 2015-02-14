@@ -4,3 +4,8 @@ ALTER TABLE `cscart_shippings` ADD min_total_price DECIMAL(12,2) NOT NULL DEFAUL
 min_total_price - Минимальная сумма заказа
 total_less_then_min - Недостаточная сумма заказа
 total_less_then_min_detailed - Вы не можете оформить заказ, так как минимальная сумма заказа не превышает минимальную сумму выбранной вами доставки -
+
+//Add and fill new field REFERER on orders to track ads 06.02.2015
+ALTER TABLE `cscart_orders` ADD referer text NOT NULL DEFAULT ""
+//lang vars
+referer - Реферер
