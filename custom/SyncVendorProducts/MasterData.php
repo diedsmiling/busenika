@@ -10,7 +10,7 @@ class MasterData {
     private $excel;
     private $config;
     private $baseData;
-    private $counter = 1;
+    private $counter = 2;
     private  $currentVendor;
     public function __construct($config)
     {
@@ -23,6 +23,7 @@ class MasterData {
                     ->setDescription("Compilation of prices for different vendors.")
                     ->setKeywords("vendor prices products compilation sync")
                     ->setCategory("Products");
+        $this->setHeader();
     }
 
     public function importData(Vendor $vendor)
@@ -32,7 +33,8 @@ class MasterData {
         while (!$vendor->endReached())
         {
             $vendorItemData = $vendor->getNextLine();
-            if (isset($vendorItemData['item']))
+            $vendorItemData['item'] = str_replace(" ", "", $vendorItemData['item']);
+            if (isset($vendorItemData['item']) && $vendorItemData['item'] != "")
             {
                 $itemIds = $this->baseData->getItemIds($vendorItemData['item'], $vendor->getBaseDataColumn());
                 if (!empty($itemIds)){
@@ -85,6 +87,17 @@ class MasterData {
                 $itemData['qty'] = $this->excel->getActiveSheet()->getCell($this->currentVendor->getConfig()['master-file-qty-column'].$row)->getValue();
                 return $itemData;
             }
+        }
+    }
+
+    private function setHeader()
+    {
+        $this->excel->setActiveSheetIndex(0)->setCellValue('A1', "Item_id");
+        foreach ($this->config['vendors'] as $vendor)
+        {
+            $this->excel->setActiveSheetIndex(0)->setCellValue($vendor['master-file-item-column'] . '1', $vendor["master-file-item-column-name"]);
+            $this->excel->setActiveSheetIndex(0)->setCellValue($vendor['master-file-price-column'] . '1', $vendor["master-file-price-column-name"]);
+            $this->excel->setActiveSheetIndex(0)->setCellValue($vendor['master-file-qty-column'] . '1', $vendor["master-file-qty-column-name"]);
         }
     }
 }

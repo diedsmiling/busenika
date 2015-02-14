@@ -23,20 +23,24 @@ class ExcelBaseData implements IBaseDataProvider{
         $sheetname = $worksheetList[2];
         $this->objReader->setLoadSheetsOnly($sheetname);
         $this->objReader->setReadDataOnly(true);
+        SyncVendor::log("Begin loading " . $this->fileName . " base file.");
         $this->objPHPExcel = $this->objReader->load($this->fileName);
+        SyncVendor::log("Base excel file loaded.");
     }
 
     //note - $column is an array with 2 members: base-data-column, base-data-column-name
     public function getItemIds($vendorItemId, $column)
     {
+        $itemIds = array();
         $lastRow = $this->objPHPExcel->getActiveSheet()->getHighestRow();
         for ($row = 2; $row <= $lastRow; $row++) {
             $cell = $this->objPHPExcel->getActiveSheet()->getCell($column['base-data-column'].$row)->getValue();
             if ($cell == $vendorItemId)
             {
-                return array($this->objPHPExcel->getActiveSheet()->getCell("A".$row)->getValue());
+                $itemIds[] = $this->objPHPExcel->getActiveSheet()->getCell("A".$row)->getValue();
             }
         }
+        return $itemIds;
     }
 
 } 

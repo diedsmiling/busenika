@@ -15,6 +15,7 @@ class DBBaseData implements IBaseDataProvider{
         $this->config = $syncConfig;
         if ($syncConfig['base-recreate-table'] == true)
         {
+            SyncVendor::log("Database table creation started.");
             $columns[] = 'item_id';
             db_query("DROP TABLE IF EXISTS " . $syncConfig['base-table']);
             $query = "CREATE TABLE " . $syncConfig['base-table'] . " ( item_id VARCHAR(50) NOT NULL," ;
@@ -42,7 +43,7 @@ class DBBaseData implements IBaseDataProvider{
                 $query .= "(" . implode(",", $columns) . ") VALUES (" . implode(",", $values) . ")";
                 db_query($query);
             }
-
+            SyncVendor::log("Database table creation ended.");
         }
     }
 

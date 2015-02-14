@@ -33,7 +33,8 @@ class Vendor {
         if ($this->endOfFile){
             if (isset($this->config['price-sheets'][$this->currentDocument+1])){
                 $this->currentDocument++;
-                $this->objPHPExcel = $this->objReader->load(DIR_SYNC_VENDORS .$this ->config['price-sheets'][$this->currentDocument]['file-name']);
+                $this->objPHPExcel = $this->objReader->load(DIR_PRICE_SHEETS_FOLDER . $this->config['price-sheets'][$this->currentDocument]['file-name']);
+                SyncVendor::log("File " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . " loaded.");
                 $this->currentLine = $this->config['price-sheets'][$this->currentDocument]['first-row'];
                 $this->endOfFile = false;
             } else {
@@ -49,6 +50,7 @@ class Vendor {
         $returnData['item'] = $this->objPHPExcel->getActiveSheet()->getCell($itemColumn . $this->currentLine)->getValue();
         $returnData['price'] = $this->objPHPExcel->getActiveSheet()->getCell($priceColumn . $this->currentLine)->getValue();
         $returnData['qty'] = $this->objPHPExcel->getActiveSheet()->getCell($qtyColumn . $this->currentLine)->getValue();
+        if (!$returnData['qty']) $returnData['qty'] = 1;
         if (!isset($returnData['item'])) //end of file reached
         {
             unset($this->objPHPExcel);
