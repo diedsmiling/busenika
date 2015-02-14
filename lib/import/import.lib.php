@@ -125,7 +125,8 @@ class ImportTool {
                         'timestamp' => strtotime($item['date']),
                         'relative' => $item['relative'],
                         'product_features' => array(
-                            20 => $item['color'] //color
+                            20 => $item['color'], //color
+                            1 => $item['supplier'] //color
                             )
                         ),
                     'product_main_image_data' => array(
