@@ -95,7 +95,7 @@
 		</div>
 
 		{include file="views/profiles/components/profile_fields_info.tpl" fields=$profile_fields.C customer_info="Y"}
-        {if $user_data.referer}<p><label>{$lang.referer}:</label>{$user_data.referer}</p>{/if}
+        {if $user_data.referer}<p class="referer"><label>{$lang.referer}:</label>{$user_data.referer}</p>{/if}
 		{if $email_changed}
 			<div class="form-field">
 				<label>{$lang.attention}</label>
