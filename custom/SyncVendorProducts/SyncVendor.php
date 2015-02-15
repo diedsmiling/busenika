@@ -20,7 +20,7 @@ class SyncVendor {
     public function __construct(){
         self::clearLog();
         self::log('Sync Vendor Prices started');
-        $this->config = json_decode(file_get_contents(DIR_SYNC_VENDORS . "config_souz.json"), true);
+        $this->config = json_decode(file_get_contents(DIR_SYNC_VENDORS . "config_full.json"), true);
         $this->masterData = new MasterData($this->config);
         $this->baseData = self::getBaseDataProvider($this->config);
         $this->masterData->setBaseDataProvider($this->baseData);
@@ -49,9 +49,10 @@ class SyncVendor {
         }
     }
 
-    public static function log($message)
+    public static function log($message, $lineFeed = true)
     {
-        file_put_contents(DIR_SYNC_VENDORS . "syncVendor.log", date("H:i:s") . ":" . $message . "\r\n", FILE_APPEND);
+        $endLine = $lineFeed ? "\r\n" : "";
+        file_put_contents(DIR_SYNC_VENDORS . "syncVendor.log", date("H:i:s") . ":" . $message . $endLine, FILE_APPEND);
     }
 
     private static function clearLog()

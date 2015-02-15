@@ -33,7 +33,6 @@ class MasterData {
         while (!$vendor->endReached())
         {
             $vendorItemData = $vendor->getNextLine();
-            $vendorItemData['item'] = str_replace(" ", "", $vendorItemData['item']);
             if (isset($vendorItemData['item']) && $vendorItemData['item'] != "")
             {
                 $itemIds = $this->baseData->getItemIds($vendorItemData['item'], $vendor->getBaseDataColumn());

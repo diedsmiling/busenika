@@ -13,6 +13,7 @@ class Vendor {
     private $config;
     private $currentDocument = -1;
     private $currentLine = 1;
+    private $lastRow;
     private $endReached = false;
     private $endOfFile = true;
     private $objReader;
@@ -33,8 +34,11 @@ class Vendor {
         if ($this->endOfFile){
             if (isset($this->config['price-sheets'][$this->currentDocument+1])){
                 $this->currentDocument++;
+                SyncVendor::log("Loading " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . "  ...", false);
                 $this->objPHPExcel = $this->objReader->load(DIR_PRICE_SHEETS_FOLDER . $this->config['price-sheets'][$this->currentDocument]['file-name']);
-                SyncVendor::log("File " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . " loaded.");
+                SyncVendor::log(" done.");
+
+                $this->lastRow = $this->objPHPExcel->getActiveSheet()->getHighestRow();
                 $this->currentLine = $this->config['price-sheets'][$this->currentDocument]['first-row'];
                 $this->endOfFile = false;
             } else {
@@ -51,8 +55,9 @@ class Vendor {
         $returnData['price'] = $this->objPHPExcel->getActiveSheet()->getCell($priceColumn . $this->currentLine)->getValue();
         $returnData['qty'] = $this->objPHPExcel->getActiveSheet()->getCell($qtyColumn . $this->currentLine)->getValue();
         if (!$returnData['qty']) $returnData['qty'] = 1;
-        if (!isset($returnData['item'])) //end of file reached
+        if ($this->currentLine > $this->lastRow) //end of file reached
         {
+            SyncVendor::log("File " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . " parsed. " . $this->currentLine . " lines.");
             unset($this->objPHPExcel);
             $this->endOfFile = true;
             return $this->getNextLine();

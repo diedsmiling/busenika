@@ -49,7 +49,11 @@ class DBBaseData implements IBaseDataProvider{
 
     public function getItemIds($vendorItemId, $column)
     {
-        $query = "SELECT item_id FROM " .  $this->config['base-table'] . " WHERE " . $column['base-data-column-name'] . " LIKE '%" . $vendorItemId . "%'";
+        $query = "SELECT item_id FROM " .  $this->config['base-table'] . " WHERE " .
+            $column['base-data-column-name'] . " LIKE '" . $vendorItemId . "' OR " .
+            $column['base-data-column-name'] . " LIKE '" . $vendorItemId . ",%' OR " .
+            $column['base-data-column-name'] . " LIKE '%," . $vendorItemId . ",%' OR " .
+            $column['base-data-column-name'] . " LIKE '%," . $vendorItemId . "'";
         return db_get_fields($query);
     }
 

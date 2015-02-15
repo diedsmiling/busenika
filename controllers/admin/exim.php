@@ -462,7 +462,7 @@ elseif($mode == 'sync_vendors'){
     ini_set('display_errors', 1);
 
     ini_set('max_execution_time', 0);
-    ini_set('memory_limit', '256M');
+    ini_set('memory_limit', '512M');
 
     $svp = new SyncVendor();
     $svp->run();
