@@ -52,7 +52,7 @@ class Vendor {
         $priceColumn = $this->config['price-sheets'][$this->currentDocument]['price-column'];
         $qtyColumn = $this->config['price-sheets'][$this->currentDocument]['qty-column'];
         $returnData['item'] = $this->objPHPExcel->getActiveSheet()->getCell($itemColumn . $this->currentLine)->getValue();
-        $returnData['price'] = $this->objPHPExcel->getActiveSheet()->getCell($priceColumn . $this->currentLine)->getValue();
+        $returnData['price'] = $this->objPHPExcel->getActiveSheet()->getCell($priceColumn . $this->currentLine)->getValue() * (100 - $this->config['discount'])/100;
         $returnData['qty'] = $this->objPHPExcel->getActiveSheet()->getCell($qtyColumn . $this->currentLine)->getValue();
         if (!$returnData['qty']) $returnData['qty'] = 1;
         if ($this->currentLine > $this->lastRow) //end of file reached

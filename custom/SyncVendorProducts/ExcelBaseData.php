@@ -20,8 +20,8 @@ class ExcelBaseData implements IBaseDataProvider{
         /**  Create a new Reader of the type defined in $inputFileType  **/
         $this->objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $worksheetList = $this->objReader->listWorksheetNames($this->fileName);
-        $sheetname = $worksheetList[2];
-        $this->objReader->setLoadSheetsOnly($sheetname);
+        $sheets = [$worksheetList[2], $worksheetList[3]];
+        $this->objReader->setLoadSheetsOnly($sheets);
         $this->objReader->setReadDataOnly(true);
         SyncVendor::log("Begin loading " . $this->fileName . " base file.");
         $this->objPHPExcel = $this->objReader->load($this->fileName);
@@ -32,12 +32,12 @@ class ExcelBaseData implements IBaseDataProvider{
     public function getItemIds($vendorItemId, $column)
     {
         $itemIds = array();
-        $lastRow = $this->objPHPExcel->getActiveSheet()->getHighestRow();
+        $lastRow = $this->objPHPExcel->getActiveSheet(0)->getHighestRow();
         for ($row = 2; $row <= $lastRow; $row++) {
-            $cell = $this->objPHPExcel->getActiveSheet()->getCell($column['base-data-column'].$row)->getValue();
+            $cell = $this->objPHPExcel->getActiveSheet(0)->getCell($column['base-data-column'].$row)->getValue();
             if ($cell == $vendorItemId)
             {
-                $itemIds[] = $this->objPHPExcel->getActiveSheet()->getCell("A".$row)->getValue();
+                $itemIds[] = $this->objPHPExcel->getActiveSheet(0)->getCell("A".$row)->getValue();
             }
         }
         return $itemIds;

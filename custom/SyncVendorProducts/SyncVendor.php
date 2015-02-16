@@ -52,7 +52,8 @@ class SyncVendor {
     public static function log($message, $lineFeed = true)
     {
         $endLine = $lineFeed ? "\r\n" : "";
-        file_put_contents(DIR_SYNC_VENDORS . "syncVendor.log", date("H:i:s") . ":" . $message . $endLine, FILE_APPEND);
+        $date = !$lineFeed ? date("H:i:s") : "";
+        file_put_contents(DIR_SYNC_VENDORS . "syncVendor.log", $date . ":" . $message . $endLine, FILE_APPEND);
     }
 
     private static function clearLog()

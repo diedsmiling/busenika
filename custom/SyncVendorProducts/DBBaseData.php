@@ -9,6 +9,7 @@
 class DBBaseData implements IBaseDataProvider{
 
     private $config;
+    private $excel;
 
     public function __construct($syncConfig)
     {
@@ -17,8 +18,9 @@ class DBBaseData implements IBaseDataProvider{
         {
             SyncVendor::log("Database table creation started.");
             $columns[] = 'item_id';
+            $columns[] = 'interest';
             db_query("DROP TABLE IF EXISTS " . $syncConfig['base-table']);
-            $query = "CREATE TABLE " . $syncConfig['base-table'] . " ( item_id VARCHAR(50) NOT NULL," ;
+            $query = "CREATE TABLE " . $syncConfig['base-table'] . " ( item_id VARCHAR(50) NOT NULL, interest DECIMAL(5,2) NOT NULL DEFAULT 100.00, " ;
             foreach ($syncConfig['vendors'] as $vendor)
             {
                 $query .= $vendor['base-data-column-name'] . " VARCHAR(50) NOT NULL,";
@@ -30,20 +32,25 @@ class DBBaseData implements IBaseDataProvider{
 
             $excelBaseData = new ExcelBaseData(DIR_SYNC_VENDORS . $syncConfig['base-file']);
             $excel = $excelBaseData->objPHPExcel;
-            $lastRow = $excel->getActiveSheet()->getHighestRow();
+            $this->excel = $excel;
+            $lastRow = $excel->setActiveSheetIndex(0)->getHighestRow();
             for ($row = 2; $row <= $lastRow; $row++) {
                 $query = "INSERT INTO " . $syncConfig['base-table'] . " ";
                 $values = array();
-                $values['item_id'] = "'" . $excel->getActiveSheet()->getCell("A".$row)->getValue() . "'";
+                $itemId = $excel->setActiveSheetIndex(0)->getCell("A".$row)->getValue();
+                $values['item_id'] = "'" . $itemId . "'";
+                $values['interest'] = $this->getInterest($itemId);
                 foreach ($syncConfig['vendors'] as $vendor)
                 {
-                    $values[] = "'" . $excel->getActiveSheet()->getCell($vendor["base-data-column"].$row)->getValue() . "'";
+                    $values[] = "'" . $excel->setActiveSheetIndex(0)->getCell($vendor["base-data-column"].$row)->getValue() . "'";
                     //$values[] = $value ? $value : "''";
                 }
                 $query .= "(" . implode(",", $columns) . ") VALUES (" . implode(",", $values) . ")";
                 db_query($query);
             }
             SyncVendor::log("Database table creation ended.");
+            $excel->disconnectWorksheets();
+            unset($this->objPHPExcel);
         }
     }
 
@@ -55,6 +62,21 @@ class DBBaseData implements IBaseDataProvider{
             $column['base-data-column-name'] . " LIKE '%," . $vendorItemId . ",%' OR " .
             $column['base-data-column-name'] . " LIKE '%," . $vendorItemId . "'";
         return db_get_fields($query);
+    }
+
+    private function getInterest($itemId)
+    {
+        $defaultInterest = 100;
+        $lastRow = $this->excel->setActiveSheetIndex(1)->getHighestRow();
+        for ($row = 1; $row <= $lastRow; $row++) {
+            $cell = $this->excel->setActiveSheetIndex(1)->getCell('A'.$row)->getValue();
+            if ($cell == $itemId)
+            {
+                $interest = $this->excel->setActiveSheetIndex(1)->getCell("K". $row)->getValue();
+                return $interest ? $interest : $defaultInterest;
+            }
+        }
+        return $defaultInterest;
     }
 
 }
