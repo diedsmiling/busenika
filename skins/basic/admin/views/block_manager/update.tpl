@@ -12,7 +12,7 @@
 	<input type="hidden" name="block[block_id]" value="{$id}" />
 	<input type="hidden" name="redirect_location" value="{$location}" />
 	<input type="hidden" name="block[location]" value="{$block.location}" />
-	
+
 
 	<script type="text/javascript">
 	//<![CDATA[
@@ -142,7 +142,13 @@
 			</select>
 		</div>
 		{/if}
-
+        {if $id==49}
+        <div class="form-field">
+            <label for="auto_add">{$lang.auto_add}:</label>
+            <input type="hidden" name="block[auto_add]" value="N" />
+            <input type="checkbox" class="checkbox" name="block[auto_add]" value="Y" id="auto_add" {if $block.properties.auto_add == "Y"}checked="checked"{/if} />
+        </div>
+        {/if}
 		{hook name="block_manager:settings"}
 		{/hook}
 	</fieldset>

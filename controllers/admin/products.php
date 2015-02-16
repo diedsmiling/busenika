@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 					fn_update_product_count($_add_categories);
 				}
+                fn_add_to_new_items_block($product_id);
 			}
 
 			// -----------------------
@@ -1141,6 +1142,19 @@ if ($mode == 'global_update') {
 	die('ada');
 
 }
-
+function fn_add_to_new_items_block($itemId)
+{
+    include_once(DIR_ROOT . "/controllers/admin/block_manager.php");
+    $data = fn_get_block_data(49);
+    if ($data['properties']['auto_add'] == 'Y')
+    {
+        $block_items = db_get_field("SELECT item_ids FROM cscart_block_links WHERE block_id = 49");
+        $items = explode(",", $block_items);
+        array_unshift($items, $itemId);
+        $items = array_slice($items,0, 50, true);
+        $block_items = implode(",", $items);
+        db_query("UPDATE cscart_block_links SET item_ids=?s WHERE block_id = 49", $block_items);
+    }
+}
 
 ?>

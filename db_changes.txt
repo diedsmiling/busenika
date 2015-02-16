@@ -9,3 +9,6 @@ total_less_then_min_detailed - Вы не можете оформить зака�
 ALTER TABLE `cscart_orders` ADD referer text NOT NULL DEFAULT ""
 //lang vars
 referer - Реферер
+
+//Auto add new items to "New products" block, create thumbnails with watermark for new products 16.02.2015
+auto_add - Автоматически добавлять новые товары
