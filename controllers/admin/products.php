@@ -105,6 +105,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Updating product record
 			fn_update_product($_REQUEST['product_data'], $_REQUEST['product_id'], DESCR_SL);
 
+            //Update vendor data
+            foreach($_REQUEST['vendor_data'] as $key => $value)
+            {
+                $setValues[] = $key . "='" . $value . "'";
+            }
+            db_query("UPDATE vendor_items SET ". implode(",",$setValues) .  "  WHERE item_id = '" . $_REQUEST['product_data']['product_code'] . "'");
+
 			// Updating product associations with additional categories
 
 			$_main_category = db_get_field("SELECT category_id FROM ?:products_categories WHERE product_id = ?i AND link_type = 'M'", $_REQUEST['product_id']);
@@ -760,6 +767,36 @@ if ($mode == 'global_update') {
 	// Get current product data
 	$product_data = fn_get_product_data($_REQUEST['product_id'], $auth, DESCR_SL, '', true, true, true, true);
 
+    // Get vendor data
+    $vendor_data = db_get_array("SELECT * FROM vendor_items WHERE item_id = '" . $product_data['product_code'] . "'");
+    if (empty($vendor_data))
+    {
+        $vendor_fields = "no_data";
+    }
+    else
+    {
+        array_shift($vendor_data[0]);
+        $config = json_decode(file_get_contents(SYNC_VENDORS_CONFIG), true);
+        foreach($vendor_data[0] as $fieldName => $fieldValue)
+        {
+            if ($fieldName == 'interest')
+            {
+                $fieldLabel = fn_get_lang_var('interest');
+            }
+            else if ($config)
+            {
+                foreach($config['vendors'] as $vendor)
+                {
+                    if ($vendor["base-data-column-name"] == $fieldName)
+                        $fieldLabel = $vendor['name'];
+                }
+            }
+            $vendor_fields[] = array('label' => $fieldLabel, 'name' => $fieldName, 'value' => $fieldValue);
+        }
+    }
+
+    $view->assign("vendors", $vendor_fields);
+
 	if (empty($product_data)) {
 		return array(CONTROLLER_STATUS_NO_PAGE);
 	}
@@ -826,7 +863,10 @@ if ($mode == 'global_update') {
 		'addons' => array (
 			'title' => fn_get_lang_var('addons'),
 			'js' => true
-		),
+		),'vendors' => array (
+            'title' => fn_get_lang_var('vendors'),
+            'js' => true
+        ),
 	));
 	// [/Page sections]
 
@@ -1150,10 +1190,13 @@ function fn_add_to_new_items_block($itemId)
     {
         $block_items = db_get_field("SELECT item_ids FROM cscart_block_links WHERE block_id = 49");
         $items = explode(",", $block_items);
-        array_unshift($items, $itemId);
-        $items = array_slice($items,0, 50, true);
-        $block_items = implode(",", $items);
-        db_query("UPDATE cscart_block_links SET item_ids=?s WHERE block_id = 49", $block_items);
+        if (!in_array($itemId, $items))
+        {
+            array_unshift($items, $itemId);
+            $items = array_slice($items,0, 50, true);
+            $block_items = implode(",", $items);
+            db_query("UPDATE cscart_block_links SET item_ids=?s WHERE block_id = 49", $block_items);
+        }
     }
 }
 

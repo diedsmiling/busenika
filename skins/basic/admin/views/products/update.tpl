@@ -44,7 +44,7 @@
 
 <div class="form-field">
 	<label for="price_price" class="cm-required">{$lang.price} ({$currencies.$primary_currency.symbol}) :</label>
-	<input type="text" name="product_data[price]" id="price_price" size="10" value="{$product_data.price|default:"0.00"}" class="input-text-medium" />
+	<input type="text" name="product_data[price]" id="price_price" size="10" value="{$product_data.price|default:"0.00"}" class="input-text-medium" /><strong> Новая цена:{$product_data.temp_price}</strong>
 </div>
 
 <div class="form-field">
@@ -105,7 +105,7 @@
 	{if $product_data.tracking == "O"}
 		{include file="buttons/button.tpl" but_text=$lang.edit but_href="product_options.inventory?product_id=`$product_data.product_id`" but_role="edit"}
 	{else}
-		<input type="text" name="product_data[amount]" id="product_amount" size="10" value="{$product_data.amount|default:"1"}" class="input-text-short" />
+		<input type="text" name="product_data[amount]" id="product_amount" size="10" value="{$product_data.amount|default:"1"}" class="input-text-short" /><strong> Новое количество:{$product_data.temp_qty}</strong>
 	{/if}
 </div>
 
@@ -306,7 +306,7 @@
 		<div class="float-left">{include file="common_templates/attach_images.tpl" image_name="product_add_additional" image_object_type="product" image_type="A" icon_title=$lang.additional_thumbnail detailed_title=$lang.additional_popup_larger_image icon_text=$lang.text_additional_thumbnail detailed_text=$lang.text_additional_detailed_image no_thumbnail=true}</div>
 		<div class="buttons-container">{include file="buttons/multiple_buttons.tpl" item_id="new_image"}</div>
 	</div>
-	<hr />
+	<hr/>
 </div>
 
 </div> {* /content images *}
@@ -325,7 +325,18 @@
 {hook name="products:detailed_content"}
 {/hook}
 </div>
-
+<div id="content_vendors">
+    {if $vendors=='no_data'}
+        <strong>{$lang.no_data}</strong>
+    {else}
+        {foreach from=$vendors item=field}
+            <div class="form-field">
+                <label for="vendor_{$field.name}">{$field.label} :</label>
+                <input type="text" name="vendor_data[{$field.name}]" id="{$field.name}" size="10" value="{$field.value}" class="input-text-medium" />
+            </div>
+        {/foreach}
+    {/if}
+</div>
 
 {hook name="products:tabs_content"}
 {/hook}

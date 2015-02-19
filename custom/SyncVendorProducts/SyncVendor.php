@@ -10,6 +10,7 @@ include_once("Vendor.php");
 include_once("IBaseDataProvider.php");
 include_once("ExcelBaseData.php");
 include_once("DBBaseData.php");
+include_once("PriceUpdater.php");
 
 
 class SyncVendor {
@@ -20,7 +21,7 @@ class SyncVendor {
     public function __construct(){
         self::clearLog();
         self::log('Sync Vendor Prices started');
-        $this->config = json_decode(file_get_contents(DIR_SYNC_VENDORS . "config_full.json"), true);
+        $this->config = json_decode(file_get_contents(SYNC_VENDORS_CONFIG), true);
         $this->masterData = new MasterData($this->config);
         $this->baseData = self::getBaseDataProvider($this->config);
         $this->masterData->setBaseDataProvider($this->baseData);
@@ -36,6 +37,12 @@ class SyncVendor {
         }
         $this->masterData->saveFile();
         self::log('Sync Vendor Prices ended');
+        self::log('Updating prices ...');
+        $updater = new PriceUpdater($this->config);
+        $updater->updatePrices();
+        self::log('Finished updating prices.');
+
+
     }
 
     public static function getBaseDataProvider($config){

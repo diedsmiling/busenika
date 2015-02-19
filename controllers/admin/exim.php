@@ -454,7 +454,6 @@ elseif($mode == 'import_daemon'){
 
 }
 elseif($mode == 'sync_vendors'){
-    define("DIR_SYNC_VENDORS", DIR_CUSTOM . "SyncVendorProducts/");
     include_once DIR_SYNC_VENDORS . "SyncVendor.php";
     include_once DIR_SYNC_VENDORS . "PHPExcel.php";
 
@@ -507,6 +506,7 @@ function fn_create_csv()
 
 function fn_import($pattern, $import_data, $options)
 {
+
 	$processed_data = array (
 		'E' => 0, // existent
 		'N' => 0, // new
@@ -739,7 +739,11 @@ function fn_import($pattern, $import_data, $options)
 					}
 				}
 			}
-
+            if ($pattern['table'] == 'products')
+            {
+                require_once("products.php");
+                fn_add_to_new_items_block($primary_object_id['product_id']);
+            }
 			fn_echo('<b>' . implode(',', $primary_object_id) . '</b>. ');
 		}
 

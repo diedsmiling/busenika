@@ -12,3 +12,10 @@ referer - Реферер
 
 //Auto add new items to "New products" block, create thumbnails with watermark for new products 16.02.2015
 auto_add - Автоматически добавлять новые товары
+
+//Add ability to edit vendor product ids and product interest, update prices 19.02.2015
+vendors - Поставщики
+interest - Наценка
+no_data - Нет данных
+ALTER TABLE `cscart_products` ADD temp_price DECIMAL(12,2) NOT NULL DEFAULT 0.00 AFTER list_price
+ALTER TABLE `cscart_products` ADD temp_qty MEDIUMINT(8) NOT NULL DEFAULT 0 AFTER amount
