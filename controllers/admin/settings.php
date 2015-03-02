@@ -25,31 +25,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	fn_trusted_vars('update');
 	$_suffix = '';
 
-	if ($mode == 'update') {
+	if ($mode == 'update' || $mode == 'run') {
 		if (is_array($_REQUEST['update'])) {
-			$old_settings = db_get_hash_array("SELECT ?:settings.option_name, ?:settings.subsection_id, ?:settings.option_id, ?:settings.value FROM ?:settings WHERE ?:settings.section_id = ?s", 'option_id', $section_id);
-			db_query("UPDATE ?:settings SET value = '' WHERE option_type IN ('C', 'M', 'N', 'G') AND section_id = ?s", $section_id);
+            if ($_REQUEST['section_id'] == "Vendors")
+            {
+                $config = json_decode(file_get_contents(SYNC_VENDORS_CONFIG), true);
+                foreach ($config['vendors'] as $vendorKey => $vendor)
+                {
+                    foreach($vendor['price-sheets'] as $priceSheetKey => $priceSheet)
+                    {
+                        $expectedType = str_replace(".", "_", $priceSheet['file-name']);
+                        $expectedPrice = $expectedType . "u";
+                        $config['vendors'][$vendorKey]['price-sheets'][$priceSheetKey]['download'] = $_REQUEST['update'][$expectedType];
+                        if (isset($_REQUEST['update'][$expectedPrice]) && ($_REQUEST['update'][$expectedType] == 'url'))
+                        {
+                            $config['vendors'][$vendorKey]['price-sheets'][$priceSheetKey]['url'] = $_REQUEST['update'][$expectedPrice];
+                        }
+                        if (($_REQUEST['update'][$expectedType] == 'file') && $_FILES['update']["size"]["file_".$expectedType])
+                        {
+                            $file = $_FILES['update']["tmp_name"]["file_".$expectedType];
+                            copy($file, DIR_SYNC_VENDORS . $config['price-sheets-folder'] .  $priceSheet['file-name']);
+                            echo $priceSheet['file-name'] . " загружен <br>";
+                        }
+                    }
+                }
+                file_put_contents(SYNC_VENDORS_CONFIG, json_encode($config, JSON_PRETTY_PRINT ));
+            }
+            else
+            {
+                $old_settings = db_get_hash_array("SELECT ?:settings.option_name, ?:settings.subsection_id, ?:settings.option_id, ?:settings.value FROM ?:settings WHERE ?:settings.section_id = ?s", 'option_id', $section_id);
+                db_query("UPDATE ?:settings SET value = '' WHERE option_type IN ('C', 'M', 'N', 'G') AND section_id = ?s", $section_id);
 
-			fn_get_schema('settings', 'actions', 'php', false, true);
+                fn_get_schema('settings', 'actions', 'php', false, true);
 
-			foreach ($_REQUEST['update'] as $k => $v) {
-				if (!empty($v) && is_array($v)) { // If type is multiple selectbox
-					$v = implode('=Y&', $v) . '=Y';
-				}
+                foreach ($_REQUEST['update'] as $k => $v) {
+                    if (!empty($v) && is_array($v)) { // If type is multiple selectbox
+                        $v = implode('=Y&', $v) . '=Y';
+                    }
 
-				if (isset($old_settings[$k]) && $old_settings[$k]['value'] != $v) {
-					$func = 'fn_settings_actions_' . strtolower($section_id) . '_' . (!empty($old_settings[$k]['subsection_id']) ? $old_settings[$k]['subsection_id'] . '_' : '') . $old_settings[$k]['option_name'];
+                    if (isset($old_settings[$k]) && $old_settings[$k]['value'] != $v) {
+                        $func = 'fn_settings_actions_' . strtolower($section_id) . '_' . (!empty($old_settings[$k]['subsection_id']) ? $old_settings[$k]['subsection_id'] . '_' : '') . $old_settings[$k]['option_name'];
 
-					if (function_exists($func)) {
-						$func($v, $old_settings[$k]['value']);
-					}
-				}
+                        if (function_exists($func)) {
+                            $func($v, $old_settings[$k]['value']);
+                        }
+                    }
 
-				db_query("UPDATE ?:settings SET value = ?s WHERE option_id = ?i", $v, $k);
-			}
+                    db_query("UPDATE ?:settings SET value = ?s WHERE option_id = ?i", $v, $k);
+                }
+            }
+
 		}
 		$_suffix = ".manage";
 	}
+    if ($mode == 'run')
+    {
+        return array(CONTROLLER_STATUS_REDIRECT, "exim.sync_vendors");
+    }
 
 	return array(CONTROLLER_STATUS_OK, "settings{$_suffix}?section_id=$section_id");
 }
@@ -133,6 +165,79 @@ if ($mode == 'manage') {
 	}
 	// [/Page sections]
 
+    //Vendor section
+    if ($section_id == "Vendors")
+    {
+        $config = json_decode(file_get_contents(SYNC_VENDORS_CONFIG), true);
+        $elements = array();
+        $elements[] = array(
+            'option_type' => 'L',
+            'link' => "http://$_SERVER[HTTP_HOST]/custom/SyncVendorProducts/" . $config['price-sheets-folder'] . $config['master-file']['name'],
+            'text' => 'Сводная таблица'
+        );
+        foreach ($config['vendors'] as $vendor)
+        {
+            $elements[] = array(
+                'section_id' => 'Vendors',
+                'subsection_id' => 'main',
+                'element_type' => 'H',
+                'value' => $vendor['name'],
+                'position' => '100',
+                'is_global' => 'Y',
+                'description' => $vendor['name'],
+                'tooltip' => '',
+                'object_type' => 'O'
+            );
+            foreach($vendor['price-sheets'] as $priceSheet)
+            {
+                $elements[] = array(
+                    'section_id' => 'Vendors',
+                    'subsection_id' => 'main',
+                    'element_type' => 'I',
+                    'info' => $priceSheet['file-name'],
+
+                );
+                $elements[] = array(
+                    'section_id' => 'Vendors',
+                    'subsection_id' => 'main',
+                    'option_type' => 'K',
+                    'variants' => array('file' => 'Фаил', 'url' => 'Ссылка'),
+                    'value' => $priceSheet['download'],
+                    'position' => '100',
+                    'is_global' => 'Y',
+                    'description' => 'Тип загрузки',
+                    'tooltip' => '',
+                    'object_type' => 'O',
+                    'option_id' => str_replace(".", "_",$priceSheet['file-name'])
+                );
+                $elements[] = array(
+                    'section_id' => 'Vendors',
+                    'subsection_id' => 'main',
+                    'option_type' => '0',
+                    'value' => $priceSheet['url'],
+                    'position' => '100',
+                    'is_global' => 'Y',
+                    'description' => 'Ссылка',
+                    'tooltip' => '',
+                    'object_type' => 'O',
+                    'option_id' => str_replace(".", "_",$priceSheet['file-name'] . "u")
+                );
+                $elements[] = array(
+                'section_id' => 'Vendors',
+                'subsection_id' => 'main',
+                'option_type' => 'U',
+                'position' => '100',
+                'is_global' => 'Y',
+                'description' => 'Файл',
+                'tooltip' => '',
+                'object_type' => 'O',
+                'option_id' => str_replace(".", "_",$priceSheet['file-name'])
+            );
+            }
+        }
+
+        $options['main'] = $elements;
+    }
 
 	// Set navigation menu
 	$descr = fn_settings_descr_query('section_id', 'S', CART_LANGUAGE, 'settings_sections', 'object_string_id');

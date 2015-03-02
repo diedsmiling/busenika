@@ -106,11 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			fn_update_product($_REQUEST['product_data'], $_REQUEST['product_id'], DESCR_SL);
 
             //Update vendor data
-            foreach($_REQUEST['vendor_data'] as $key => $value)
+            if (isset($_REQUEST['vendor_data']))
             {
-                $setValues[] = $key . "='" . $value . "'";
+                foreach($_REQUEST['vendor_data'] as $key => $value)
+                {
+                    $setValues[] = $key . "='" . $value . "'";
+                }
+                db_query("UPDATE vendor_items SET ". implode(",",$setValues) .  "  WHERE item_id = '" . $_REQUEST['product_data']['product_code'] . "'");
             }
-            db_query("UPDATE vendor_items SET ". implode(",",$setValues) .  "  WHERE item_id = '" . $_REQUEST['product_data']['product_code'] . "'");
 
 			// Updating product associations with additional categories
 
@@ -768,34 +771,39 @@ if ($mode == 'global_update') {
 	$product_data = fn_get_product_data($_REQUEST['product_id'], $auth, DESCR_SL, '', true, true, true, true);
 
     // Get vendor data
-    $vendor_data = db_get_array("SELECT * FROM vendor_items WHERE item_id = '" . $product_data['product_code'] . "'");
-    if (empty($vendor_data))
+    if (file_exists(SYNC_VENDORS_CONFIG))
     {
-        $vendor_fields = "no_data";
-    }
-    else
-    {
-        array_shift($vendor_data[0]);
         $config = json_decode(file_get_contents(SYNC_VENDORS_CONFIG), true);
-        foreach($vendor_data[0] as $fieldName => $fieldValue)
+        $vendor_items = db_get_array("SELECT * FROM vendor_items WHERE item_id = ?s", $product_data['product_code']);
+        $vendor_prices = db_get_array("SELECT * FROM vendor_prices WHERE item_id = ?s", $product_data['product_code']);
+
+        if (empty($vendor_items))
         {
-            if ($fieldName == 'interest')
+            $vendor_fields = "no_data";
+        }
+        else
+        {
+            $vendor_fields = array();
+            if ($config)
             {
-                $fieldLabel = fn_get_lang_var('interest');
-            }
-            else if ($config)
-            {
-                foreach($config['vendors'] as $vendor)
+                $interest = $vendor_items[0]['interest'];
+                $view->assign("interest", $interest);
+                foreach ($config['vendors'] as $vendorName => $vendorConfig)
                 {
-                    if ($vendor["base-data-column-name"] == $fieldName)
-                        $fieldLabel = $vendor['name'];
+                    $vendor_fields[$vendorName] = array(
+                        'label' => $vendorConfig['name'],
+                        'item' => $vendor_items[0][$vendorConfig['master-file-item-column-name']],
+                        'price' => $vendor_prices[0][$vendorConfig['master-file-price-column-name']],
+                        'qty' => $vendor_prices[0][$vendorConfig['master-file-qty-column-name']],
+                        'name' => $vendorConfig['master-file-item-column-name']
+                    );
                 }
+                $view->assign("vendors", $vendor_fields);
             }
-            $vendor_fields[] = array('label' => $fieldLabel, 'name' => $fieldName, 'value' => $fieldValue);
         }
     }
 
-    $view->assign("vendors", $vendor_fields);
+
 
 	if (empty($product_data)) {
 		return array(CONTROLLER_STATUS_NO_PAGE);

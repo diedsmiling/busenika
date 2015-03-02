@@ -6,7 +6,7 @@
  * Time: 8:52
  */
 
-class MasterData {
+class ExcelMasterData implements  IMasterData{
     private $excel;
     private $config;
     private $baseData;
@@ -51,16 +51,17 @@ class MasterData {
                             $vendorItemData['qty'] += $itemData['qty'];
                         }
                         $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue('A' . $itemData['row'], $itemId);
-                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendor->getConfig()['master-file-item-column'] . $itemData['row'], $vendorItemData['item']);
-                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendor->getConfig()['master-file-price-column'] . $itemData['row'], $vendorItemData['price']);
-                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendor->getConfig()['master-file-qty-column'] . $itemData['row'], $vendorItemData['qty']);
+                        $vendorConfig = $vendor->getConfig();
+                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendorConfig['master-file-item-column'] . $itemData['row'], $vendorItemData['item']);
+                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendorConfig['master-file-price-column'] . $itemData['row'], $vendorItemData['price']);
+                        $this->excel->setActiveSheetIndex($baseActiveSheet)->setCellValue($vendorConfig['master-file-qty-column'] . $itemData['row'], $vendorItemData['qty']);
                     }
                 }
             }
         }
     }
 
-    public function saveFile()
+    public function finish()
     {
         $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
         $objWriter->save(DIR_SYNC_VENDORS . $this->config['price-sheets-folder'] . "/" . $this->config['master-file']['name']);
@@ -74,6 +75,7 @@ class MasterData {
 
     private function findItem($itemId)
     {
+        $vendorConfig = $this->currentVendor->getConfig();
         $lastRow = $this->excel->getActiveSheet()->getHighestRow();
         for ($row = 1; $row <= $lastRow; $row++) {
             $cell = $this->excel->getActiveSheet()->getCell('A'.$row)->getValue();
@@ -82,8 +84,8 @@ class MasterData {
                 $itemData = array();
                 $itemData['row'] = $row;
                 $itemData['item'] = $itemId;
-                $itemData['price'] = $this->excel->getActiveSheet()->getCell($this->currentVendor->getConfig()['master-file-price-column'].$row)->getValue();
-                $itemData['qty'] = $this->excel->getActiveSheet()->getCell($this->currentVendor->getConfig()['master-file-qty-column'].$row)->getValue();
+                $itemData['price'] = $this->excel->getActiveSheet()->getCell($vendorConfig['master-file-price-column'].$row)->getValue();
+                $itemData['qty'] = $this->excel->getActiveSheet()->getCell($vendorConfig['master-file-qty-column'].$row)->getValue();
                 return $itemData;
             }
         }

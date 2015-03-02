@@ -20,7 +20,7 @@ class ExcelBaseData implements IBaseDataProvider{
         /**  Create a new Reader of the type defined in $inputFileType  **/
         $this->objReader = PHPExcel_IOFactory::createReader($inputFileType);
         $worksheetList = $this->objReader->listWorksheetNames($this->fileName);
-        $sheets = [$worksheetList[2], $worksheetList[3]];
+        $sheets = array($worksheetList[2], $worksheetList[3]);
         $this->objReader->setLoadSheetsOnly($sheets);
         $this->objReader->setReadDataOnly(true);
         SyncVendor::log("Begin loading " . $this->fileName . " base file.");

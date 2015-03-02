@@ -1,5 +1,6 @@
 /config*.json
 /priceSheets
+/priceSheets1
 *.xls
 *.xlsm
 *.log

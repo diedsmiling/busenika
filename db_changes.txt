@@ -19,3 +19,9 @@ interest - Наценка
 no_data - Нет данных
 ALTER TABLE `cscart_products` ADD temp_price DECIMAL(12,2) NOT NULL DEFAULT 0.00 AFTER list_price
 ALTER TABLE `cscart_products` ADD temp_qty MEDIUMINT(8) NOT NULL DEFAULT 0 AFTER amount
+
+INSERT INTO `cscart_settings_sections`(`section_id`, `position`) VALUES ('vendors',160)
+INSERT INTO `cscart_settings_descriptions`(`object_id`, `description`, `object_type`, `lang_code`, `object_string_id`) VALUES (0,'Sync vendor prices','S','EN','Vendors')
+INSERT INTO `cscart_settings_descriptions`(`object_id`, `description`, `object_type`, `lang_code`, `object_string_id`) VALUES (0,'Синхронизация цен','S','RU','Vendors')
+
+run - Запустить

@@ -3533,6 +3533,7 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 			'MIN(prices.price) as price',
 			'products.status',
 			'products.list_price',
+			'products.temp_price',
 			'descr1.short_description',
 			"IF(descr1.short_description = '', descr1.full_description, '') as full_description"
 		);

@@ -16,6 +16,7 @@ class DBBaseData implements IBaseDataProvider{
         $this->config = $syncConfig;
         if ($syncConfig['base-recreate-table'] == true)
         {
+            $counter = 0;
             SyncVendor::log("Database table creation started.");
             $columns[] = 'item_id';
             $columns[] = 'interest';
@@ -47,8 +48,13 @@ class DBBaseData implements IBaseDataProvider{
                 }
                 $query .= "(" . implode(",", $columns) . ") VALUES (" . implode(",", $values) . ")";
                 db_query($query);
+                $counter++;
+                if (fmod($counter, 1000) == 0)
+                {
+                    SyncVendor::log($counter . " records inserted.");
+                }
             }
-            SyncVendor::log("Database table creation ended.");
+            SyncVendor::log("Database table creation ended. " . $counter . " records inserted.");
             $excel->disconnectWorksheets();
             unset($this->objPHPExcel);
         }

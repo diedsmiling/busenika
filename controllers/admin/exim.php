@@ -454,17 +454,20 @@ elseif($mode == 'import_daemon'){
 
 }
 elseif($mode == 'sync_vendors'){
+    //error_reporting(E_ALL);
+    //ini_set('display_errors', 1);
     include_once DIR_SYNC_VENDORS . "SyncVendor.php";
     include_once DIR_SYNC_VENDORS . "PHPExcel.php";
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+
 
     ini_set('max_execution_time', 0);
     ini_set('memory_limit', '512M');
 
     $svp = new SyncVendor();
+    //$svp->downloadSheets();
     $svp->run();
+    return array(CONTROLLER_STATUS_OK, "settings.manage&section_id=vendors");
 }
 // --------- ExIm core functions ------------------
 

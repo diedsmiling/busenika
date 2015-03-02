@@ -28,6 +28,7 @@ z{* $Id: manage.tpl 9820 2010-06-21 11:31:45Z 2tl $ *}
 	<th width="50%"><a class="{$ajax_class}{if $search.sort_by == "product"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=product&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.name}</a></th>
 	<th width="10%"><a class="{$ajax_class}{if $search.sort_by == "price"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=price&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.price} ({$currencies.$primary_currency.symbol})</a></th>
 	<th width="10%"><a class="{$ajax_class}{if $search.sort_by == "list_price"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=list_price&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.list_price} ({$currencies.$primary_currency.symbol})</a></th>
+	<th width="10%"><a class="{$ajax_class}{if $search.sort_by == "temp_price"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=temp_price&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.temp_price} ({$currencies.$primary_currency.symbol})</a></th>
 	<th width="10%"><a class="{$ajax_class}{if $search.sort_by == "amount"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=amount&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.quantity}</a></th>
 	<th>{hook name="products:manage_head"}{/hook}</th>
 	<th width="10%"><a class="{$ajax_class}{if $search.sort_by == "status"} sort-link-{$search.sort_order}{/if}" href="{"`$c_url`&amp;sort_by=status&amp;sort_order=`$search.sort_order`"|fn_url}" rev="pagination_contents">{$lang.status}</a></th>
@@ -54,6 +55,8 @@ z{* $Id: manage.tpl 9820 2010-06-21 11:31:45Z 2tl $ *}
 		<input type="text" name="products_data[{$product.product_id}][price]" size="6" value="{$product.price}" class="input-text-medium" /></td>
 	<td class="center">
 		<input type="text" name="products_data[{$product.product_id}][list_price]" size="6" value="{$product.list_price}" class="input-text-medium" /></td>
+    <td class="center">
+        <input type="text" name="products_data[{$product.product_id}][temp_price]" size="6" value="{$product.temp_price}" class="input-text-medium" /></td>
 	<td class="center">
 		{if $product.tracking == "O"}
 		{include file="buttons/button.tpl" but_text=$lang.edit but_href="product_options.inventory?product_id=`$product.product_id`" but_role="edit"}

@@ -112,7 +112,11 @@
 				<option value="{$k}" {if $item.value == $k}selected="selected"{/if}>{$v}</option>
 			{/foreach}
 		</select>
-	{else}
+    {elseif $item.option_type == "U"}
+        <input id="file_elm_{$item.option_id}" type="file" name="update[file_{$item.option_id}]" size="30" class="valign input-text" />
+    {elseif $item.option_type == "L"}
+        <a href="{$item.link}">{$item.text}</a>
+    {else}
 		<input id="elm_{$item.option_id}" type="text" name="update[{$item.option_id}]" size="30" value="{$item.value}" class="input-text" />
 	{/if}
 	</td>
@@ -125,6 +129,9 @@
 
 <div class="buttons-container buttons-bg">
 	{include file="buttons/save.tpl" but_name="dispatch[settings.update]" but_role="button_main"}
+    {if $section_id == "Vendors"}
+        {include file="buttons/run.tpl" but_name="dispatch[settings.run]" but_role="button_main"}
+    {/if}
 </div>
 
 {/capture}
@@ -135,4 +142,29 @@
 {include file="common_templates/mainbox.tpl" title="`$lang.settings`: `$settings_title`" content=$smarty.capture.mainbox}
 
 </form>
-
+{if $section_id == "Vendors"}
+    {literal}
+    <script type="text/javascript">
+        function changeDownloadType(id, value){
+            if (value == "file")
+            {
+                $("#" + id + "u").parent().parent().addClass("hidden");
+                $("#file_" + id).parent().parent().removeClass("hidden");
+            }else
+            {
+                $("#" + id + "u").parent().parent().removeClass("hidden");
+                $("#file_" + id).parent().parent().addClass("hidden");
+            }
+        }
+        $( document ).ready(function() {
+            $(".cm-combo-select").each(function(){
+                changeDownloadType( $( this ).attr("id"), $( this ).attr("value"));
+                $("form").attr("enctype", "multipart/form-data");
+            });
+        });
+        $(".cm-combo-select").change(function(){
+            changeDownloadType($( this ).attr("id"), $( this ).attr("value"));
+        });
+    </script>
+    {/literal}
+{/if}

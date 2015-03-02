@@ -329,12 +329,30 @@
     {if $vendors=='no_data'}
         <strong>{$lang.no_data}</strong>
     {else}
-        {foreach from=$vendors item=field}
+        <table>
             <div class="form-field">
-                <label for="vendor_{$field.name}">{$field.label} :</label>
-                <input type="text" name="vendor_data[{$field.name}]" id="{$field.name}" size="10" value="{$field.value}" class="input-text-medium" />
+                <label for="vendor_interest">{$lang.interest} :</label>
+                <input type="text" name="vendor_data[interest]" id="interest" size="10" value="{$interest}" class="input-text-medium" />
             </div>
+            <tr><td></td><td width="15%">{$lang.price}</td><td align="center">{$lang.qty}</td></tr>
+        {foreach from=$vendors item=field}
+            <tr>
+                <td>
+                    <div class="form-field">
+                        <label for="vendor_{$field.name}">{$field.label} :</label>
+                        <input type="text" name="vendor_data[{$field.name}]" id="{$field.name}" size="10" value="{$field.item}" class="input-text-medium" />
+
+                    </div>
+                </td>
+                <td align="center">
+                    <strong>{$field.price}</strong>
+                </td>
+                <td align="center">
+                    <strong>{$field.qty}</strong>
+                </td>
+            </tr>
         {/foreach}
+        </table>
     {/if}
 </div>
 
