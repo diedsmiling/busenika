@@ -5,6 +5,8 @@
  * Date: 04.02.15
  * Time: 17:52
  */
+include_once("FileSupplier.php");
+
 
 class Vendor {
 
@@ -15,29 +17,34 @@ class Vendor {
     private $endReached = false;
     private $endOfFile = true;
     private $objPHPExcel;
+    private $fileSupplier;
+    private $currentFile = "";
+    private $currentSheetConfig;
 
     public function __construct($config)
     {
         $this->config = $config;
+        $this->fileSupplier = new FileSupplier($this->config);
     }
 
     public function getNextLine()
     {
         if ($this->endOfFile){
-            if (isset($this->config['price-sheets'][$this->currentDocument+1])){
-                $this->currentDocument++;
-                SyncVendor::log("Loading " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . "...");
-                if (file_exists(DIR_PRICE_SHEETS_FOLDER . $this->config['price-sheets'][$this->currentDocument]['file-name']))
+            if (!$this->fileSupplier->endReached()){
+                $this->currentSheetConfig = $this->fileSupplier->getCurrentSheetConfig();
+                $this->currentFile = $this->fileSupplier->nextFile();
+                SyncVendor::log("Loading " . pathinfo($this->currentFile, PATHINFO_BASENAME) . "...");
+                if (file_exists($this->currentFile))
                 {
-                    $this->objPHPExcel = PHPExcel_IOFactory::load(DIR_PRICE_SHEETS_FOLDER . $this->config['price-sheets'][$this->currentDocument]['file-name']);
+                    $this->objPHPExcel = PHPExcel_IOFactory::load($this->currentFile);
                     SyncVendor::log("Loading done. Parsing ...");
                     $this->lastRow = $this->objPHPExcel->getActiveSheet()->getHighestRow();
-                    $this->currentLine = $this->config['price-sheets'][$this->currentDocument]['first-row'];
+                    $this->currentLine = $this->currentSheetConfig['first-row'];
                     $this->endOfFile = false;
                 }
                 else
                 {
-                    SyncVendor::log("WARNING: File " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . " not found");
+                    SyncVendor::log("WARNING: File " . $this->currentFile . " not found");
                     $this->endOfFile = true;
                     return $this->getNextLine();
                 }
@@ -48,12 +55,12 @@ class Vendor {
         }
 
         $returnData = array();
-        $itemColumn = $this->config['price-sheets'][$this->currentDocument]['item-column'];
-        $priceColumn = $this->config['price-sheets'][$this->currentDocument]['price-column'];
-        $qtyColumn = $this->config['price-sheets'][$this->currentDocument]['qty-column'];
+        $itemColumn = $this->currentSheetConfig['item-column'];
+        $priceColumn = $this->currentSheetConfig['price-column'];
+        $qtyColumn = $this->currentSheetConfig['qty-column'];
         $returnData['item'] = $this->objPHPExcel->getActiveSheet()->getCell($itemColumn . $this->currentLine)->getValue();
-        if (isset($this->config['price-sheets'][$this->currentDocument]['separator'])){
-            $returnData['item'] = explode($this->config['price-sheets'][$this->currentDocument]['separator'], $returnData['item']);
+        if (isset($this->currentSheetConfig['separator'])){
+            $returnData['item'] = explode($this->currentSheetConfig['separator'], $returnData['item']);
             $returnData['item'] = $returnData['item'][0];
         }
         $returnData['price'] = $this->objPHPExcel->getActiveSheet()->getCell($priceColumn . $this->currentLine)->getValue() * (100 - $this->config['discount'])/100;
@@ -61,7 +68,7 @@ class Vendor {
         if (!$returnData['qty']) $returnData['qty'] = 1;
         if ($this->currentLine > $this->lastRow) //end of file reached
         {
-            SyncVendor::log("File " . $this->config['price-sheets'][$this->currentDocument]['file-name'] . " parsed. " . $this->currentLine . " lines.");
+            SyncVendor::log("File " . $this->currentFile . " parsed. " . $this->currentLine . " lines.");
             unset($this->objPHPExcel);
             $this->endOfFile = true;
             return $this->getNextLine();

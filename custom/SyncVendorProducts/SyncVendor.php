@@ -124,6 +124,13 @@ class SyncVendor {
                 {
                     self::log('Using file ' . $priceSheet['file-name'] . ' on server.');
                 }
+                // handle archieves
+                if (pathinfo(DIR_PRICE_SHEETS_FOLDER . $priceSheet['file-name'], PATHINFO_EXTENSION )== 'rar')
+                {
+                    self::log('Extracting file ' . $priceSheet['file-name'] . ' ...');
+                    //implemented using linux commands
+                    self::log('Files extracted.');
+                }
             }
         }
         self::log('Download ended.');
