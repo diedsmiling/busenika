@@ -25,3 +25,4 @@ INSERT INTO `cscart_settings_descriptions`(`object_id`, `description`, `object_t
 INSERT INTO `cscart_settings_descriptions`(`object_id`, `description`, `object_type`, `lang_code`, `object_string_id`) VALUES (0,'Синхронизация цен','S','RU','Vendors')
 
 run - Запустить
+sync_vendor_prices_finished - Синхронизация цен завершина

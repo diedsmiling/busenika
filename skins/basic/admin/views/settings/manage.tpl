@@ -131,6 +131,7 @@
 	{include file="buttons/save.tpl" but_name="dispatch[settings.update]" but_role="button_main"}
     {if $section_id == "Vendors"}
         {include file="buttons/run.tpl" but_name="dispatch[settings.run]" but_role="button_main"}
+        <a href="zenon.php?dispatch=exim.show_log">Посмотреть последний лог</a>
     {/if}
 </div>
 

@@ -454,8 +454,8 @@ elseif($mode == 'import_daemon'){
 
 }
 elseif($mode == 'sync_vendors'){
-    //error_reporting(E_ALL);
-    //ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
     include_once DIR_SYNC_VENDORS . "SyncVendor.php";
     include_once DIR_SYNC_VENDORS . "PHPExcel.php";
 
@@ -465,9 +465,17 @@ elseif($mode == 'sync_vendors'){
     ini_set('memory_limit', '512M');
 
     $svp = new SyncVendor();
-    //$svp->downloadSheets();
+    $svp->downloadSheets();
     $svp->run();
-    return array(CONTROLLER_STATUS_OK, "settings.manage&section_id=vendors");
+    return array(CONTROLLER_STATUS_OK, "settings.manage&section_id=Vendors?sync=y");
+}
+elseif($mode == 'show_log'){
+    $lines = file(DIR_SYNC_VENDORS . "syncVendor.log");
+    foreach($lines as $line)
+    {
+        fn_echo($line . "<br>");
+    }
+    die();
 }
 // --------- ExIm core functions ------------------
 

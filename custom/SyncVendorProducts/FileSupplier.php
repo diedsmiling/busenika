@@ -34,6 +34,7 @@ class FileSupplier {
 
             $filename = $this->filesFromRar[$this->rarFilePosition];
             $this->rarFilePosition++;
+            $folder = pathinfo($this->currentSheet, PATHINFO_FILENAME);
 
             if (!isset($this->filesFromRar[$this->rarFilePosition]))
             {
@@ -48,7 +49,7 @@ class FileSupplier {
             }
             else
             {
-                return DIR_PRICE_SHEETS_FOLDER . pathinfo($this->currentSheet, PATHINFO_FILENAME) . "/" .$filename;
+                return DIR_PRICE_SHEETS_FOLDER . $folder . "/" . $filename;
             }
         }
         else

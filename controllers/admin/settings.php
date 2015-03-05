@@ -78,11 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		$_suffix = ".manage";
 	}
+
     if ($mode == 'run')
     {
         return array(CONTROLLER_STATUS_REDIRECT, "exim.sync_vendors");
     }
-
 	return array(CONTROLLER_STATUS_OK, "settings{$_suffix}?section_id=$section_id");
 }
 
@@ -235,6 +235,12 @@ if ($mode == 'manage') {
             );
             }
         }
+        if (isset($_REQUEST['sync']))
+        {
+            $result = fn_analyse_log(DIR_SYNC_VENDORS . "syncVendor.log");
+            $message = fn_get_lang_var('sync_vendor_prices_finished') . "\r\n" . $result;
+            fn_set_notification('N', fn_get_lang_var('notice'), $message);
+        }
 
         $options['main'] = $elements;
     }
@@ -261,6 +267,20 @@ if ($mode == 'manage') {
 function fn_settings_descr_query($object_id, $object_type, $lang_code = CART_LANGUAGE, $table, $oid_name = 'object_id')
 {
 	return db_quote(" LEFT JOIN ?:settings_descriptions ON ?:$table.$object_id = ?:settings_descriptions.$oid_name AND ?:settings_descriptions.object_type = ?s AND ?:settings_descriptions.lang_code = ?s", $object_type, $lang_code);
+}
+
+function fn_analyse_log($file)
+{
+    $fileLines = file($file);
+    $result = array();
+    foreach($fileLines as $line)
+    {
+        if (strpos($line, "WARNING") != false)
+        {
+            $result[] = $line;
+        }
+    }
+    return implode("", $result);
 }
 
 ?>
