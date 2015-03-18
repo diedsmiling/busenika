@@ -562,6 +562,12 @@ function fn_place_order(&$cart, &$auth, $action = '', $parent_order_id = 0)
 
 			// Save shipping information
 			if (!empty($cart['shipping'])) {
+                if($_SESSION['selfService'])
+                {
+                    foreach ($cart['shipping'] as $sh_id => $_d) {
+                        $cart['shipping'][$sh_id]['selfService']=$_SESSION['selfService'];
+                    }
+                }
 				// Get carriers and tracking number
 				$data = db_get_field("SELECT data FROM ?:order_data WHERE order_id = ?i AND type = 'L'", $order_id);
 				if (!empty($data)) {

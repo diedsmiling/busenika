@@ -429,7 +429,14 @@ if ($mode == 'edit' && !empty($_REQUEST['order_id'])) {
 
 	$cart['profile_id'] = empty($cart['profile_id']) ? 0 : $cart['profile_id'];
 	$view->assign('profile_fields', $profile_fields);
-
+    if (!empty($cart['shipping'])) {
+        foreach ($cart['shipping'] as $sh_id => $_d) {
+            if (isset($cart['shipping'][$sh_id]['selfService']))
+            {
+                $view->assign('selfService', $cart['shipping'][$sh_id]['selfService']);
+            }
+        }
+    }
 	// Clean up saved shipping rates
 	unset($_SESSION['shipping_rates']);
 	//Get user profiles

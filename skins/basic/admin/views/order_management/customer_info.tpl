@@ -45,4 +45,14 @@
 	{assign var="_title" value="`$lang.editing_order`:&nbsp;#`$cart.order_id`"}
 {/if}
 {include file="common_templates/mainbox.tpl" title=$_title content=$smarty.capture.mainbox anchor="profile" extra_tools=$smarty.capture.extra_tools}
-
+{if $selfService}
+    {literal}
+        <script type="text/javascript" class="cm-ajax-force">
+            console.log("executed3");
+            $(document).ready(function(){
+                $(".cm-required").not("label[for='elm_35']").removeClass("cm-required");
+                $("#elm_54, #elm_25, #elm_44, #elm_19, #elm_56, #elm_58, #elm_60, #elm_62, #elm_48").addClass("disabled").attr("disabled", true);
+            });
+        </script>
+    {/literal}
+{/if}

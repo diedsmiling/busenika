@@ -53,7 +53,7 @@
 		{assign var="image_path" value=$images.detailed.image_path}
 	{/if}
 	
-	{assign var="icon_image_path" value=$image_path|fn_generate_thumbnail:$image_width:$image_height:$make_box}
+	{assign var="icon_image_path" value=$image_path|fn_generate_thumbnail:$image_width:$image_height:$make_box:$images.force}
 	{if $make_box && !$proportional}
 		{assign var="image_height" value=$image_width}
 	{/if}
@@ -70,7 +70,7 @@
 				{/if}
 			{/if}
 		{/if}
-		{assign var="icon_image_path" value=$images.detailed.image_path|fn_generate_thumbnail:$image_width:$image_height:$make_box}
+		{assign var="icon_image_path" value=$images.detailed.image_path|fn_generate_thumbnail:$image_width:$image_height:$make_box:$images.force}
 	{/if}
 {/if}
 
@@ -79,7 +79,7 @@
 		{if $object_type == "detailed_product" && ($settings.Thumbnails.product_detailed_image_width || $settings.Thumbnails.product_detailed_image_height)}
 			{assign var="detailed_image_path" value=$images.detailed.image_path}
 		{elseif $object_type == "detailed_category" && ($settings.Thumbnails.category_detailed_image_width || $settings.Thumbnails.category_detailed_image_height)}
-			{assign var="detailed_image_path" value=$images.detailed.image_path|fn_generate_thumbnail:$settings.Thumbnails.category_detailed_image_width:$settings.Thumbnails.category_detailed_image_height:$make_box}
+			{assign var="detailed_image_path" value=$images.detailed.image_path|fn_generate_thumbnail:$settings.Thumbnails.category_detailed_image_width:$settings.Thumbnails.category_detailed_image_height:$make_box:$images.force}
 		{else}
 			{assign var="detailed_image_path" value=$images.detailed.image_path}
 		{/if}

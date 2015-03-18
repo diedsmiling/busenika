@@ -287,6 +287,26 @@ function fn_gather_additional_product_data(&$product, $get_icon = false, $get_de
 	if ($get_icon == true || $get_detailed == true) {
 		if (empty($product['main_pair'])) {
 			$product['main_pair'] = fn_get_image_pairs($product['product_id'], 'product', 'M', $get_icon, $get_detailed, CART_LANGUAGE);
+            if (Registry::get('settings.General.enable_thumbnail_new_stamp') == "Y")
+            {
+                $threshold = strtotime("-" . Registry::get('settings.General.new_stamp_time_threshold') . " days");
+            }
+            else
+            {
+                $threshold = time();
+            }
+            if (($product['timestamp'] > $threshold) && ($product['main_pair']['new'] == 0))
+            {
+                //new product - update thumbnails and check "new" flag
+                $product['main_pair']['force'] = 'new';
+                db_query('UPDATE ?:images_links SET new=1 WHERE pair_id=?i', $product['main_pair']['pair_id']);
+            }
+            elseif (($product['timestamp'] < $threshold) && ($product['main_pair']['new'] == 1))
+            {
+                //old product - update thumbnails and uncheck "new" flag
+                $product['main_pair']['force'] = 'old';
+                db_query('UPDATE ?:images_links SET new=0 WHERE pair_id=?i', $product['main_pair']['pair_id']);
+            }
 		}
 	}
 
@@ -3110,7 +3130,7 @@ function fn_get_products($params, $items_per_page = 0, $lang_code = CART_LANGUAG
 		'products.options_type',
 		'products.exceptions_type',
 		'companies.company as company_name',
-
+        'products.timestamp',
 
 	);
 

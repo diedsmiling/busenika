@@ -44,7 +44,7 @@ class Vendor {
                 }
                 else
                 {
-                    SyncVendor::log("WARNING: File " . $this->currentFile . " not found");
+                    SyncVendor::log("WARNING: File " . pathinfo($this->currentFile, PATHINFO_BASENAME) . " not found");
                     $this->endOfFile = true;
                     return $this->getNextLine();
                 }

@@ -750,7 +750,7 @@ function fn_import($pattern, $import_data, $options)
 					}
 				}
 			}
-            if ($pattern['table'] == 'products')
+            if ($pattern['table'] == 'products' && $object_exists == false)
             {
                 require_once("products.php");
                 fn_add_to_new_items_block($primary_object_id['product_id']);

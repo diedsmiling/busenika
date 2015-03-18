@@ -35,7 +35,7 @@
 		{$smarty.capture.$form_open}
 		{hook name="products:product_multicolumns_list"}
 		<a href="{"products.view?product_id=`$product.product_id`"|fn_url}">{include file="common_templates/image.tpl" obj_id=$obj_id_prefix images=$product.main_pair object_type="product" show_thumbnail="Y" image_width=$settings.Thumbnails.product_lists_thumbnail_width image_height=$settings.Thumbnails.product_lists_thumbnail_height product_title = $product.product}</a>
-			
+
 		<p>
 		{assign var="name" value="name_$obj_id"}{$smarty.capture.$name}
 		{assign var="sku" value="sku_$obj_id"}{$smarty.capture.$sku}

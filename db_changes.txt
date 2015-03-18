@@ -26,3 +26,18 @@ INSERT INTO `cscart_settings_descriptions`(`object_id`, `description`, `object_t
 
 run - Запустить
 sync_vendor_prices_finished - Синхронизация цен завершина
+
+// Новинка! на картинку
+ALTER TABLE `cscart_images_links` ADD new TINYINT DEFAULT 0
+
+INSERT INTO `cscart_settings` (`option_name`, `section_id`, `option_type`, `value`, `position`) VALUES ('enable_thumbnail_new_stamp', 'General', 'C', 'N', 190);
+SET @id := LAST_INSERT_ID();
+INSERT INTO `cscart_settings_descriptions` (`object_id`, `description`, `object_type`, `lang_code`) VALUES
+(@id, 'Показывать иконку \"Новинка\"', 'O', 'RU'),
+(@id, 'Show \"NEW\" icon', 'O', 'EN');
+
+INSERT INTO `cscart_settings` (`option_name`, `section_id`, `option_type`, `value`, `position`) VALUES ('new_stamp_time_threshold', 'General', 'I', 30, 200);
+SET @id := LAST_INSERT_ID();
+INSERT INTO `cscart_settings_descriptions` (`object_id`, `description`, `object_type`, `lang_code`) VALUES
+(@id, 'Время отображения иконки \"Новинка\" (дни)', 'O', 'RU'),
+(@id, 'Show \"NEW\" for (days)', 'O', 'EN');

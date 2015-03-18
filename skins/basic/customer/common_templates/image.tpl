@@ -48,7 +48,7 @@
 	{else}
 		{assign var="image_path" value=$images.detailed.image_path}
 	{/if}
-	
+
 	{assign var="icon_image_path" value=$image_path|fn_generate_thumbnail:$image_width:$image_height:$make_box}
 	{if $make_box && !$proportional}
 		{assign var="image_height" value=$image_width}

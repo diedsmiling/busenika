@@ -252,7 +252,7 @@ function fn_get_image_pairs($object_id, $object_type, $pair_type, $get_icon = tr
 		}
 	}
 
-	$pair_data = db_get_hash_array("SELECT pair_id, image_id, detailed_id FROM ?:$table WHERE object_id = ?i AND object_type = ?s AND type = ?s ?p", 'pair_id', $object_id, $object_type, $pair_type, $cond);
+	$pair_data = db_get_hash_array("SELECT pair_id, image_id, detailed_id, new FROM ?:$table WHERE object_id = ?i AND object_type = ?s AND type = ?s ?p", 'pair_id', $object_id, $object_type, $pair_type, $cond);
 
 	if (empty($pair_data)) {
 		return array();
@@ -890,7 +890,7 @@ function fn_attach_image_pairs($name, $object_type, $object_id = 0, $lang_code =
 	return fn_update_image_pairs($icons, $detailed, $pairs_data, $object_id, $object_type, $object_ids, $parent_object, $parent_object_id, true, false, $lang_code);
 }
 
-function fn_generate_thumbnail($image_path, $width, $height = 0, $make_box = false)
+function fn_generate_thumbnail($image_path, $width, $height = 0, $make_box = false, $force = null)
 {
 	if (empty($image_path)) {
 		return '';
@@ -917,10 +917,14 @@ function fn_generate_thumbnail($image_path, $width, $height = 0, $make_box = fal
 		return '';
 	}
 
-	if (!file_exists($th_path)) {
+	if (!file_exists($th_path) || $force!=null) {
 		if (fn_get_image_size($real_path)) {
 			$image = fn_get_contents($real_path);
 			fn_put_contents($th_path, $image);
+            if ($force=="new")
+            {
+                fn_place_new($th_path);
+            }
 			fn_resize_image($th_path, $th_path, $width, $height, $make_box);
 		} else {
 			return '';
@@ -938,4 +942,22 @@ function fn_parse_rgb($color)
 	return array($r, $g, $b);
 }
 
+function fn_place_new($image){
+    $stamp = imagecreatefrompng(DIR_IMAGES . "rsz_3new.png");
+    $im = imagecreatefromjpeg($image);
+
+// Установка полей для штампа и получение высоты/ширины штампа
+    $marge_right = 10;
+    $marge_bottom = 10;
+    $sx = imagesx($stamp);
+    $sy = imagesy($stamp);
+
+// Копирование изображения штампа на фотографию с помощью смещения края
+// и ширины фотографии для расчета позиционирования штампа.
+    imagecopy($im, $stamp, $marge_right, $marge_bottom, 0, 0, imagesx($stamp), imagesy($stamp));
+
+// Вывод и освобождение памяти
+    imagejpeg($im, $image);
+    imagedestroy($im);
+}
 ?>
