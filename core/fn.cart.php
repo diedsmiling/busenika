@@ -1879,7 +1879,7 @@ function fn_calculate_shipping_rates(&$cart, &$cart_products, $auth, $calculate_
 			$condition .= " AND (" . fn_find_array_in_set($auth['usergroup_ids'], 'a.usergroup_ids', true) . ")";
 		}
 
-		$shipping_methods = db_get_hash_array("SELECT a.shipping_id, a.rate_calculation, a.service_id, b.shipping as name, b.delivery_time FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE (a.min_weight <= ?d AND (a.max_weight >= ?d OR a.max_weight = 0.00)) AND a.status = 'A' ?p ?p ORDER BY a.position", 'shipping_id', CART_LANGUAGE, $package_info['W'], $package_info['W'], $condition, $c);
+		$shipping_methods = db_get_hash_array("SELECT a.shipping_id, a.rate_calculation, a.service_id, a.self_service, b.shipping as name, b.delivery_time FROM ?:shippings as a LEFT JOIN ?:shipping_descriptions as b ON a.shipping_id = b.shipping_id AND b.lang_code = ?s WHERE (a.min_weight <= ?d AND (a.max_weight >= ?d OR a.max_weight = 0.00)) AND a.status = 'A' ?p ?p ORDER BY a.position", 'shipping_id', CART_LANGUAGE, $package_info['W'], $package_info['W'], $condition, $c);
 		
 		if (empty($shipping_methods)) {
 			continue;
@@ -1919,8 +1919,9 @@ function fn_calculate_shipping_rates(&$cart, &$cart_products, $auth, $calculate_
 
 	foreach ($shipping_methods as $method) {
 		$shipping_rates[$method['shipping_id']]['name'] = $method['name'];
-			$shipping_rates[$method['shipping_id']]['delivery_time'] = $method['delivery_time'];
-	  $shipping_rates[$method['shipping_id']]['rates'] = array();
+        $shipping_rates[$method['shipping_id']]['delivery_time'] = $method['delivery_time'];
+	    $shipping_rates[$method['shipping_id']]['rates'] = array();
+	    $shipping_rates[$method['shipping_id']]['self_service'] = $method['self_service'];
 	}
 
 		foreach ($found_rates as $shipping_id => $rate_value) {

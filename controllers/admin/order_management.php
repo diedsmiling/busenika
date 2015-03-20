@@ -193,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if (empty($cart['shipping'][$shipping_id])) {
 					$cart['shipping'][$shipping_id] = array(
 						'shipping' => $shipping_rates[$shipping_id]['name'],
+                        'selfService' => $shipping_rates[$shipping_id]['self_service'],
 					);
 				}
 
