@@ -295,13 +295,13 @@ function fn_gather_additional_product_data(&$product, $get_icon = false, $get_de
             {
                 $threshold = time();
             }
-            if (($product['timestamp'] > $threshold) && ($product['main_pair']['new'] == 0))
+            if ((strtotime($product['timestamp']) > $threshold) && ($product['main_pair']['new'] == 0))
             {
                 //new product - update thumbnails and check "new" flag
                 $product['main_pair']['force'] = 'new';
                 db_query('UPDATE ?:images_links SET new=1 WHERE pair_id=?i', $product['main_pair']['pair_id']);
             }
-            elseif (($product['timestamp'] < $threshold) && ($product['main_pair']['new'] == 1))
+            elseif ((strtotime($product['timestamp']) < $threshold) && ($product['main_pair']['new'] == 1))
             {
                 //old product - update thumbnails and uncheck "new" flag
                 $product['main_pair']['force'] = 'old';

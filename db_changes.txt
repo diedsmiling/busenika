@@ -41,3 +41,5 @@ SET @id := LAST_INSERT_ID();
 INSERT INTO `cscart_settings_descriptions` (`object_id`, `description`, `object_type`, `lang_code`) VALUES
 (@id, 'Время отображения иконки \"Новинка\" (дни)', 'O', 'RU'),
 (@id, 'Show \"NEW\" for (days)', 'O', 'EN');
+
+ALTER TABLE `cscart_products` MODIFY timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
