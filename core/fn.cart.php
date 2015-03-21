@@ -3446,7 +3446,7 @@ function fn_get_orders($params, $items_per_page = 0, $get_totals = false, $lang_
 		$group .=  " GROUP BY ?:orders.order_id ";
 	}
 
-	$join .= " LEFT JOIN ?:payment_descriptions ON ?:payment_descriptions.payment_id = ?:orders.payment_id";	
+	$join .= " LEFT JOIN ?:payment_descriptions ON ?:payment_descriptions.payment_id = ?:orders.payment_id AND ?:payment_descriptions.lang_code='" . $lang_code . "'";
 	
 	if (!empty($params['admin_user_id'])) {
 		$condition .= db_quote(" AND ?:new_orders.user_id = ?i", $params['admin_user_id']);

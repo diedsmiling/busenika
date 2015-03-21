@@ -12,5 +12,6 @@
 			endif;
 		{/php}
 	{/if}
+    {assign var="content" value=$content|replace:'%%order_id%%':$order_info.order_id}
 	<div class="mainbox-body">{$content}</div> 
 </div>

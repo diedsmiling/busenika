@@ -62,6 +62,7 @@ class DBBaseData implements IBaseDataProvider{
 
     public function getItemIds($vendorItemId, $column)
     {
+        $vendorItemId = addslashes($vendorItemId);
         $query = "SELECT item_id FROM " .  $this->config['base-table'] . " WHERE " .
             $column['base-data-column-name'] . " LIKE '" . $vendorItemId . "' OR " .
             $column['base-data-column-name'] . " LIKE '" . $vendorItemId . ",%' OR " .

@@ -88,7 +88,7 @@
 				{include file="common_templates/subheader.tpl" title=$lang.payment_information}
 				<div class="form-field">
 					<label>{$lang.method}:</label>
-					{$order_info.payment_method.payment}&nbsp;{if $order_info.payment_method.description}({$order_info.payment_method.description}){/if}
+					{$order_info.payment_method.payment}{*&nbsp;{if $order_info.payment_method.description}({$order_info.payment_method.description}){/if}*}
 				</div>
 
 				{if $order_info.payment_info}
