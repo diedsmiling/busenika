@@ -108,11 +108,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Update vendor data
             if (isset($_REQUEST['vendor_data']))
             {
+                $columns[] = "item_id";
+                $values[] = $_REQUEST['product_data']['product_code'];
                 foreach($_REQUEST['vendor_data'] as $key => $value)
                 {
+                    $columns[] = $key;
+                    $values[] = "'" . $value . "'";
                     $setValues[] = $key . "='" . $value . "'";
                 }
-                db_query("UPDATE vendor_items SET ". implode(",",$setValues) .  "  WHERE item_id = '" . $_REQUEST['product_data']['product_code'] . "'");
+                $itemExists = db_get_field("SELECT item_id FROM vendor_items WHERE item_id = ?s", $_REQUEST['product_data']['product_code']);
+                if (isset($itemExists)){
+                    db_query("UPDATE vendor_items SET ". implode(",",$setValues) .  " WHERE item_id = '" . $_REQUEST['product_data']['product_code'] . "'");
+                }
+                else
+                {
+                    db_query("INSERT INTO vendor_items (". implode (",", $columns) . ") VALUES (" . implode (",", $values) . ")");
+                }
             }
 
 			// Updating product associations with additional categories
@@ -779,7 +790,16 @@ if ($mode == 'global_update') {
 
         if (empty($vendor_items))
         {
-            $vendor_fields = "no_data";
+            foreach ($config['vendors'] as $vendorName => $vendorConfig)
+            {
+                $vendor_fields[$vendorName] = array(
+                    'label' => $vendorConfig['name'],
+                    'item' => "",
+                    'price' => "",
+                    'qty' => "",
+                    'name' => $vendorConfig['master-file-item-column-name']
+                );
+            }
         }
         else
         {
@@ -798,9 +818,9 @@ if ($mode == 'global_update') {
                         'name' => $vendorConfig['master-file-item-column-name']
                     );
                 }
-                $view->assign("vendors", $vendor_fields);
             }
         }
+        $view->assign("vendors", $vendor_fields);
     }
 
 
